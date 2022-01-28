@@ -1,1 +1,1 @@
-# Nvim-config
+My init.vim + my lua plugins
