@@ -25,9 +25,14 @@ lua require('nvim-autopairs').setup{}
 "Built in
 set number
 set ruler
+"mouse suport
 set mouse=a
+"no newline if reach the horizontal limit
 set nowrap
+"fzf always default to current directory
 set autochdir
+"set yank to clipboard as default
+set clipboard=unnamedplus
 set tabstop=4
 set shiftwidth=4
 set fillchars=fold:\ 
@@ -140,6 +145,9 @@ nnoremap <silent> <M-ç> :m -2<CR>==
 nnoremap <silent> <M-k> :m +1<CR>==
 vnoremap <silent> <M-ç> :m '<-2<CR>gv=gv
 vnoremap <silent> <M-k> :m '>+1<CR>gv=gv
+"Tab for indentation
+nnoremap <silent> <tab> >><CR>
+vnoremap <silent> <tab> ><CR>gv
 "Horizontal scroll
 nnoremap <C-l> z3l
 nnoremap <C-j> z3h
