@@ -34,7 +34,9 @@ set autochdir
 "set yank to clipboard as default
 set clipboard=unnamedplus
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
+set expandtab
 set fillchars=fold:\ 
 
 "Indent 
@@ -45,13 +47,13 @@ set smartindent
 
 set termguicolors
 colorscheme codedark
-hi Normal guibg=black ctermbg=black
-hi LineNr guibg=#0A0A0A
-hi EndOfBuffer guibg=black
-hi Directory guibg=black
-hi NonText guibg=black
-hi FoldColumn guibg=black
-hi folded gui=None guifg=#FCFCFC guibg=black
+hi Normal guibg=None 
+hi LineNr guibg=None
+hi EndOfBuffer guibg=None
+hi Directory guibg=None
+hi NonText guibg=None
+hi FoldColumn guibg=None
+hi folded gui=None guifg=#FCFCFC guibg=None
 
 " Configurações do CoC.nvim
 
@@ -107,7 +109,7 @@ autocmd FileType python call MyCustomHighlights()
 "Emmet only for html and css files
 
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,php EmmetInstall
+autocmd FileType html,css,php,blade,blade.php EmmetInstall
 "Let leader key being something more easy to use
 let g:user_emmet_leader_key='<C-SPACE>'
 
@@ -130,34 +132,59 @@ noremap k j
 noremap ç k
 nnoremap <leader>k <C-f>
 nnoremap <leader>ç <C-b>
+
+" delete without yanking
+nnoremap x "_x
+vnoremap x "_x
+
+" paste without yanking
+
+vnoremap p "0p
+
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "P
+
 "vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
 "Shortcuts:
 nnoremap <BS> X
 nnoremap <silent> <C-s> :w!<CR>
+vnoremap <silent> <C-s> :w!<CR>
 inoremap <silent> <C-s> <Esc>:w!<CR>
 vnoremap <silent> <C-c> "+y<CR>
 nnoremap <silent> <C-z> :undo<CR>
+vnoremap <silent> <C-z> :undo<CR>
 inoremap <silent> <C-z> <Esc>:undo<CR>
-nnoremap <C-n> :!touch 
+"select word and do some action
+nnoremap <leader>v viw
+nnoremap <leader>y yiw
+nnoremap <leader>d diw
+"search and replace the cursor's word.
+    "c_C-R (C-r in command mode) copy something from the register and 
+    "C-A get the word under the cursos (as if you would use viw)
+nnoremap <leader>s :s/<C-R><C-W>//g<left><left>
+nnoremap <leader>f :%s/<C-R><C-W>/
+"Remove search highlight
+nnoremap <silent><ESC> :nohls<CR>
 "Move lines around the code
 nnoremap <silent> <M-ç> :m -2<CR>==
 nnoremap <silent> <M-k> :m +1<CR>==
 vnoremap <silent> <M-ç> :m '<-2<CR>gv=gv
 vnoremap <silent> <M-k> :m '>+1<CR>gv=gv
 "Tab for indentation
-nnoremap <silent> <tab> >><CR>
-vnoremap <silent> <tab> ><CR>gv
+nnoremap <silent> <tab> >>
+vnoremap <silent> <tab> >gv
 "Horizontal scroll
-nnoremap <C-l> z3l
-nnoremap <C-j> z3h
+nnoremap <C-l> z5l
+nnoremap <C-j> z5h
 "buffer shortcuts
-nnoremap <silent> <leader>j :bp<CR>
-nnoremap <silent> <leader>l :bn<CR>
-nnoremap <silent> <leader>d :bd<CR>
+nnoremap <leader>j :bp<CR>
+nnoremap <leader>l :bn<CR>
+nnoremap <leader>u :bd<CR>
 nnoremap <F3> :Files<CR>
 nnoremap <F12> :CocCommand<CR>
 "this is C-F1. vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
-nnoremap <M-O>5P :tabnew<CR>
+nnoremap <leader><F1> :NERDTreeToggle<CR>
 
