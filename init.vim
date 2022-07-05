@@ -1,26 +1,37 @@
 call plug#begin()
 
+"Fuzzy Finder
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Better HTML edit
     Plug 'mattn/emmet-vim'
+"Pretty Colors
     Plug 'tomasiser/vim-code-dark'
-    Plug 'sheerun/vim-polyglot'
+"Directory navigation
     Plug 'preservim/nerdtree'
+"Better and prettier layour
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+"Better python syntax and colors
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+"Syntax highlighter
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'ryanoasis/vim-devicons'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'jez/vim-better-sml'
+"For PHP
     Plug 'StanAngeloff/php.vim'
     Plug 'rayburgemeestre/phpfolding.vim'
     Plug '2072/PHP-Indenting-for-VIm'
-    Plug 'jez/vim-better-sml'
     Plug 'tpope/vim-commentary'
     Plug 'c9s/phpunit.vim'
     Plug 'adoy/vim-php-refactoring-toolbox'
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+"Random Plugins
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+    Plug 'psliwka/vim-smoothie' "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
+
 
 call plug#end()
 
@@ -30,6 +41,8 @@ lua require('nvim-autopairs').setup{}
         set number
         set ruler
         set nohlsearch
+        set splitright
+        set splitbelow
     "mouse suport
         set mouse=a
     "no newline if reach the horizontal limit
@@ -48,33 +61,39 @@ lua require('nvim-autopairs').setup{}
         set autoindent
         set smartindent
 
+" Function to trim extra whitespace in whole file
+    function! Trim()
+        let l:save = winsaveview()
+        keeppatterns %s/\s\+$//e
+        call winrestview(l:save)
+    endfun
+
 "Global Colors
 
     set termguicolors
     colorscheme codedark
-    hi Normal guibg=None 
-    hi LineNr guibg=None
-    hi EndOfBuffer guibg=None
-    hi Directory guibg=None
-    hi NonText guibg=None
-    hi FoldColumn guibg=None
-    hi folded gui=None guifg=#FCFCFC guibg=None
+    hi Normal guibg=none 
+    hi LineNr guibg=none
+    hi EndOfBuffer guibg=none
+    hi Directory guibg=none
+    hi NonText guibg=none
+    hi FoldColumn guibg=none
+    hi folded gui=none guifg=#FCFCFC guibg=none
 
 " Configurações do CoC.nvim
 
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
+          \ <SID>check_back_space() ? "\<TAB>" : 
           \ coc#refresh()
-    inoremap <expr><CS-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
     function! s:check_back_space() abort
       let col = col('.') - 1
       return !col || getline('.')[col - 1]  =~# '\s'
     endfunction
 
-    inoremap <silent><expr> <C-space> pumvisible() ? coc#_select_confirm()
+    inoremap <silent><expr>  pumvisible() ? coc#_select_confirm()
                                   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
@@ -139,7 +158,7 @@ lua require('nvim-autopairs').setup{}
     nnoremap <unique> <Leader>np :call PhpCreateProperty()<CR>
     nnoremap <unique> <Leader>du :call PhpDetectUnusedUseStatements()<CR>
     vnoremap <unique> <Leader>== :call PhpAlignAssigns()<CR>
-    nnoremap <unique> <Leader>sg :call PhpCreateSettersAndGetters()<CR>
+    nnoremap <unique> <Leader>gs :call PhpCreateSettersAndGetters()<CR>
     nnoremap <unique> <Leader>cog :call PhpCreateGetters()<CR>
     nnoremap <unique> <Leader>da :call PhpDocAll()<CR>
 
@@ -152,17 +171,63 @@ lua require('nvim-autopairs').setup{}
      let g:phpunit_options = ["--colors"]
 
 
+"FZF function to allow FZF go up to parent dir
+    function! TFile(dir)
+      if empty(a:dir)
+        let dir = getcwd()
+      else
+        let dir = a:dir
+      endif
+      let parentdir = fnamemodify(dir, ':h')
+      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'alt-j', '--bind=alt-k:down,alt-i:up'] }))
+
+      " hack to retain original sink used by fzf#vim#files
+      let origspec = copy(spec)
+
+      unlet spec.sinklist
+      unlet spec['sink*']
+      function spec.sinklist(lines) closure
+        if len(a:lines) < 2
+          return
+        endif
+        if a:lines[0] == 'alt-j'
+          call TFile(parentdir)
+        else
+          call origspec.sinklist(a:lines)
+        end
+      endfunction
+      call fzf#vim#files(dir, spec)
+    endfunction
+
+    command! -nargs=* TFile call TFile(<q-args>)
+
+"FZF_action remapping
+    let g:fzf_action = {
+        \ 'alt-s': 'split',
+        \ 'alt-v': 'vsplit'}
+
 "NerdTree shortcuts
     nnoremap <M-O>5R :NERDTreeToggle<CR>
 
-    let mapleader="\<SPACE>"
+let mapleader="\<SPACE>"
 
 "swapping hjkl to jklç 
     noremap j h
     noremap k j
     noremap ç k
-    nnoremap <leader>k <C-f>
-    nnoremap <leader>ç <C-b>
+    nmap ; <C-b> "<C-ç> is recognized as ; for some weird reason, so i used it as a work around vim's C-'non ansi keys' limitation
+    vmap ; <C-b>
+    nmap <C-k> <C-f>
+    vmap <C-k> <C-f>
+
+"changing windows
+    nnoremap <leader>w <C-w>
+    nnoremap <leader>wj <C-w>h
+    nnoremap <leader>wç <C-w>k
+    nnoremap <leader>wk <C-w>j
+    nnoremap <C-w>k <C-w>j
+    nnoremap <C-w>ç <C-w>k
+    nnoremap <C-w>j <C-w>h
 
 " swapping b and default shortcuts
     nnoremap b q
@@ -176,6 +241,7 @@ lua require('nvim-autopairs').setup{}
 
 " paste without yanking
     vnoremap p "0p
+
 
 " replace currently selected text with default register
 " without yanking it
@@ -202,17 +268,19 @@ lua require('nvim-autopairs').setup{}
     nnoremap <leader>s :s/<C-R><C-W>//g<left><left>
     nnoremap <leader>f :%s/<C-R><C-W>//g<left><left>
 "go to current return type spot in current function
-    nnoremap <unique> <silent> <leader>rr nf)a: 
+    nmap <unique> <silent> <leader>rr [[f)a: 
 "Remove search highlight
     nnoremap <silent><ESC> :nohls<CR>
 "Move lines around the code
-    nnoremap <silent> <M-ç> :m -2<CR>==
-    nnoremap <silent> <M-k> :m +1<CR>==
-    vnoremap <silent> <M-ç> :m '<-2<CR>gv=gv
-    vnoremap <silent> <M-k> :m '>+1<CR>gv=gv
+    nnoremap <silent> Ç :m -2<CR>== "Vim can't recognize <S-ç> but it can recognize Ç so i leave it here as a workaround
+    nnoremap <silent> <s-k> :m +1<CR>==
+    vnoremap <silent> Ç :m '<-2<CR>gv=gv
+    vnoremap <silent> <s-k> :m '>+1<CR>gv=gv
 "Tab for indentation
     nnoremap <silent> <tab> >>
     vnoremap <silent> <tab> >gv
+    nnoremap <silent> <s-tab> <<
+    vnoremap <silent> <s-tab> <gv
 "Horizontal scroll
     nnoremap <C-l> z5l
     nnoremap <C-j> z5h
@@ -220,7 +288,7 @@ lua require('nvim-autopairs').setup{}
     nnoremap <silent> <leader>j :bp<CR>
     nnoremap <silent> <leader>l :bn<CR>
     nnoremap <silent> <leader>u :bd<CR>
-    nnoremap <F3> :Files<CR>
+    nnoremap <F3> :TFile<CR>
     nnoremap <F12> :CocCommand<CR>
 "this is C-F1. vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
