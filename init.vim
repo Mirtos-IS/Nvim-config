@@ -21,7 +21,7 @@ call plug#begin()
     Plug 'sheerun/vim-polyglot'
     Plug 'jez/vim-better-sml'
 "For PHP
-    Plug 'StanAngeloff/php.vim'
+    "Plug 'StanAngeloff/php.vim'
     Plug 'rayburgemeestre/phpfolding.vim'
     Plug '2072/PHP-Indenting-for-VIm'
     Plug 'tpope/vim-commentary'
@@ -30,7 +30,7 @@ call plug#begin()
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 "Random Plugins
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-    Plug 'psliwka/vim-smoothie' "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
+    Plug 'psliwka/vim-smoothie'| "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
 
 
 call plug#end()
@@ -38,6 +38,7 @@ call plug#end()
 lua require('nvim-autopairs').setup{}
 
 "Built in
+        set showcmd
         set number
         set ruler
         set nohlsearch
@@ -96,6 +97,11 @@ lua require('nvim-autopairs').setup{}
     inoremap <silent><expr>  pumvisible() ? coc#_select_confirm()
                                   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+" GoTo code navigation.
+    " nmap <silent> gd <Plug>(coc-definition)
+    " nmap <silent> gy <Plug>(coc-type-definition)
+    " nmap <silent> gr <Plug>(coc-references)
+    " nmap <silent> gi <Plug>(coc-implementation)
 
 "Airline setup
 
@@ -179,7 +185,7 @@ lua require('nvim-autopairs').setup{}
         let dir = a:dir
       endif
       let parentdir = fnamemodify(dir, ':h')
-      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'alt-j', '--bind=alt-k:down,alt-i:up'] }))
+      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'ctrl-j', '--bind=ctrl-k:down,;:up'] }))
 
       " hack to retain original sink used by fzf#vim#files
       let origspec = copy(spec)
@@ -190,7 +196,7 @@ lua require('nvim-autopairs').setup{}
         if len(a:lines) < 2
           return
         endif
-        if a:lines[0] == 'alt-j'
+        if a:lines[0] == 'ctrl-j'
           call TFile(parentdir)
         else
           call origspec.sinklist(a:lines)
@@ -203,8 +209,8 @@ lua require('nvim-autopairs').setup{}
 
 "FZF_action remapping
     let g:fzf_action = {
-        \ 'alt-s': 'split',
-        \ 'alt-v': 'vsplit'}
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit'}
 
 "NerdTree shortcuts
     nnoremap <M-O>5R :NERDTreeToggle<CR>
@@ -215,7 +221,7 @@ let mapleader="\<SPACE>"
     noremap j h
     noremap k j
     noremap ç k
-    nmap ; <C-b> "<C-ç> is recognized as ; for some weird reason, so i used it as a work around vim's C-'non ansi keys' limitation
+    nmap ; <C-b>| "<C-ç> is recognized as ; for some weird reason, so i used it as a work around vim's C-'non ansi keys' limitation
     vmap ; <C-b>
     nmap <C-k> <C-f>
     vmap <C-k> <C-f>
@@ -250,7 +256,6 @@ let mapleader="\<SPACE>"
 "vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
 "Shortcuts:
-    nnoremap <BS> X
     nnoremap <silent> <C-s> :w!<CR>
     vnoremap <silent> <C-s> :w!<CR>
     inoremap <silent> <C-s> <Esc>:w!<CR>
@@ -272,7 +277,7 @@ let mapleader="\<SPACE>"
 "Remove search highlight
     nnoremap <silent><ESC> :nohls<CR>
 "Move lines around the code
-    nnoremap <silent> Ç :m -2<CR>== "Vim can't recognize <S-ç> but it can recognize Ç so i leave it here as a workaround
+    nnoremap <silent> Ç :m -2<CR>==| "Vim can't recognize <S-ç> but it can recognize Ç so i leave it here as a workaround
     nnoremap <silent> <s-k> :m +1<CR>==
     vnoremap <silent> Ç :m '<-2<CR>gv=gv
     vnoremap <silent> <s-k> :m '>+1<CR>gv=gv
@@ -288,7 +293,7 @@ let mapleader="\<SPACE>"
     nnoremap <silent> <leader>j :bp<CR>
     nnoremap <silent> <leader>l :bn<CR>
     nnoremap <silent> <leader>u :bd<CR>
-    nnoremap <F3> :TFile<CR>
+    nnoremap <F3> :TFile<CR>| "TFile is a modified version of :Files so i can cd .. inside the window
     nnoremap <F12> :CocCommand<CR>
 "this is C-F1. vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
