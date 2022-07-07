@@ -276,10 +276,10 @@ let mapleader="\<SPACE>"
 "Remove search highlight
     nnoremap <silent><ESC> :nohls<CR>
 "Move lines around the code
-    nnoremap <silent> Ç :m -2<CR>==| "Vim can't recognize <S-ç> but it can recognize Ç so i leave it here as a workaround
-    nnoremap <silent> <s-k> :m +1<CR>==
-    vnoremap <silent> Ç :m '<-2<CR>gv=gv
-    vnoremap <silent> <s-k> :m '>+1<CR>gv=gv
+    nnoremap <silent> <M-ç> :m -2<CR>==| "Vim can't recognize <S-ç> but it can recognize Ç so i leave it here as a workaround
+    nnoremap <silent> <M-k> :m +1<CR>==
+    vnoremap <silent> <M-ç> :m '<-2<CR>gv=gv
+    vnoremap <silent> <M-k> :m '>+1<CR>gv=gv
 "Tab for indentation
     nnoremap <silent> <tab> >>
     vnoremap <silent> <tab> >gv
