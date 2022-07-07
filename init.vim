@@ -38,11 +38,13 @@ call plug#end()
 lua require("nvim-autopairs").setup {}
 
 "Built in
-        set showcmd
+    set showcmd
+    "row number
         set number
         set relativenumber
         set ruler
         set nohlsearch
+    "right focus when splitting
         set splitright
         set splitbelow
     "mouse suport
