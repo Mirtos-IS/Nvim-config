@@ -58,7 +58,6 @@ lua require("nvim-autopairs").setup {}
         set shiftwidth=4
         set expandtab
         set fillchars=fold:\ 
-
     "Indent 
         set autoindent
         set smartindent
