@@ -31,15 +31,16 @@ call plug#begin()
 "Random Plugins
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'psliwka/vim-smoothie'| "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
-
+    Plug 'windwp/nvim-autopairs'
 
 call plug#end()
 
-lua require('nvim-autopairs').setup{}
+lua require("nvim-autopairs").setup {}
 
 "Built in
         set showcmd
         set number
+        set relativenumber
         set ruler
         set nohlsearch
         set splitright
@@ -114,7 +115,6 @@ lua require('nvim-autopairs').setup{}
     let g:airline_section_c='%t'
     let g:airline_powerline_fonts=1
     let g:airline_theme='codedark'
-
 
 " Semshi
 
@@ -226,6 +226,7 @@ let mapleader="\<SPACE>"
     nmap <C-k> <C-f>
     vmap <C-k> <C-f>
 
+
 "changing windows
     nnoremap <leader>w <C-w>
     nnoremap <leader>wj <C-w>h
@@ -234,6 +235,9 @@ let mapleader="\<SPACE>"
     nnoremap <C-w>k <C-w>j
     nnoremap <C-w>ç <C-w>k
     nnoremap <C-w>j <C-w>h
+
+"Ctags
+    nmap <leader>w[ :vsp <CR>:ta <C-R><C-w><CR>| "open a ctag reference in a vertical split
 
 " swapping b and default shortcuts
     nnoremap b q
@@ -247,11 +251,6 @@ let mapleader="\<SPACE>"
 
 " paste without yanking
     vnoremap p "0p
-
-
-" replace currently selected text with default register
-" without yanking it
-    vnoremap <leader>p "P
 
 "vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
