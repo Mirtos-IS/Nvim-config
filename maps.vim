@@ -52,7 +52,7 @@ let mapleader="\<SPACE>"
     nnoremap <leader>v viw
     nnoremap <leader>y yiw
     nnoremap <leader>d diw
-"search and replace the cursor's word.
+"searce and replace the cursor's word.
     "c_C-R (C-r in command mode) copy something from the register and
     "C-A get the word under the cursos (as if you would use viw)
     nnoremap <leader>s :s/<C-R><C-W>//g<left><left>
@@ -82,7 +82,7 @@ let mapleader="\<SPACE>"
     nnoremap <F12> :CocCommand<CR>
 "this is C-F1. vim is weird and the name of some keys are just weird. C-V in
 "insert mode > key combination give you the right name
-nnoremap <leader><F1> :NERDTreeToggle<CR>
+    nnoremap <leader><F1> :NERDTreeToggle<CR>
 
 "PHP-Refactoting-toolbox shortcuts
     nnoremap <unique> <Leader>rlv :call PhpRenameLocalVariable()<CR>
@@ -98,38 +98,3 @@ nnoremap <leader><F1> :NERDTreeToggle<CR>
     nnoremap <unique> <Leader>gs :call PhpCreateSettersAndGetters()<CR>
     nnoremap <unique> <Leader>cog :call PhpCreateGetters()<CR>
     nnoremap <unique> <Leader>da :call PhpDocAll()<CR>
-"Functions
- " Configurações do CoC.nvim
-
-    inoremap <silent><expr> <TAB>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    inoremap <silent><expr>  pumvisible() ? coc#_select_confirm()
-                                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-"Open my init.vim from anywhere
-    function! MyConfig(split = 0)
-        if !empty(a:split)
-            exec ":" . a:split . " $MYVIMRC"
-            return
-        else
-            exec ":e $MYVIMRC"
-            return
-        endif
-    endfunction
-
-    command! -nargs=? MyConfig call MyConfig(<q-args>)
-
-"FZF_action remapping
-    let g:fzf_action = {
-        \ 'ctrl-s': 'split',
-        \ 'ctrl-v': 'vsplit'}
-

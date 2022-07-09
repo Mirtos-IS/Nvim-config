@@ -25,7 +25,6 @@
     let g:airline#extensions#whitespace#enabled = 1
     let g:airline_section_c='%t'
     let g:airline_powerline_fonts=1
-    let g:airline_theme='codedark'
 
 " Semshi
 
