@@ -4,7 +4,7 @@ local npairs = require('nvim-autopairs')
 local M = {}
 
 local default_config = {
-    map = '<M-e>',
+    map = '<leader>0',
     chars = { '{', '[', '(', '"', "'" },
     pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
     offset = -1, -- Offset from pattern match
