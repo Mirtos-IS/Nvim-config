@@ -65,5 +65,3 @@
       endfunction
       call fzf#vim#files(dir, spec)
     endfunction
-
-    command! -nargs=* TFile call TFile(<q-args>)
