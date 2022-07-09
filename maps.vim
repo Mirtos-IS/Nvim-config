@@ -43,11 +43,11 @@ let mapleader="\<SPACE>"
 "Shortcuts:
     nnoremap <silent> <C-s> :w!<CR>
     vnoremap <silent> <C-s> :w!<CR>
-    inoremap <silent> <C-s> <Esc>:w!<CR>
+    inoremap <silent> <C-s> <C-c>:w!<CR>
     vnoremap <silent> <C-c> "+y<CR>
     nnoremap <silent> <C-z> :undo<CR>
-    vnoremap <silent> <C-z> :undo<CR>
-    inoremap <silent> <C-z> <Esc>:undo<CR>
+    vnoremap <silent> <C-z> <C-c>:undo<CR>
+    inoremap <silent> <C-z> <C-c>:undo<CR>
 "select word and do some action
     nnoremap <leader>v viw
     nnoremap <leader>y yiw
@@ -58,7 +58,7 @@ let mapleader="\<SPACE>"
     nnoremap <leader>s :s/<C-R><C-W>//g<left><left>
     nnoremap <leader>f :%s/<C-R><C-W>//g<left><left>
 "go to current return type spot in current function
-    nmap <unique> <silent> <leader>rr [[f)a: 
+    nmap <silent> <leader>rr [[f)a: 
 "Remove search highlight
     nnoremap <silent><ESC> :nohls<CR>
 "Move lines around the code
@@ -85,16 +85,16 @@ let mapleader="\<SPACE>"
     nnoremap <leader><F1> :NERDTreeToggle<CR>
 
 "PHP-Refactoting-toolbox shortcuts
-    nnoremap <unique> <Leader>rlv :call PhpRenameLocalVariable()<CR>
-    nnoremap <unique> <Leader>rcv :call PhpRenameClassVariable()<CR>
-    nnoremap <unique> <Leader>rm :call PhpRenameMethod()<CR>
-    nnoremap <unique> <Leader>eu :call PhpExtractUse()<CR>
-    vnoremap <unique> <Leader>ec :call PhpExtractConst()<CR>
-    nnoremap <unique> <Leader>ep :call PhpExtractClassProperty()<CR>
-    vnoremap <unique> <Leader>em :call PhpExtractMethod()<CR>
-    nnoremap <unique> <Leader>np :call PhpCreateProperty()<CR>
-    nnoremap <unique> <Leader>du :call PhpDetectUnusedUseStatements()<CR>
-    vnoremap <unique> <Leader>== :call PhpAlignAssigns()<CR>
-    nnoremap <unique> <Leader>gs :call PhpCreateSettersAndGetters()<CR>
-    nnoremap <unique> <Leader>cog :call PhpCreateGetters()<CR>
-    nnoremap <unique> <Leader>da :call PhpDocAll()<CR>
+    nnoremap <Leader>rlv :call PhpRenameLocalVariable()<CR>
+    nnoremap <Leader>rcv :call PhpRenameClassVariable()<CR>
+    nnoremap <Leader>rm :call PhpRenameMethod()<CR>
+    nnoremap <Leader>eu :call PhpExtractUse()<CR>
+    vnoremap <Leader>ec :call PhpExtractConst()<CR>
+    nnoremap <Leader>ep :call PhpExtractClassProperty()<CR>
+    vnoremap <Leader>em :call PhpExtractMethod()<CR>
+    nnoremap <Leader>np :call PhpCreateProperty()<CR>
+    nnoremap <Leader>du :call PhpDetectUnusedUseStatements()<CR>
+    vnoremap <Leader>== :call PhpAlignAssigns()<CR>
+    nnoremap <Leader>gs :call PhpCreateSettersAndGetters()<CR>
+    nnoremap <Leader>cog :call PhpCreateGetters()<CR>
+    nnoremap <Leader>da :call PhpDocAll()<CR>
