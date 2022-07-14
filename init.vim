@@ -3,7 +3,7 @@ call plug#begin()
 "Fuzzy Finder
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    "Better HTML edit
+"Better HTML edit
     Plug 'mattn/emmet-vim'
 "Pretty Colors
     Plug 'tomasiser/vim-code-dark'
@@ -25,13 +25,15 @@ call plug#begin()
     Plug 'rayburgemeestre/phpfolding.vim'
     Plug '2072/PHP-Indenting-for-VIm'
     Plug 'tpope/vim-commentary'
-    Plug 'c9s/phpunit.vim'
     Plug 'adoy/vim-php-refactoring-toolbox'
+    Plug 'Mirtos-IS/PHPUnit.vim'
+    Plug 'Mirtos-IS/auto-ctags-cmd.vim'
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 "Random Plugins
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'psliwka/vim-smoothie'| "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
     Plug 'windwp/nvim-autopairs'
+    Plug 'tpope/vim-surround'
 
 call plug#end()
 
@@ -44,7 +46,7 @@ lua require("nvim-autopairs").setup {}
     runtime functions.vim
 "Load Commands i have set
     runtime commands.vim
-
+    runtime snippets.vim
 "Built in
     set showcmd
     "row number
@@ -52,6 +54,8 @@ lua require("nvim-autopairs").setup {}
         set relativenumber
         set ruler
         set nohlsearch
+        set path+=**
+        set wildmenu
     "right focus when splitting
         set splitright
         set splitbelow
@@ -93,8 +97,10 @@ lua require("nvim-autopairs").setup {}
 
 
 " changing location of phpunit files
-    let g:phpunit_testroot = '~/Desktop/Damas-RPG/server/api/tests'
-    let g:phpunit_srcroot = '~/Desktop/Damas-RPG/server/api/app'
-    let g:phpunit_bin = '~/Desktop/Damas-RPG/server/api/vendor/bin/phpunit'
-    let g:phpunit_options = ["--colors"]
+    let g:phpunit_test_root = 'tests/Unit'
+    let g:phpunit_src_root = 'app'
+    let g:phpunit_bin = 'vendor/bin/phpunit'
+    let g:phpunit_options = []
 
+" ctags plugin 
+    let g:project_dir = 'api'

@@ -6,3 +6,5 @@
     command! -nargs=0 Format :call CocAction('format')
 " Tfile is a modified fzf :Files function to allow going up dir
     command! -nargs=* TFile call TFile(<q-args>)
+" " Ctags in project root file async
+"     command! -nargs=? Ctags call Ctags(<q-args>)

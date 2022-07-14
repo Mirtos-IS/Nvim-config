@@ -2,13 +2,20 @@
 
     set termguicolors
     colorscheme codedark
+    set laststatus=3
     hi Normal guibg=none
     hi LineNr guibg=none
     hi EndOfBuffer guibg=none
     hi Directory guibg=none
     hi NonText guibg=none
     hi FoldColumn guibg=none
-    hi folded gui=none guifg=#FCFCFC guibg=none
+    hi SignColumn guibg=none guifg=none
+    hi folded guifg=#FCFCFC guibg=none
+    hi WinSeparator guibg=none guifg=#272727
+    " autocompletion menu
+    set pumblend=30
+    set pumheight=15
+    hi PmenuSel blend=0
 
 "Whitespace highlight
     hi ExtraWhiteSpace guibg=darkred
@@ -22,7 +29,7 @@
     let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
     let g:airline#extensions#tabline#tab_nr_type = 2
     let g:airline#extensions#tabline#fnamemod=':t'
-    let g:airline#extensions#whitespace#enabled = 1
+    let g:airline#extensions#whitespace#enabled = 0
     let g:airline_section_c='%t'
     let g:airline_powerline_fonts=1
 
