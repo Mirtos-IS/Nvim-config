@@ -36,7 +36,7 @@ let mapleader="\<SPACE>"
     vnoremap x "_x
 
 " paste without yanking
-    vnoremap p "0p
+    vnoremap p "_dP
 
 "vim is weird and the name of some keys are just weird. C-K in
 "insert mode > key combination give you the right name
@@ -44,14 +44,13 @@ let mapleader="\<SPACE>"
     nnoremap <silent> <C-s> :w!<CR>
     vnoremap <silent> <C-s> :w!<CR>
     inoremap <silent> <C-s> <C-c>:w!<CR>
-    vnoremap <silent> <C-c> "+y<CR>
     nnoremap <silent> <C-z> :undo<CR>
     vnoremap <silent> <C-z> <C-c>:undo<CR>
     inoremap <silent> <C-z> <C-c>:undo<CR>
 "select word and do some action
     nnoremap <leader>v viw
     nnoremap <leader>y yiw
-    nnoremap <leader>d diw
+    nnoremap <leader>c ciw
 "searce and replace the cursor's word.
     "c_C-R (C-r in command mode) copy something from the register and
     "C-A get the word under the cursos (as if you would use viw)
@@ -77,7 +76,7 @@ let mapleader="\<SPACE>"
 "buffer shortcuts
     nnoremap <silent> <leader>j :bp<CR>
     nnoremap <silent> <leader>l :bn<CR>
-    nnoremap <silent> <leader>u :bd<CR>
+    nnoremap <silent> <leader>u :Bdelete<CR>
     nnoremap <F3> :TFile<CR>| "TFile is a modified version of :Files so i can cd .. inside the window
     nnoremap <F12> :CocCommand<CR>
 "this is C-F1. vim is weird and the name of some keys are just weird. C-V in
@@ -92,13 +91,13 @@ let mapleader="\<SPACE>"
     nnoremap <Leader>rlv :call PhpRenameLocalVariable()<CR>
     nnoremap <Leader>rcv :call PhpRenameClassVariable()<CR>
     nnoremap <Leader>rm :call PhpRenameMethod()<CR>
-    nnoremap <Leader>eu :call PhpExtractUse()<CR>
-    vnoremap <Leader>ec :call PhpExtractConst()<CR>
-    nnoremap <Leader>ep :call PhpExtractClassProperty()<CR>
-    vnoremap <Leader>em :call PhpExtractMethod()<CR>
-    nnoremap <Leader>np :call PhpCreateProperty()<CR>
-    nnoremap <Leader>du :call PhpDetectUnusedUseStatements()<CR>
+    nnoremap <Leader>reu :call PhpExtractUse()<CR>
+    vnoremap <Leader>rec :call PhpExtractConst()<CR>
+    nnoremap <Leader>rep :call PhpExtractClassProperty()<CR>
+    vnoremap <Leader>rem :call PhpExtractMethod()<CR>
+    nnoremap <Leader>rnp :call PhpCreateProperty()<CR>
+    nnoremap <Leader>rdu :call PhpDetectUnusedUseStatements()<CR>
     vnoremap <Leader>== :call PhpAlignAssigns()<CR>
-    nnoremap <Leader>gs :call PhpCreateSettersAndGetters()<CR>
-    nnoremap <Leader>cog :call PhpCreateGetters()<CR>
-    nnoremap <Leader>da :call PhpDocAll()<CR>
+    nnoremap <Leader>rgs :call PhpCreateSettersAndGetters()<CR>
+    nnoremap <Leader>rog :call PhpCreateGetters()<CR>
+    nnoremap <Leader>rda :call PhpDocAll()<CR>

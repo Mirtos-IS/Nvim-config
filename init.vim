@@ -15,13 +15,10 @@ call plug#begin()
 "Better python syntax and colors
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 "Syntax highlighter
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'ryanoasis/vim-devicons'
     Plug 'sheerun/vim-polyglot'
-    Plug 'jez/vim-better-sml'
 "For PHP
-    "Plug 'StanAngeloff/php.vim'
     Plug 'rayburgemeestre/phpfolding.vim'
     Plug '2072/PHP-Indenting-for-VIm'
     Plug 'tpope/vim-commentary'
@@ -29,15 +26,35 @@ call plug#begin()
     Plug 'Mirtos-IS/PHPUnit.vim'
     Plug 'Mirtos-IS/auto-ctags-cmd.vim'
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+    Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
+
 "Random Plugins
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'psliwka/vim-smoothie'| "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
     Plug 'windwp/nvim-autopairs'
     Plug 'tpope/vim-surround'
+    Plug 'moll/vim-bbye'
+
+"Lua stuff
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 call plug#end()
 
-lua require("nvim-autopairs").setup {}
+"Lua configs
+
+set completeopt=menu,menuone,noselect
+
+"Load My lua configs
+    runtime lua.vim
 "load macros and shortcuts
     runtime maps.vim
 "Load ColorScheme
@@ -49,6 +66,8 @@ lua require("nvim-autopairs").setup {}
     runtime snippets.vim
 "Built in
     set showcmd
+    "set $ to be included in text-object
+    set isk+=$
     "row number
         set number
         set relativenumber

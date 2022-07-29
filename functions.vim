@@ -1,18 +1,19 @@
 "Functions
  " Configurações do CoC.nvim
-    inoremap <silent><expr> <TAB>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ coc#refresh()
-    inoremap <expr><M-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    " inoremap <silent><expr> <TAB>
+    "       \ pumvisible() ? "\<C-n>" :
+    "       \ <SID>check_back_space() ? "\<TAB>" :
+    "       \ coc#refresh()
+    " inoremap <expr><M-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
+    " function! s:check_back_space() abort
+    "   let col = col('.') - 1
+    "   return !col || getline('.')[col - 1]  =~# '\s'
+    " endfunction
 
-    inoremap <silent> <expr> <S-CR> pumvisible() ? coc#_select_confirm()
-                                \ : "\<C-g>u\<C-R>\<c-r>=coc#on_enter()\<C-R>"
+    " inoremap <silent> <expr> <S-CR> pumvisible() ? coc#_select_confirm()
+    "                             \ : "\<C-g>u\<C-R>\<c-r>=coc#on_enter()\<C-R>"
+
 
 " Function to trim extra whitespace in whole file
     function Trim()
@@ -34,8 +35,8 @@
 
 "FZF_action remapping
     let g:fzf_action = {
-        \ 'ctrl-s': 'split',
-        \ 'ctrl-v': 'vsplit'}
+        \ 'S': 'split',
+        \ 'V': 'vsplit'}
 
 "FZF function to allow FZF go up to parent dir
     function! TFile(dir)
@@ -45,7 +46,7 @@
         let dir = a:dir
       endif
       let parentdir = fnamemodify(dir, ':h')
-      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'ctrl-j', '--bind=ctrl-k:down,;:up'] }))
+      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'J', '--bind=K:down,Ç:up'] }))
 
       " hack to retain original sink used by fzf#vim#files
       let origspec = copy(spec)
@@ -56,7 +57,7 @@
         if len(a:lines) < 2
           return
         endif
-        if a:lines[0] == 'ctrl-j'
+        if a:lines[0] == 'J'
           call TFile(parentdir)
         else
           call origspec.sinklist(a:lines)
