@@ -48,7 +48,7 @@ set completeopt=menu,menuone,noselect
 "Load My lua configs
     runtime config.lua
 "load macros and shortcuts
-    runtime maps.vim
+    runtime maps.lua
 "Load ColorScheme
     runtime view.vim
 "Load Function

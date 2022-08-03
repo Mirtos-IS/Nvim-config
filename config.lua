@@ -9,8 +9,11 @@ require("toggleterm").setup{
     direction = 'float',
     terminal_mappings = true,
     highlights = {
+        Normal = {
+            guibg = "#000000",
+        },
         FloatBorder = {
-            guifg = "#1d99f3"
+            guifg = "#1d99f3",
         },
     },
 }

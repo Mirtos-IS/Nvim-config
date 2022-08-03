@@ -1,14 +1,10 @@
-"NerdTree shortcuts
-    nnoremap <M-O>5R :NERDTreeToggle<CR>
-
 let mapleader="\<SPACE>"
 
 "swapping hjkl to jklç
     noremap j h
     noremap k j
     noremap ç k
-    nmap <C-ç> <C-b>| "<C-ç> is recognized as ; for some weird reason, so i used it as a work around vim's C-'non ansi keys' limitation
-    vmap <C-ç> <C-b>
+    nmap <C-ç> <C-b>
     nmap <C-k> <C-f>
     vmap <C-k> <C-f>
 
@@ -79,9 +75,6 @@ let mapleader="\<SPACE>"
     nnoremap <silent> <leader>u :Bdelete<CR>
     nnoremap <F3> :TFile<CR>| "TFile is a modified version of :Files so i can cd .. inside the window
     nnoremap <F12> :CocCommand<CR>
-"this is C-F1. vim is weird and the name of some keys are just weird. C-V in
-"insert mode > key combination give you the right name
-    nnoremap <leader><F1> :NERDTreeToggle<CR>
 
 "auto end with ;
     inoremap <M-;> <C-c>A;
