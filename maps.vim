@@ -101,3 +101,13 @@ let mapleader="\<SPACE>"
     nnoremap <Leader>rgs :call PhpCreateSettersAndGetters()<CR>
     nnoremap <Leader>rog :call PhpCreateGetters()<CR>
     nnoremap <Leader>rda :call PhpDocAll()<CR>
+
+lua << EOF
+    function _G.set_terminal_keymaps()
+        local opts = {buffer = 0}
+        vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", opts)
+    end
+
+    vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
+    vim.keymap.set('n','<i>', '<S-a>')
+EOF

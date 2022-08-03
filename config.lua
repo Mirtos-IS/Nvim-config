@@ -7,6 +7,7 @@ require("toggleterm").setup{
     hide_number = true,
     start_in_insert = true,
     direction = 'float',
+    terminal_mappings = true,
     highlights = {
         FloatBorder = {
             guifg = "#1d99f3"
