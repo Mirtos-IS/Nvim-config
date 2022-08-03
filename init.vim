@@ -45,10 +45,10 @@ call plug#end()
 
 set completeopt=menu,menuone,noselect
 
-"Load My lua configs
-    runtime config.lua
-"load macros and shortcuts
-    runtime maps.lua
+lua << EOF
+    require('maps')
+    require('config')
+EOF
 "Load ColorScheme
     runtime view.vim
 "Load Function
@@ -111,5 +111,5 @@ set completeopt=menu,menuone,noselect
     let g:phpunit_bin = 'vendor/bin/phpunit'
     let g:phpunit_options = []
 
-" ctags plugin 
+" ctags plugin
     let g:project_dir = 'api'
