@@ -71,8 +71,8 @@ let mapleader="\<SPACE>"
     nnoremap <silent> <s-tab> <<
     vnoremap <silent> <s-tab> <gv
 "Horizontal scroll
-    nnoremap <C-l> z5l
-    nnoremap <C-j> z5h
+    nnoremap <C-l> zL
+    nnoremap <C-j> zH
 "buffer shortcuts
     nnoremap <silent> <leader>j :bp<CR>
     nnoremap <silent> <leader>l :bn<CR>

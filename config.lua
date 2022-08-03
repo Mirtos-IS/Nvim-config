@@ -1,5 +1,18 @@
-lua <<EOF
 require("nvim-autopairs").setup {}
+
+vim.notify = require("notify")
+
+require("toggleterm").setup{
+    open_mapping = [[<C-t>]],
+    hide_number = true,
+    start_in_insert = true,
+    direction = 'float',
+    highlights = {
+        FloatBorder = {
+            guifg = "#1d99f3"
+        },
+    },
+}
 
 require'lspconfig'.intelephense.setup{}
 
@@ -57,4 +70,3 @@ require'lspconfig'.intelephense.setup{}
   require('lspconfig')['intelephense'].setup {
     capabilities = capabilities
   }
-EOF

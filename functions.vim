@@ -1,20 +1,3 @@
-"Functions
- " Configurações do CoC.nvim
-    " inoremap <silent><expr> <TAB>
-    "       \ pumvisible() ? "\<C-n>" :
-    "       \ <SID>check_back_space() ? "\<TAB>" :
-    "       \ coc#refresh()
-    " inoremap <expr><M-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    " function! s:check_back_space() abort
-    "   let col = col('.') - 1
-    "   return !col || getline('.')[col - 1]  =~# '\s'
-    " endfunction
-
-    " inoremap <silent> <expr> <S-CR> pumvisible() ? coc#_select_confirm()
-    "                             \ : "\<C-g>u\<C-R>\<c-r>=coc#on_enter()\<C-R>"
-
-
 " Function to trim extra whitespace in whole file
     function Trim()
         let l:save = winsaveview()

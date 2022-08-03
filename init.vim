@@ -7,34 +7,28 @@ call plug#begin()
     Plug 'mattn/emmet-vim'
 "Pretty Colors
     Plug 'tomasiser/vim-code-dark'
-"Directory navigation
-    Plug 'preservim/nerdtree'
 "Better and prettier layour
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 "Better python syntax and colors
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 "Syntax highlighter
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'ryanoasis/vim-devicons'
     Plug 'sheerun/vim-polyglot'
 "For PHP
-    Plug 'rayburgemeestre/phpfolding.vim'
-    Plug '2072/PHP-Indenting-for-VIm'
     Plug 'tpope/vim-commentary'
+    Plug 'rayburgemeestre/phpfolding.vim'
+    " Plug '2072/PHP-Indenting-for-VIm'
     Plug 'adoy/vim-php-refactoring-toolbox'
     Plug 'Mirtos-IS/PHPUnit.vim'
     Plug 'Mirtos-IS/auto-ctags-cmd.vim'
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
-    Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
-
 "Random Plugins
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'psliwka/vim-smoothie'| "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
     Plug 'windwp/nvim-autopairs'
     Plug 'tpope/vim-surround'
     Plug 'moll/vim-bbye'
-
 "Lua stuff
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -44,15 +38,15 @@ call plug#begin()
     Plug 'hrsh7th/nvim-cmp'
     Plug 'L3MON4D3/LuaSnip'
     Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'rcarriga/nvim-notify'
+    Plug 'akinsho/toggleterm.nvim'
 
 call plug#end()
-
-"Lua configs
 
 set completeopt=menu,menuone,noselect
 
 "Load My lua configs
-    runtime lua.vim
+    runtime config.lua
 "load macros and shortcuts
     runtime maps.vim
 "Load ColorScheme
@@ -71,8 +65,6 @@ set completeopt=menu,menuone,noselect
         set relativenumber
         set ruler
         set nohlsearch
-        set path+=**
-        set wildmenu
     "right focus when splitting
         set splitright
         set splitbelow
