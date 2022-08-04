@@ -40,7 +40,6 @@ require('packer').startup(function(use)
   use 'akinsho/toggleterm.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   --random plugs
-  use 'ggandor/lightspeed.nvim'
   use 'phaazon/hop.nvim'
   use 'dstein64/vim-startuptime'
 

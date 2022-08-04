@@ -26,4 +26,5 @@
 " ctags plugin
     let g:project_dir = 'api'
 
+    autocmd FileType * set et tabstop=4 softtabstop=4 shiftwidth=4
     autocmd FileType lua,vim set et tabstop=2 softtabstop=2 shiftwidth=2
