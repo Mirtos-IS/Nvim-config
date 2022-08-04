@@ -1,5 +1,10 @@
 vim.g.mapleader = ' '
-
+-- place this in one of your configuration file(s)
+vim.api.nvim_set_keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+vim.api.nvim_set_keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
+vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
+vim.keymap.set('n', 'h', '<cmd>HopWord<CR>', {silent = true})
 --swapping movemente keys to jklç
 vim.keymap.set('', 'j', 'h', {})
 vim.keymap.set('', 'k', 'j', {})
@@ -41,11 +46,11 @@ vim.keymap.set('n', '<leader>y', 'yiw', {})
 vim.keymap.set('n', '<leader>c', 'ciw', {})
 
 --search and replace word under cursor
-vim.keymap.set('n', '<leader>s', '<cmd>s/<C-R><C-W>//g<left><left>', {})
-vim.keymap.set('n', '<leader>f', '<cmd>%s/<C-R><C-W>//g<left><left>', {})
+vim.keymap.set('n', '<leader>s', ':s/<C-R><C-W>//g<left><left>', {})
+vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>//g<left><left>', {})
 
 --go to curent return type in php
-vim.keymap.set('n', '<leader>rr', '[[f)a: ', {})
+vim.keymap.set('n', '<leader>rr', '[[f)a: ', {remap = true})
 
 --remove search highlight
 vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
