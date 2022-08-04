@@ -1,9 +1,9 @@
 "Global Colors
 
     set termguicolors
-    colorscheme codedark    
+    colorscheme codedark
     set laststatus=3
-    hi Normal guibg=none
+    hi Normal guibg=#000000
     hi LineNr guibg=none
     hi EndOfBuffer guibg=none
     hi Directory guibg=none

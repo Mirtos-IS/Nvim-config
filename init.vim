@@ -24,11 +24,11 @@ call plug#begin()
     Plug 'Mirtos-IS/auto-ctags-cmd.vim'
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 "Random Plugins
-    Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'psliwka/vim-smoothie'| "smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
     Plug 'windwp/nvim-autopairs'
     Plug 'tpope/vim-surround'
     Plug 'moll/vim-bbye'
+    Plug 'dstein64/vim-startuptime'
 "Lua stuff
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -40,6 +40,7 @@ call plug#begin()
     Plug 'saadparwaiz1/cmp_luasnip'
     Plug 'rcarriga/nvim-notify'
     Plug 'akinsho/toggleterm.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -104,7 +105,6 @@ EOF
     let g:vim_php_refactoring_auto_validate_g = 1
 
 
-
 " changing location of phpunit files
     let g:phpunit_test_root = 'tests/Unit'
     let g:phpunit_src_root = 'app'
@@ -113,3 +113,5 @@ EOF
 
 " ctags plugin
     let g:project_dir = 'api'
+
+    autocmd FileType lua,vim set et tabstop=2 softtabstop=2 shiftwidth=2

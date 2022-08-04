@@ -1,6 +1,22 @@
-require("nvim-autopairs").setup {}
+require("nvim-autopairs").setup {
+  ignored_next_char = [=[[%w%%%'%[%"%.$&]]=],
+  map_c_h = true,
+  map_c_w = true,
+  fast_wrap = {
+    map = '<M-e>'
+  },
+}
 
 vim.notify = require("notify")
+
+require('nvim-treesitter.configs').setup{
+  auto_install = true,
+    highlight = {
+        disable = {"php", "vim"},
+        enable = true,
+        additional_vim_regex_highlighting = true,
+    },
+}
 
 require("toggleterm").setup{
     open_mapping = [[<C-t>]],
