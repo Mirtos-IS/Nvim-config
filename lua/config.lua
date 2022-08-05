@@ -3,6 +3,7 @@ vim.o.completeopt='menu,menuone,noselect'
 --load vimscript stuff
 
 vim.o.showcmd = true
+vim.o.scrolloff = 10
 vim.opt.iskeyword:append('$')
 vim.o.number = true
 vim.o.relativenumber = true

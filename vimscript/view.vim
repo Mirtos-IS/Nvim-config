@@ -12,6 +12,7 @@
     hi SignColumn guibg=none guifg=none
     hi folded guifg=#FCFCFC guibg=none
     hi WinSeparator guibg=none guifg=#272727
+    hi FloatBorder guifg=#1d99f3
     " autocompletion menu
     set pumblend=30
     set pumheight=15

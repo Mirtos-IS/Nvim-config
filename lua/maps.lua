@@ -103,3 +103,8 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
+
+--use my checklist plugin
+require('plugin.todolist.window')
+vim.keymap.set('n', '<leader>c', ':lua ToggleChecklist()<CR>', {silent=true})
+
