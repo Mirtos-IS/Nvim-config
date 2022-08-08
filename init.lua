@@ -9,7 +9,7 @@ require('packer').startup(function(use)
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
   --python fancy colors
-  use {'numirias/semshi', run = ':UpdateRemotePlugins' }
+  use {'numirias/semshi', run = ':UpdateRemotePlugins'}
   --fancy icons and colors regex based
   use 'ryanoasis/vim-devicons'
   use 'sheerun/vim-polyglot'
@@ -38,7 +38,7 @@ require('packer').startup(function(use)
   use 'rcarriga/nvim-notify'
   --treesitter
   use 'akinsho/toggleterm.nvim'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
   --random plugs
   use 'phaazon/hop.nvim'
   use 'dstein64/vim-startuptime'

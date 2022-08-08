@@ -10,7 +10,7 @@
     hi NonText guibg=none
     hi FoldColumn guibg=none
     hi SignColumn guibg=none guifg=none
-    hi folded guifg=#FCFCFC guibg=none
+    hi folded guifg=#ba8d1a guibg=none gui=none
     hi WinSeparator guibg=none guifg=#272727
     hi FloatBorder guifg=#1d99f3
     " autocompletion menu

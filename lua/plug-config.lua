@@ -64,15 +64,42 @@ require("toggleterm").setup{
 require'lspconfig'.intelephense.setup{}
 
   local cmp = require'cmp'
+  local luasnip = require("luasnip")
 
   cmp.setup({
-    mapping = cmp.mapping({
-      ['<TAB>'] = cmp.mapping.select_next_item(),
-      ['<S-TAB>'] = cmp.mapping.select_prev_item(),
-      ['<S-CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
+     mapping = {
+        ["<S-CR>"] = cmp.mapping.confirm { select = true },
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+            else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        },
+      snippet = {
+        expand = function(args)
+            local luasnip = require("luasnip")
+            if not luasnip then
+                return
+            end
+            luasnip.lsp_expand(args.body)
+        end,
+    },
     completion = {
-        keyword_length = 2
+        keyword_length = 1
     },
     experimental = {native_menu = false},
     sources = cmp.config.sources({

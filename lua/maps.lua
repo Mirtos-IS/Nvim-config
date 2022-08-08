@@ -22,7 +22,7 @@ vim.keymap.set('n', '<C-w>k', '<C-w>j', {})
 vim.keymap.set('n', '<C-w>j', '<C-w>h', {})
 
 --Ctags
-vim.keymap.set('', '<leader>w[','<cmd>ta <C-R><C-w><CR>', {})
+vim.keymap.set('', '<leader>w[',':vs<CR>:ta <C-R><C-w><CR>', {})
 
 --swapping b and q bc b to go back a word is cringe
 vim.keymap.set({'n', 'v'}, 'b', 'q', {})
@@ -77,6 +77,9 @@ vim.keymap.set('n', '<leader>l', '<cmd>bn<CR>', {})
 vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
 vim.keymap.set('n', '<F3>', '<cmd>TFile<CR>', {})
 
+--window shortcuts
+vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', {})
+
 --auto put ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>')
 vim.keymap.set('i', '<M-;>', '<ESC>A;')
@@ -96,6 +99,10 @@ vim.keymap.set('n', '<Leader>rgs', '<cmd>call PhpCreateSettersAndGetters()<CR>')
 vim.keymap.set('n', '<Leader>rog', '<cmd>call PhpCreateGetters()<CR>')
 vim.keymap.set('n', '<Leader>rda', '<cmd>call PhpDocAll()<CR>')
 
+--PHPFolding
+vim.keymap.set('n', '<leader>1', '<cmd>EnableFastPHPFolds<CR>', {silent=true})
+vim.keymap.set('n', '<leader>2', '<cmd>DisablePHPFolds<CR>', {silent=true})
+
 --exit toggleterm with esc
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
@@ -106,5 +113,10 @@ vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
 
 --use my checklist plugin
 require('plugin.todolist.window')
+--my ckecklist specific shortcuts
 vim.keymap.set('n', '<leader>c', ':lua ToggleChecklist()<CR>', {silent=true})
+function Set_checklist_keymaps()
+  vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
 
+end
+vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')

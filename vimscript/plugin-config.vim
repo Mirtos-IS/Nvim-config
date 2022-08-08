@@ -7,9 +7,6 @@
 
 "PHPfold
     let g:DisableAutoPHPFolding=1
-    map <silent> <M-O>5P <Esc>:EnablePHPFolds<CR>
-    map <silent> <M-O>5Q <Esc>:DisablePHPFolds<CR>
-
 
 "PHP-Refactoting-toolbox
     let g:vim_php_refactoring_auto_validate_sg = 1
