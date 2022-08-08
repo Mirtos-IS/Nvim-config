@@ -1,5 +1,5 @@
     #(1) [x] Check tbnb date base with trainual - date 8/8 19:00
-    #(2) [ ] Watch the whole trainual videos - date 8/8 23:00
+    #(2) [x] Watch the whole trainual videos - date 8/8 23:00
     #(3) [ ] Question Gabriel about all this shit - date 8/8 14:00
 
 
