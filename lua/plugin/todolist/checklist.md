@@ -32,4 +32,3 @@ groups that can do anything relative to tbnb?
 
 -Is ther other resources for learning and improving in what we do here?
 
-
