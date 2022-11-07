@@ -20,8 +20,10 @@
 
 "Whitespace highlight
     hi ExtraWhiteSpace guibg=darkred
+    hi YankHighlight guibg=#267683
     au InsertEnter * call clearmatches()
     au InsertLeave * match ExtraWhiteSpace /\s\+$/
+
 
 "Airline setup
 
@@ -52,3 +54,5 @@
      endfunction
     autocmd FileType python call MyCustomHighlights()
     autocmd ColorScheme * call MyCustomHighlights()
+" Yank Highlight
+    highlight HighlightedyankRegion guibg=white

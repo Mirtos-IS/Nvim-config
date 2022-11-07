@@ -1,34 +1,24 @@
-    #(1) [x] Check tbnb date base with trainual - date 8/8 19:00
-    #(2) [x] Watch the whole trainual videos - date 8/8 23:00
-    #(3) [ ] Question Gabriel about all this shit - date 8/8 14:00
+
+Checklist for property is being ignore, so two things that should be happening are not:
+
+1. when creating a project, it should be using the checklist choosen, not the default
+2. when changing the default, old/in progress projects shouldn't be updated
+
+When creating a project with default checklist, we don't lock to expired/completed or started
+projects. We don't even have a good way to do it rn.
+
+    2 possible solutions:
+
+1. All projects have their checklist saved, even default. when changing property's default,
+it checks and changes all future projects
+
+2. leave how it is rn and check for projects that have being started/expired/completed and
+save the old default as their checklist
 
 
+2 seems better, less work
 
-#Project.php
--wasDeletedByUser() -662 - Slow as fuck like operator
-
--ask about any database schematic to visualize our database
-
-#Property.php
--167 function getCalendarColorAttribute to be refactored
-
-#Random questions
--is there any plans to refactor the backend or they are just going to leave as it is?
--is Tarkbird old name Taskuro? has come constants in the file (like in ExternalClientIntegration)
-that are using a 'taskuro',
--SubscriptionPlanManagerGetter 73 > TODO: test
-
-#Contractor.php
-683 - hmmm, jank?
-
--What are the current plans or changes to the backend and what would i probably do 
-as my first tasks for now?
-
--I think i never asked it, but what would be expected to me to already know or it is 
-plan to me to learn a lot of what we do and use working?
-
--Do each team (blue etc) has different focus on the company or are they just separate
-groups that can do anything relative to tbnb?
-
--Is ther other resources for learning and improving in what we do here?
-
+needs to:
+    1. check for non-update projects
+    2. save them before changing default
+    3. keep the code how it is rn

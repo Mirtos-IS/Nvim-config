@@ -16,12 +16,17 @@
 
 " changing location of phpunit files
     let g:phpunit_test_root = 'tests/Unit'
-    let g:phpunit_src_root = 'app'
+    let g:phpunit_src_root = 'turnouverbnb-web'
     let g:phpunit_bin = 'vendor/bin/phpunit'
     let g:phpunit_options = []
 
-" ctags plugin
-    let g:project_dir = 'api'
+" GitBlame plugin
+    let g:gitblame_enabled = 0
 
-    autocmd FileType * set et tabstop=4 softtabstop=4 shiftwidth=4
-    autocmd FileType lua,vim set et tabstop=2 softtabstop=2 shiftwidth=2
+" ctags plugin
+    let g:project_dir = 'turnouverbnb-web'
+
+    " autocmd FileType * set et tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufEnter lua,vim set et tabstop=2 softtabstop=2 shiftwidth=2
+
+    au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=70}
