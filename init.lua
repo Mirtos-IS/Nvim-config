@@ -26,6 +26,11 @@ require('packer').startup(function(use)
   use '2072/PHP-Indenting-for-VIm'
   use 'adoy/vim-php-refactoring-toolbox'
   use 'Mirtos-IS/PHPUnit.vim'
+  --debug
+  use 'mfussenegger/nvim-dap'
+  use "rcarriga/nvim-dap-ui"
+  use "theHamsta/nvim-dap-virtual-text"
+  use "nvim-telescope/telescope-dap.nvim"
   --lsp
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -48,7 +53,7 @@ require('packer').startup(function(use)
 
 end)
 
-require("maps")
+require("mapsISRT")
 require("plug-config")
 require("config")
 

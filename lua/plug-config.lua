@@ -18,28 +18,28 @@ require'lspconfig'.tsserver.setup{}
 
 require'lspconfig'.vuels.setup{}
 
-require'lspconfig'.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+-- require'lspconfig'.sumneko_lua.setup {
+--   settings = {
+--     Lua = {
+--       runtime = {
+--         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--         version = 'LuaJIT',
+--       },
+--       diagnostics = {
+--         -- Get the language server to recognize the `vim` global
+--         globals = {'vim'},
+--       },
+--       workspace = {
+--         -- Make the server aware of Neovim runtime files
+--         library = vim.api.nvim_get_runtime_file("", true),
+--       },
+--       -- Do not send telemetry data containing a randomized but unique identifier
+--       telemetry = {
+--         enable = false,
+--       },
+--     },
+--   },
+-- }
 
 require('hop').setup({
     keys = 'etovxqpdygfblzhckisuran',
@@ -158,17 +158,44 @@ require("toggleterm").setup{
   })
 
   -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')['intelephense'].setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
-  require('lspconfig')['sumneko_lua'].setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
+  -- require('lspconfig')['sumneko_lua'].setup {
+  --   on_attach = on_attach,
+  --   capabilities = capabilities
+  -- }
   require('lspconfig')['vuels'].setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
+
+local dap = require'dap'
+dap.adapters.php = {
+  type = "executable",
+  command = "node",
+  args = { '/path/to/vscode-php-debug/out/phpDebug.js' }
+}
+
+dap.configurations.php = {
+  {
+    name = "Listen for Xdebug",
+    type = "php",
+    request = "launch",
+    hostname = "0.0.0.0",
+    port = 9003,
+    log = true,
+    pathMappings = {
+      ["/var/www/html"] = "${workspaceFolder}"
+    },
+    ignore = {
+      "**/vendor/**/*.php"
+    },
+    stopOnEntry = false,
+  }
+}
+require("nvim-dap-virtual-text").setup()
+require("dapui").setup()

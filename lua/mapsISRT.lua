@@ -3,18 +3,14 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader><leader>s', ':so %<CR>', {})
 vim.keymap.set('n', '<leader><leader>a', ':so $MYVIMRC<CR>', {})
 -- place this in one of your configuration file(s)
-vim.keymap.set('n', 'p', '<cmd>HopWord<CR>', {silent = true})
+vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
 
 --swapping movemente keys to jklç
-vim.cmd( 'set langmap=yq,cw,le,mr,kt,zy,fu,ui,\'p,ia,ss,rd,tf,gg,nh,ej,ok,al,qz,vx,wc,dv,jb,bn,hm')
-vim.cmd( 'set langmap+=JQ,CW,LE,MR,KT,ZY,FU,UI,ÇP,IA,SS,RD,TF,GG,NH,EJ,OK,AL,QZ,VX,WC,DV,YB,BN,HM')
-vim.cmd( 'set langmap+=\\o')
+vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
+vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
 
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-b>', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-f>', {remap = true})
-
---changing windows
-vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 --Ctags
 vim.keymap.set('', '<leader>w[',':vs<CR>:ta <C-R><C-w><CR>', {})
@@ -23,25 +19,27 @@ vim.keymap.set('', '<leader>w[',':vs<CR>:ta <C-R><C-w><CR>', {})
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition, {silent=true})
 
 --deleting without yank
-vim.keymap.set({'n', 'v'}, 'v', '"_v', {})
+vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
 
 --paste without yank
-vim.keymap.set('v', 'ç', '"_dÇ', {})
+vim.keymap.set('v', 'p', '"_dp', {})
+
+--copy to clipboard
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y',{})
+
+--copy to clipboard
+vim.keymap.set({'n', 'v'}, '<leader>p', '"+p',{})
 
 --general shortcuts - <C-K> to get the true input
 vim.keymap.set({'n', 'v'}, '<C-s>', '<cmd>w!<CR>', {silent = true})
 vim.keymap.set('i', '<C-s>', '<ESC><cmd>w!<CR>', {silent = true})
-vim.keymap.set('n', '<C-q>', '<cmd>undo<CR>', {silent = true})
-vim.keymap.set({'i', 'v'}, '<C-q>', '<ESC><cmd>undo<CR>', {silent = true})
-
---select word and do something
--- vim.keymap.set('n', '<leader>v', 'viw', {})
--- vim.keymap.set('n', '<leader>y', 'yiw', {})
--- vim.keymap.set('n', '<leader>c', 'ciw', {})
+vim.keymap.set('n', '<C-z>', '<cmd>undo<CR>', {silent = true})
+vim.keymap.set('n', '<S-u>', '<cmd>redo<CR>', {silent = true})
+vim.keymap.set({'i', 'v'}, '<C-z>', '<ESC><cmd>undo<CR>', {silent = true})
 
 --search and replace word under cursor
 vim.keymap.set('n', '<leader>s', ':s/<C-R><C-W>//g<left><left>', {})
-vim.keymap.set('n', '<leader>t', ':%s/<C-R><C-W>//g<left><left>', {})
+vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>//g<left><left>', {})
 
 --go to curent return type in php
 vim.keymap.set('n', '<leader>rr', '[[f)a: ', {remap = true})
@@ -50,12 +48,12 @@ vim.keymap.set('n', '<leader>rr', '[[f)a: ', {remap = true})
 vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 
 --move lines around the code
-vim.keymap.set('n', '<M-o>', '<cmd>m -2<CR>==', {})
-vim.keymap.set('n', '<M-e>', '<cmd>m +1<CR>==', {})
-vim.keymap.set('v', '<M-o>', "<cmd>m '<-2<CR>gv=gv", {})
-vim.keymap.set('v', '<M-e>', "<cmd>m '>+1<CR>gv=gv", {})
---tab for indentention
+vim.keymap.set('n', '<M-j>', '<cmd>m +1<CR>==', {})
+vim.keymap.set('n', '<M-k>', '<cmd>m -2<CR>==', {})
+vim.keymap.set('v', '<M-k>', "<cmd>m '<-2<CR>gv=gv", {})
+vim.keymap.set('v', '<M-j>', "<cmd>m '>+1<CR>gv=gv", {})
 
+--tab for indentention
 vim.keymap.set('n', '<tab>', '>>', {})
 vim.keymap.set('v', '<tab>', '>gv', {})
 vim.keymap.set('n', '<s-tab>', '<<', {})
@@ -66,36 +64,40 @@ vim.keymap.set('n', '<C-a>', 'zL', {})
 vim.keymap.set('n', '<C-n>', 'zH', {})
 
 --buffer shortcuts
-vim.keymap.set('n', '<leader>a', '<cmd>bp<CR>', {})
-vim.keymap.set('n', '<leader>n', '<cmd>bn<CR>', {})
-vim.keymap.set('n', '<leader>f', '<cmd>Bdelete<CR>', {})
+vim.keymap.set('n', '<M-h>', '<cmd>bp<CR>', {})
+vim.keymap.set('n', '<M-l>', '<cmd>bn<CR>', {})
+vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
 vim.keymap.set('n', '<F3>', '<cmd>TFile<CR>', {})
+vim.keymap.set('n', '<F6>', '<cmd>Rg<CR>', {})
 
 --window shortcuts
-vim.keymap.set('n', '<leader>y', '<cmd>q<CR>', {})
+vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', {})
 
 --auto put ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>')
 vim.keymap.set('i', '<M-;>', '<ESC>A;')
 
 --PHP-Refactor-toolbox shortcuts
-vim.keymap.set('n', '<Leader>rlv', '<cmd>call PhpRenameLocalVariable()<CR>')
+vim.keymap.set('n', '<Leader>rav', '<cmd>call PhpRenameLocalVariable()<CR>') --<leader>rlm
 vim.keymap.set('n', '<Leader>rcv', '<cmd>call PhpRenameClassVariable()<CR>')
 vim.keymap.set('n', '<Leader>rm',  '<cmd>call PhpRenameMethod()<CR>')
-vim.keymap.set('n', '<Leader>reu', '<cmd>call PhpExtractUse()<CR>')
-vim.keymap.set('v', '<Leader>rec', '<cmd>call PhpExtractConst()<CR>')
-vim.keymap.set('n', '<Leader>rep', '<cmd>call PhpExtractClassProperty()<CR>')
-vim.keymap.set('v', '<Leader>rem', '<cmd>call PhpExtractMethod()<CR>')
+vim.keymap.set('n', '<Leader>rju', '<cmd>call PhpExtractUse()<CR>') --<leader>rem, thanks to lang.
+vim.keymap.set('v', '<Leader>rjc', '<cmd>call PhpExtractConst()<CR>')
+vim.keymap.set('n', '<Leader>rjp', '<cmd>call PhpExtractClassProperty()<CR>')
+vim.keymap.set('v', '<Leader>rjm', '<cmd>call PhpExtractMethod()<CR>')
 vim.keymap.set('n', '<Leader>rnp', '<cmd>call PhpCreateProperty()<CR>')
 vim.keymap.set('n', '<Leader>rdu', '<cmd>call PhpDetectUnusedUseStatements()<CR>')
 vim.keymap.set('v', '<Leader>==',  '<cmd>call PhpAlignAssigns()<CR>')
 vim.keymap.set('n', '<Leader>rgs', '<cmd>call PhpCreateSettersAndGetters()<CR>')
-vim.keymap.set('n', '<Leader>rog', '<cmd>call PhpCreateGetters()<CR>')
-vim.keymap.set('n', '<Leader>rda', '<cmd>call PhpDocAll()<CR>')
+vim.keymap.set('n', '<Leader>rlg', '<cmd>call PhpCreateGetters()<CR>') --<leader>rog
+vim.keymap.set('n', '<Leader>rdk', '<cmd>call PhpDocAll()<CR>') --<leader>rda
 
 --PHPFolding
 vim.keymap.set('n', '<leader>1', '<cmd>EnableFastPHPFolds<CR>', {silent=true})
 vim.keymap.set('n', '<leader>2', '<cmd>DisablePHPFolds<CR>', {silent=true})
+
+--gitblame plugin
+vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
 
 --exit toggleterm with esc
 function _G.set_terminal_keymaps()
