@@ -102,7 +102,6 @@ vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
 --exit toggleterm with esc
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
-  print('oi')
     vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", opts)
 end
 
