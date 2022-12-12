@@ -114,6 +114,7 @@ vim.keymap.set('n', '<leader>c', ':lua ToggleChecklist()<CR>', {silent=true})
 function Set_checklist_keymaps()
   vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
 end
+vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')
 --currently you need langnoremap to my fzf hack to work properly
 function ToggleLangnoremap()
     vim.o.langremap = false
@@ -121,5 +122,5 @@ end
 function ToggleLangremap()
     vim.o.langremap = true
 end
-  vim.cmd('autocmd TermOpen *#FZF lua ToggleLangnoremap()')
-  vim.cmd('autocmd TermClose *#FZF lua ToggleLangremap()')
+vim.cmd('autocmd TermOpen *#FZF lua ToggleLangnoremap()')
+vim.cmd('autocmd TermClose *#FZF lua ToggleLangremap()')
