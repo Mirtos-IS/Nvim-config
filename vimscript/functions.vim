@@ -18,8 +18,8 @@
 
 "FZF_action remapping
     let g:fzf_action = {
-        \ 'S': 'split',
-        \ 'V': 'vsplit'}
+        \ 'alt-s': 'split',
+        \ 'alt-v': 'vsplit'}
 
 "FZF function to allow FZF go up to parent dir
     function! TFile(dir)
@@ -29,7 +29,7 @@
         let dir = a:dir
       endif
       let parentdir = fnamemodify(dir, ':h')
-      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'J', '--bind=K:down,Ç:up'] }))
+      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'left'] }))
 
       " hack to retain original sink used by fzf#vim#files
       let origspec = copy(spec)
@@ -40,7 +40,7 @@
         if len(a:lines) < 2
           return
         endif
-        if a:lines[0] == 'J'
+        if a:lines[0] == 'left'
           call TFile(parentdir)
         else
           call origspec.sinklist(a:lines)
@@ -48,3 +48,6 @@
       endfunction
       call fzf#vim#files(dir, spec)
     endfunction
+
+"you need langnoremap to this hack to work, i added a au to toggle it when fzf
+"is activated
