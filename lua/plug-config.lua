@@ -1,3 +1,26 @@
+require("focus").setup({
+    cursorline = false,
+    relativenumber = false,
+    width = 110,
+  })
+
+require("mason").setup()
+require("mason-lspconfig").setup()
+
+require("mason-lspconfig").setup_handlers {
+  -- The first entry (without a key) will be the default handler
+  -- and will be called for each installed server that doesn't have
+  -- a dedicated handler.
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup {}
+  end,
+  -- Next, you can provide a dedicated handler for specific servers.
+  -- For example, a handler override for the `rust_analyzer`:
+  ["rust_analyzer"] = function ()
+    require("rust-tools").setup {}
+  end
+}
+
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -18,31 +41,31 @@ require'lspconfig'.tsserver.setup{}
 
 require'lspconfig'.vuels.setup{}
 
--- require'lspconfig'.sumneko_lua.setup {
---   settings = {
---     Lua = {
---       runtime = {
---         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---         version = 'LuaJIT',
---       },
---       diagnostics = {
---         -- Get the language server to recognize the `vim` global
---         globals = {'vim'},
---       },
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = vim.api.nvim_get_runtime_file("", true),
---       },
---       -- Do not send telemetry data containing a randomized but unique identifier
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- }
+require'lspconfig'.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 require('hop').setup({
-    keys = 'etovxqpdygfblzhckisuran',
+    keys = 'etovxqpdgflhcisuran',
   })
 
 require("nvim-autopairs").setup {
@@ -59,7 +82,7 @@ vim.notify = require("notify")
 require('nvim-treesitter.configs').setup{
   auto_install = true,
     highlight = {
-        disable = {"php", "vim"},
+        disable = {"php", "vim", "vue"},
         enable = true,
         additional_vim_regex_highlighting = true,
     },
@@ -130,6 +153,23 @@ require("toggleterm").setup{
     })
   })
 
+luasnip.config.set_config{
+  history = true,
+
+  updateevents = "TextChanged, TextChangedI",
+
+  enable_autosnippets = true,
+}
+
+luasnip.snippets = {
+  all = {
+    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end"),
+  },
+  lua = {
+    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end"),
+    luasnip.parser.parse_snippet("cons", "function __construct")
+  },
+}
   -- Set configuration for specific filetype.
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
@@ -199,3 +239,5 @@ dap.configurations.php = {
 }
 require("nvim-dap-virtual-text").setup()
 require("dapui").setup()
+
+require("plugin.sail_test.autotest")

@@ -23,5 +23,5 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.langremap = true
+--vim.o.langremap = true
 

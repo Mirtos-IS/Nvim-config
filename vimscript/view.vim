@@ -18,14 +18,10 @@
     set pumheight=15
     hi PmenuSel blend=0
 
-"Whitespace highlight
-    hi ExtraWhiteSpace guibg=darkred
+"Whitespace highlight hi ExtraWhiteSpace guibg=darkred
     hi YankHighlight guibg=#267683
     au InsertEnter * call clearmatches()
     au InsertLeave * match ExtraWhiteSpace /\s\+$/
-
-
-"Airline setup
 
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#show_buffers = 1

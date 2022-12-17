@@ -48,6 +48,3 @@
       endfunction
       call fzf#vim#files(dir, spec)
     endfunction
-
-"you need langnoremap to this hack to work, i added a au to toggle it when fzf
-"is activated

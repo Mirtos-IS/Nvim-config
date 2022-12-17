@@ -25,7 +25,6 @@ require('packer').startup(function(use)
   use 'rayburgemeestre/phpfolding.vim'
   use '2072/PHP-Indenting-for-VIm'
   use 'adoy/vim-php-refactoring-toolbox'
-  use 'Mirtos-IS/PHPUnit.vim'
   --debug
   use 'mfussenegger/nvim-dap'
   use "rcarriga/nvim-dap-ui"
@@ -40,6 +39,8 @@ require('packer').startup(function(use)
   use 'hrsh7th/nvim-cmp'
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
+  use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
   --fancy notification
   use 'rcarriga/nvim-notify'
   --treesitter
@@ -48,6 +49,7 @@ require('packer').startup(function(use)
   use 'akinsho/toggleterm.nvim'
   use 'phaazon/hop.nvim'
   use 'dstein64/vim-startuptime'
+  use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
   --git plugins
   use 'f-person/git-blame.nvim'
 

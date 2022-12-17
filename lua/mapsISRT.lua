@@ -15,6 +15,9 @@ vim.keymap.set({'n', 'v'}, '<C-e>', '<C-f>', {remap = true})
 --Ctags
 vim.keymap.set('', '<leader>w[',':vs<CR>:ta <C-R><C-w><CR>', {})
 
+--<leader>w for quick win movement
+vim.keymap.set('n', '<leader>w', '<C-w>', {})
+
 --lsp
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition, {silent=true})
 
@@ -50,8 +53,8 @@ vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 --move lines around the code
 vim.keymap.set('n', '<M-j>', '<cmd>m +1<CR>==', {})
 vim.keymap.set('n', '<M-k>', '<cmd>m -2<CR>==', {})
-vim.keymap.set('v', '<M-k>', "<cmd>m '<-2<CR>gv=gv", {})
-vim.keymap.set('v', '<M-j>', "<cmd>m '>+1<CR>gv=gv", {})
+vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", {})
+vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", {})
 
 --tab for indentention
 vim.keymap.set('n', '<tab>', '>>', {})
@@ -99,13 +102,15 @@ vim.keymap.set('n', '<leader>2', '<cmd>DisablePHPFolds<CR>', {silent=true})
 --gitblame plugin
 vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
 
+--exit terminal with esc
+vim.keymap.set('t', '<esc>', '<C-\\><C-N>', {})
 --exit toggleterm with esc
-function _G.set_terminal_keymaps()
+function Set_terminal_keymaps()
     local opts = {buffer = 0}
     vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", opts)
 end
 
-vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 
 --use my checklist plugin
 require('plugin.todolist.window')
@@ -115,12 +120,19 @@ function Set_checklist_keymaps()
   vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
 end
 vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')
+
 --currently you need langnoremap to my fzf hack to work properly
-function ToggleLangnoremap()
+vim.api.nvim_create_autocmd({"TermOpen"}, {
+  pattern = {"*#FZF"},
+  callback = function()
     vim.o.langremap = false
-end
-function ToggleLangremap()
-    vim.o.langremap = true
-end
-vim.cmd('autocmd TermOpen *#FZF lua ToggleLangnoremap()')
-vim.cmd('autocmd TermClose *#FZF lua ToggleLangremap()')
+    vim.keymap.set('t', '<ESC>', '<ESC>', {buffer=true})
+  end,
+})
+
+vim.keymap.set('n', '<leader>tf', '<cmd>SailRunTest<CR>', {silent=true})
+vim.keymap.set('n', '<leader>tc', '<cmd>SailCloseTest<CR>', {silent=true})
+
+--langmap is cringe, so do this piece or code
+vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
+vim.keymap.set('n', '@', ':set langremap<CR>@', {silent=true})
