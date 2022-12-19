@@ -7,6 +7,14 @@ require("focus").setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
+require("bufferline").setup({
+    options = {
+      separator_style = 'slant',
+      -- separator_style = {"", ""},
+    },
+  })
+require("scope").setup()
+
 require("mason-lspconfig").setup_handlers {
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
@@ -110,6 +118,8 @@ require("toggleterm").setup{
 
   cmp.setup({
      mapping = {
+        ['<C-f>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-h>'] = cmp.mapping.scroll_docs(4),
         ["<S-CR>"] = cmp.mapping.confirm { select = true },
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -133,7 +143,6 @@ require("toggleterm").setup{
         },
       snippet = {
         expand = function(args)
-            local luasnip = require("luasnip")
             if not luasnip then
                 return
             end
@@ -163,11 +172,11 @@ luasnip.config.set_config{
 
 luasnip.snippets = {
   all = {
-    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end"),
+    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end", {}),
   },
   lua = {
-    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end"),
-    luasnip.parser.parse_snippet("cons", "function __construct")
+    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end", {}),
+    luasnip.parser.parse_snippet("cons", "function __construct", {})
   },
 }
   -- Set configuration for specific filetype.
@@ -237,7 +246,9 @@ dap.configurations.php = {
     stopOnEntry = false,
   }
 }
-require("nvim-dap-virtual-text").setup()
+require("nvim-dap-virtual-text").setup{
+  enabled = true,
+}
 require("dapui").setup()
 
 require("plugin.sail_test.autotest")
