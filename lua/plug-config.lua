@@ -88,12 +88,32 @@ require("nvim-autopairs").setup {
 vim.notify = require("notify")
 
 require('nvim-treesitter.configs').setup{
-  auto_install = true,
+    auto_install = true,
     highlight = {
-        disable = {"php", "vim", "vue"},
         enable = true,
-        additional_vim_regex_highlighting = true,
+        additional_vim_regex_highlighting = false,
     },
+    indent = {
+        enable = true,
+    },
+    playground = {
+        enable = true,
+        disable = {},
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        persist_queries = false, -- Whether the query persists across vim sessions
+        keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+        },
+    }
 }
 
 require("toggleterm").setup{
@@ -252,3 +272,36 @@ require("nvim-dap-virtual-text").setup{
 require("dapui").setup()
 
 require("plugin.sail_test.autotest")
+
+require'nvim-treesitter.configs'.setup {
+  textobjects = {
+   move = {
+      enable = true,
+      set_jumps = false, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["[["] = "@method",
+      },
+      goto_next_end = {
+        ["[]"] = "@method",
+      },
+      goto_previous_start = {
+        ["]]"] = "@method",
+      },
+      goto_previous_end = {
+        ["]["] = "@method",
+      },
+    },
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ["<leader>df"] = "@function.outer",
+        ["<leader>dF"] = "@class.outer",
+      },
+    },
+  },
+}
+
+require('Comment').setup {
+    sticky = true,
+}

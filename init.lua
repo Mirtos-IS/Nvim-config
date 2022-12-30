@@ -5,18 +5,21 @@ require('packer').startup(function(use)
   use 'mattn/emmet-vim'
   --colorscheme
   use 'tomasiser/vim-code-dark'
+  use 'Mofiqul/vscode.nvim'
   --fancy airline
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
+  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use 'tiagovla/scope.nvim'
   use('kmonad/kmonad-vim')
   --python fancy colors
   use {'numirias/semshi', run = ':UpdateRemotePlugins'}
-  --fancy icons and colors regex based
+  --fancy icons 
   use 'ryanoasis/vim-devicons'
-  use 'sheerun/vim-polyglot'
   --QoL plugins
-  use 'tpope/vim-commentary'
+  use 'numToStr/Comment.nvim'
   use 'tpope/vim-surround'
+  use 'tpope/vim-repeat'
   use 'windwp/nvim-autopairs'
   use 'Mirtos-IS/auto-ctags-cmd.vim'
   use 'moll/vim-bbye'
@@ -45,6 +48,8 @@ require('packer').startup(function(use)
   use 'rcarriga/nvim-notify'
   --treesitter
   use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'nvim-treesitter/playground'
   --random plugs
   use 'akinsho/toggleterm.nvim'
   use 'phaazon/hop.nvim'
@@ -52,6 +57,7 @@ require('packer').startup(function(use)
   use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
   --git plugins
   use 'f-person/git-blame.nvim'
+  use 'tpope/vim-fugitive'
 
 end)
 

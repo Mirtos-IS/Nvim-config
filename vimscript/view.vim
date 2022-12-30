@@ -17,38 +17,37 @@
     set pumblend=30
     set pumheight=15
     hi PmenuSel blend=0
+    "set of highlights for treesitter
+    "general
+    hi @keyword guifg=#ce86c0
+    hi @keyword.function guifg=#ce86c0
+    hi @include guifg=#5696c6
+    hi @type.qualifier guifg=#5696c6
+    hi @function.call guifg=#4ec9b0
+    hi @constructor guifg=#dcdcaa
 
-"Whitespace highlight hi ExtraWhiteSpace guibg=darkred
+    "lua
+    hi @function.call.lua guifg=#dcdcaa
+
+"Whitespace highlight
+    hi ExtraWhiteSpace guibg=darkred
     hi YankHighlight guibg=#267683
     au InsertEnter * call clearmatches()
     au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#show_buffers = 1
+    let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
     let g:airline#extensions#tabline#tab_nr_type = 2
     let g:airline#extensions#tabline#fnamemod=':t'
     let g:airline#extensions#whitespace#enabled = 0
-    let g:airline_section_c='%t'
+    " let g:airline_section_c = airline#section#create(["%{nvim_treesitter#statusline(60)}"])
     let g:airline_powerline_fonts=1
-    let g:airline_theme='codedark'
+    let g:airline_theme='deus'
 
 " Semshi
 
     let g:semshi#error_sign_delay=2
     let g:semshi#excluded_hl_groups=['local', 'attribute']
     let g:semshi#simplify_markup=v:false
-    "Semshi colorscheme
-     function MyCustomHighlights()
-         hi semshiGlobal             ctermfg=153 guifg=#9CDCFE
-         hi semshiImported           ctermfg=86 guifg=#4EC9B0
-         hi semshiParameterUnused    cterm=none gui=none
-         hi semshiUnresolved         ctermfg=255 cterm=none guifg=#FFFFFF gui=none
-         hi semshiBuiltin            ctermfg=214 guifg=#DCDCAA
-         hi semshiSelf               ctermfg=199 guifg=#9CDCFE
-         hi semshiParameter          ctermfg=153 guifg=#9CDCFE
-     endfunction
-    autocmd FileType python call MyCustomHighlights()
-    autocmd ColorScheme * call MyCustomHighlights()
 " Yank Highlight
     highlight HighlightedyankRegion guibg=white

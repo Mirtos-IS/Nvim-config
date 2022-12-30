@@ -23,6 +23,9 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable = false
 --vim.o.langremap = true
 
 vim.api.nvim_create_autocmd('TermOpen', {

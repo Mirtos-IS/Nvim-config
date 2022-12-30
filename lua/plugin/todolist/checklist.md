@@ -1,7 +1,1 @@
-booking_canceled {
-    title
-    reservation_deleted
-    assigned
-    pending
-    go-to-calender
-}
+:ConnectContractorToPropertyEventListener->why the contractor timezone is updated here?:u

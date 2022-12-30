@@ -28,10 +28,16 @@ vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
 vim.keymap.set('v', 'p', '"_dp', {})
 
 --copy to clipboard
-vim.keymap.set({'n', 'v'}, '<leader>y', '"+y',{})
+vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{})
 
 --copy to clipboard
-vim.keymap.set({'n', 'v'}, '<leader>p', '"+p',{})
+vim.keymap.set({'n', 'v'}, '<C-p>', '"+p',{})
+
+--make life easier with inner motion
+vim.keymap.set({'n', 'v'}, '<leader>y', 'yi',{})
+vim.keymap.set({'n', 'v'}, '<leader>v', 'vi',{})
+vim.keymap.set({'n', 'v'}, '<leader>c', 'ci',{})
+vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{})
 
 --general shortcuts - <C-K> to get the true input
 vim.keymap.set({'n', 'v'}, '<C-s>', '<cmd>w!<CR>', {silent = true})
@@ -74,7 +80,7 @@ vim.keymap.set('n', '<F3>', '<cmd>TFile<CR>', {})
 vim.keymap.set('n', '<F6>', '<cmd>Rg<CR>', {})
 
 --window shortcuts
-vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', {})
+vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
 
 --auto put ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>')
@@ -115,7 +121,7 @@ vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 --use my checklist plugin
 require('plugin.todolist.window')
 --my ckecklist specific shortcuts
-vim.keymap.set('n', '<leader>c', ':lua ToggleChecklist()<CR>', {silent=true})
+vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
 function Set_checklist_keymaps()
   vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
 end
