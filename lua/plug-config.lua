@@ -1,18 +1,18 @@
 require("focus").setup({
-    cursorline = false,
-    relativenumber = false,
-    width = 110,
-  })
+  cursorline = false,
+  relativenumber = false,
+  width = 110,
+})
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 
 require("bufferline").setup({
-    options = {
-      separator_style = 'slant',
-      -- separator_style = {"", ""},
-    },
-  })
+  options = {
+    separator_style = 'slant',
+    -- separator_style = {"", ""},
+  },
+})
 require("scope").setup()
 
 require("mason-lspconfig").setup_handlers {
@@ -73,8 +73,8 @@ require'lspconfig'.sumneko_lua.setup {
 }
 
 require('hop').setup({
-    keys = 'etovxqpdgflhcisuran',
-  })
+  keys = 'etovxqpdgflhcisuran',
+})
 
 require("nvim-autopairs").setup {
   ignored_next_char = [=[[%w%%%'%[%"%.$&]]=],
@@ -87,101 +87,115 @@ require("nvim-autopairs").setup {
 
 vim.notify = require("notify")
 
+require('vim.treesitter.query').set_query('php', 'folds', '[ (function_definition) (function_static_declaration) (method_declaration) ] @fold ')
+
 require('nvim-treesitter.configs').setup{
-    auto_install = true,
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true,
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
     },
-    indent = {
-        enable = true,
-    },
-    playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
-        keybindings = {
-            toggle_query_editor = 'o',
-            toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
-            toggle_anonymous_nodes = 'a',
-            toggle_language_display = 'I',
-            focus_language = 'f',
-            unfocus_language = 'F',
-            update = 'R',
-            goto_node = '<cr>',
-            show_help = '?',
-        },
-    }
+  }
 }
 
 require("toggleterm").setup{
-    open_mapping = [[<C-t>]],
-    hide_number = true,
-    start_in_insert = true,
-    direction = 'float',
-    terminal_mappings = true,
-    highlights = {
-        Normal = {
-            guibg = "#000000",
-        },
-        FloatBorder = {
-            guifg = "#1d99f3",
-        },
+  open_mapping = [[<C-t>]],
+  hide_number = true,
+  start_in_insert = true,
+  direction = 'float',
+  terminal_mappings = true,
+  highlights = {
+    Normal = {
+      guibg = "#000000",
     },
+    FloatBorder = {
+      guifg = "#1d99f3",
+    },
+  },
 }
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
+local cmp = require'cmp'
+local luasnip = require("luasnip")
 
-  local cmp = require'cmp'
-  local luasnip = require("luasnip")
+cmp.setup({
+  mapping = {
+    ['<C-f>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-h>'] = cmp.mapping.scroll_docs(4),
+    ["<S-CR>"] = cmp.mapping.confirm { select = true },
+    ["<c-space>"] = cmp.mapping.complete(),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
 
-  cmp.setup({
-     mapping = {
-        ['<C-f>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-h>'] = cmp.mapping.scroll_docs(4),
-        ["<S-CR>"] = cmp.mapping.confirm { select = true },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-            else
-            fallback()
-          end
-        end, { "i", "s" }),
-
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        },
-      snippet = {
-        expand = function(args)
-            if not luasnip then
-                return
-            end
-            luasnip.lsp_expand(args.body)
-        end,
-    },
-    completion = {
-        keyword_length = 1
-    },
-    experimental = {native_menu = false},
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' }, -- For luasnip users.
-      { name = 'path' }
-    }, {
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<C-a>"] = cmp.mapping(function ()
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      end
+    end, {"i", "s"}),
+    ["<C-n>"] = cmp.mapping(function ()
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      end
+    end, {"i", "s"}),
+  },
+  snippet = {
+    expand = function(args)
+      if not luasnip then
+        return
+      end
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  completion = {
+    keyword_length = 1
+  },
+  experimental = {native_menu = false},
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'path' }
+  }, {
       { name = 'buffer' },
     })
-  })
-
+})
 luasnip.config.set_config{
   history = true,
 
@@ -190,57 +204,48 @@ luasnip.config.set_config{
   enable_autosnippets = true,
 }
 
-luasnip.snippets = {
-  all = {
-    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end", {}),
-  },
-  lua = {
-    luasnip.parser.parse_snippet("fact", "$$1 = factory($2::classe)->create($0)end", {}),
-    luasnip.parser.parse_snippet("cons", "function __construct", {})
-  },
-}
-  -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
       { name = 'buffer' },
     })
-  })
+})
 
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
 
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
       { name = 'cmdline' }
     })
-  })
+})
 
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['intelephense'].setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
-  -- require('lspconfig')['sumneko_lua'].setup {
-  --   on_attach = on_attach,
-  --   capabilities = capabilities
-  -- }
-  require('lspconfig')['vuels'].setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['intelephense'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+-- require('lspconfig')['sumneko_lua'].setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities
+-- }
+require('lspconfig')['vuels'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
 
 local dap = require'dap'
 dap.adapters.php = {
@@ -275,7 +280,7 @@ require("plugin.sail_test.autotest")
 
 require'nvim-treesitter.configs'.setup {
   textobjects = {
-   move = {
+    move = {
       enable = true,
       set_jumps = false, -- whether to set jumps in the jumplist
       goto_next_start = {
@@ -303,5 +308,5 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('Comment').setup {
-    sticky = true,
+  sticky = true,
 }

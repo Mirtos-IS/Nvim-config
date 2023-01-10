@@ -101,8 +101,8 @@ vim.keymap.set('n', '<Leader>rog', '<cmd>call PhpCreateGetters()<CR>')
 vim.keymap.set('n', '<Leader>rda', '<cmd>call PhpDocAll()<CR>')
 
 --PHPFolding
-vim.keymap.set('n', '<leader>1', '<cmd>EnableFastPHPFolds<CR>', {silent=true})
-vim.keymap.set('n', '<leader>2', '<cmd>DisablePHPFolds<CR>', {silent=true})
+vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
+vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
 
 --gitblame plugin
 vim.keymap.set('n', '<leader>`', ':GitBlameToggle<CR>', {silent=true})

@@ -26,12 +26,24 @@ vim.o.smartcase = true
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldenable = false
+vim.o.swapfile = false
+vim.o.undofile = true
 --vim.o.langremap = true
 
 vim.api.nvim_create_autocmd('TermOpen', {
-    pattern = '*',
-    callback = function ()
-      vim.opt_local.number = false
-      vim.opt_local.relativenumber = false
-    end
-  })
+  pattern = '*',
+  callback = function ()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end
+})
+        
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = {'*.lua', '*.vue', '*.js', '*.vim'},
+  callback = function ()
+    vim.opt_local.tabstop=2
+    vim.opt_local.softtabstop=2
+    vim.opt_local.shiftwidth=2
+  end
+})

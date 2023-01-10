@@ -9,6 +9,9 @@ vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
 vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
 vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
 
+vim.keymap.set('n', '<C-l>', '<C-o>', {})
+vim.keymap.set('n', '<C-i>', '<C-i>', {})
+
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-b>', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-f>', {remap = true})
 
@@ -83,8 +86,11 @@ vim.keymap.set('n', '<F6>', '<cmd>Rg<CR>', {})
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
 
 --auto put ; to the end of line
-vim.keymap.set('n', '<M-;>', 'A;<ESC>')
-vim.keymap.set('i', '<M-;>', '<ESC>A;')
+vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
+vim.keymap.set('i', '<M-;>', '<ESC>A;', {})
+
+--call cmp select in current word
+vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
 
 --PHP-Refactor-toolbox shortcuts
 vim.keymap.set('n', '<Leader>rav', '<cmd>call PhpRenameLocalVariable()<CR>') --<leader>rlm
@@ -102,8 +108,8 @@ vim.keymap.set('n', '<Leader>rlg', '<cmd>call PhpCreateGetters()<CR>') --<leader
 vim.keymap.set('n', '<Leader>rdk', '<cmd>call PhpDocAll()<CR>') --<leader>rda
 
 --PHPFolding
-vim.keymap.set('n', '<leader>1', '<cmd>EnableFastPHPFolds<CR>', {silent=true})
-vim.keymap.set('n', '<leader>2', '<cmd>DisablePHPFolds<CR>', {silent=true})
+vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
+vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
 
 --gitblame plugin
 vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
@@ -142,3 +148,4 @@ vim.keymap.set('n', '<leader>tc', '<cmd>SailCloseTest<CR>', {silent=true})
 --langmap is cringe, so do this piece or code
 vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
 vim.keymap.set('n', '@', ':set langremap<CR>@', {silent=true})
+

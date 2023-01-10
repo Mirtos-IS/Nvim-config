@@ -3,7 +3,7 @@
     let g:user_emmet_install_global = 0
     autocmd FileType html,css,php,blade,blade.php EmmetInstall
     "Let leader key being something more easy to use
-    let g:user_emmet_leader_key='<C-SPACE>'
+    let g:user_emmet_leader_key='<C-,>'
 
 "PHPfold
     let g:DisableAutoPHPFolding=1

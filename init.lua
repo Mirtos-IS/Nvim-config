@@ -1,32 +1,27 @@
-require('packer').startup(function(use)
+  require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   --fuzzy finder
   use 'junegunn/fzf.vim'
   use 'mattn/emmet-vim'
   --colorscheme
   use 'tomasiser/vim-code-dark'
-  use 'Mofiqul/vscode.nvim'
   --fancy airline
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
   use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
   use 'tiagovla/scope.nvim'
-  use('kmonad/kmonad-vim')
   --python fancy colors
   use {'numirias/semshi', run = ':UpdateRemotePlugins'}
-  --fancy icons 
+  --fancy icons
   use 'ryanoasis/vim-devicons'
   --QoL plugins
-  use 'numToStr/Comment.nvim'
   use 'tpope/vim-surround'
+  use 'numToStr/Comment.nvim'
   use 'tpope/vim-repeat'
   use 'windwp/nvim-autopairs'
-  use 'Mirtos-IS/auto-ctags-cmd.vim'
   use 'moll/vim-bbye'
   use 'psliwka/vim-smoothie' --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
   --php plugins
-  use 'rayburgemeestre/phpfolding.vim'
-  use '2072/PHP-Indenting-for-VIm'
   use 'adoy/vim-php-refactoring-toolbox'
   --debug
   use 'mfussenegger/nvim-dap'
