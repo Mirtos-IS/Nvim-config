@@ -10,8 +10,6 @@
   use 'vim-airline/vim-airline-themes'
   use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
   use 'tiagovla/scope.nvim'
-  --python fancy colors
-  use {'numirias/semshi', run = ':UpdateRemotePlugins'}
   --fancy icons
   use 'ryanoasis/vim-devicons'
   --QoL plugins
