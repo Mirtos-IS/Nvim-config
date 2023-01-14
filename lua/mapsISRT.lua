@@ -9,11 +9,13 @@ vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
 vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
 vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
 
+--fixing some quirks with langmap
 vim.keymap.set('n', '<C-l>', '<C-o>', {})
 vim.keymap.set('n', '<C-i>', '<C-i>', {})
+vim.keymap.set('n', '<C-k>', '<C-a>', {})
 
-vim.keymap.set({'n', 'v'}, '<C-o>', '<C-b>', {remap = true})
-vim.keymap.set({'n', 'v'}, '<C-e>', '<C-f>', {remap = true})
+vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>', {remap = true})
+vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>', {remap = true})
 
 --Ctags
 vim.keymap.set('', '<leader>w[',':vs<CR>:ta <C-R><C-w><CR>', {})
@@ -79,15 +81,17 @@ vim.keymap.set('n', '<C-n>', 'zH', {})
 vim.keymap.set('n', '<M-h>', '<cmd>bp<CR>', {})
 vim.keymap.set('n', '<M-l>', '<cmd>bn<CR>', {})
 vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
+
+--fuzzy finder
 vim.keymap.set('n', '<F3>', '<cmd>TFile<CR>', {})
 vim.keymap.set('n', '<F6>', '<cmd>Rg<CR>', {})
 
 --window shortcuts
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
 
---auto put ; to the end of line
+--auto add ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
-vim.keymap.set('i', '<M-;>', '<ESC>A;', {})
+vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 
 --call cmp select in current word
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
@@ -148,4 +152,6 @@ vim.keymap.set('n', '<leader>tc', '<cmd>SailCloseTest<CR>', {silent=true})
 --langmap is cringe, so do this piece or code
 vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
 vim.keymap.set('n', '@', ':set langremap<CR>@', {silent=true})
+
+vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
 

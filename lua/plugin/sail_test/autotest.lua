@@ -21,7 +21,7 @@ function OpenTerminal()
     if bufnr > -1 then
       vim.api.nvim_buf_delete(bufnr, {force=true})
     end
-    vim.cmd('split | term')
+    vim.cmd('vsplit | term')
     vim.cmd('sleep 500m')
     bufnr = vim.api.nvim_get_current_buf()
     win = vim.api.nvim_get_current_win()

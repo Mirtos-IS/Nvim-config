@@ -11,7 +11,7 @@ vim.o.ruler = true
 vim.o.hlsearch = false
 vim.o.splitright = true
 vim.o.splitbelow = true
-vim.o.mouse='a'
+vim.o.mouse=false
 vim.o.wrap = false
 vim.o.autochdir = true
 vim.o.tabstop=4
@@ -37,7 +37,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt_local.relativenumber = false
   end
 })
-        
 
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = {'*.lua', '*.vue', '*.js', '*.vim'},
