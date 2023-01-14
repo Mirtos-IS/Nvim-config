@@ -147,7 +147,6 @@ vim.api.nvim_create_autocmd({"TermOpen"}, {
 })
 
 vim.keymap.set('n', '<leader>tf', '<cmd>SailRunTest<CR>', {silent=true})
-vim.keymap.set('n', '<leader>tc', '<cmd>SailCloseTest<CR>', {silent=true})
 
 --langmap is cringe, so do this piece or code
 vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
