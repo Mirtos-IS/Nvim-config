@@ -123,7 +123,7 @@ vim.keymap.set('t', '<esc>', '<C-\\><C-N>', {})
 --exit toggleterm with esc
 function Set_terminal_keymaps()
     local opts = {buffer = 0}
-    vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", opts)
+    -- vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", opts)
 end
 
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')

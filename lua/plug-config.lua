@@ -121,6 +121,7 @@ require('nvim-treesitter.configs').setup{
 require("toggleterm").setup{
   open_mapping = [[<C-t>]],
   hide_number = true,
+  persist_mode = false,
   start_in_insert = true,
   direction = 'float',
   terminal_mappings = true,
