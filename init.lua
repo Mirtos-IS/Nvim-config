@@ -6,9 +6,7 @@
   --colorscheme
   use 'tomasiser/vim-code-dark'
   --fancy airline
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
-  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
   use 'tiagovla/scope.nvim'
   --fancy icons
   use 'ryanoasis/vim-devicons'
@@ -20,7 +18,7 @@
   use 'moll/vim-bbye'
   use 'psliwka/vim-smoothie' --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
   --php plugins
-  use 'adoy/vim-php-refactoring-toolbox'
+  -- use 'adoy/vim-php-refactoring-toolbox'
   --debug
   use 'mfussenegger/nvim-dap'
   use "rcarriga/nvim-dap-ui"
@@ -54,12 +52,14 @@
 
 end)
 
-require("mapsISRT")
-require("plug-config")
-require("config")
 
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 vim.cmd('source ~/.config/nvim/vimscript/commands.vim')
 vim.cmd('source ~/.config/nvim/vimscript/snippets.vim')
 vim.cmd('source ~/.config/nvim/vimscript/view.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugin-config.vim')
+
+require("mapsISRT")
+require("plug-config")
+require("config")
+require("view")

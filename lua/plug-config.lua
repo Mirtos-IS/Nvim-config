@@ -7,14 +7,6 @@ require("focus").setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("bufferline").setup({
-  options = {
-    separator_style = 'slant',
-    -- separator_style = {"", ""},
-  },
-})
-require("scope").setup()
-
 require("mason-lspconfig").setup_handlers {
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
@@ -44,10 +36,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>pa', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 end
-
-require'lspconfig'.tsserver.setup{}
-
-require'lspconfig'.vuels.setup{}
 
 require'lspconfig'.sumneko_lua.setup {
   settings = {
@@ -243,10 +231,6 @@ require('lspconfig')['intelephense'].setup {
 --   on_attach = on_attach,
 --   capabilities = capabilities
 -- }
-require('lspconfig')['vuels'].setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
 
 local dap = require'dap'
 dap.adapters.php = {
@@ -311,3 +295,5 @@ require'nvim-treesitter.configs'.setup {
 require('Comment').setup {
   sticky = true,
 }
+
+require('view')

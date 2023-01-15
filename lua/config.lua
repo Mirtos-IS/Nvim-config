@@ -4,13 +4,14 @@ vim.o.completeopt='menu,menuone,noselect'
 
 vim.o.showcmd = true
 vim.o.scrolloff = 10
-vim.opt.iskeyword:append('$')
+vim.opt.iskeyword:append('$,-,@')
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.ruler = true
 vim.o.hlsearch = false
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.laststatus=3
 vim.o.mouse=false
 vim.o.wrap = false
 vim.o.autochdir = true

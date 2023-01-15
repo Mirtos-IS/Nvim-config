@@ -10,14 +10,10 @@ vim.api.nvim_create_user_command("SailRunTest", function()
 end,{})
 
 function OpenTerminal(file_dir)
-    local command = UseCommands(file_dir)
-    vim.cmd("2TermExec cmd='clear && "..command.."' dir=$WORK direction=vertical size=60" )
+    local cmd = 'clear && sail test '
+    local command = cmd .. file_dir
+    vim.cmd("2TermExec cmd='"..command.."' dir=$WORK direction=vertical")
   end
-
-function UseCommands(file_dir)
-  local cmd = 'sail test '
-  return cmd .. file_dir
-end
 
 function GetTestFileDir()
   local file_full_dir = vim.fn.expand('%:p')

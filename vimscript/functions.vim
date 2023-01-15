@@ -48,3 +48,7 @@
       endfunction
       call fzf#vim#files(dir, spec)
     endfunction
+
+    function IsModified()
+      return getbufinfo('%')[0].changed > 0
+    endfunction

@@ -8,6 +8,7 @@ vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
 --swapping movemente keys to jklç
 vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
 vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
+vim.keymap.set('n', '<space>m', vim.diagnostic.open_float,{})
 
 --fixing some quirks with langmap
 vim.keymap.set('n', '<C-l>', '<C-o>', {})
@@ -122,11 +123,12 @@ vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
 vim.keymap.set('t', '<esc>', '<C-\\><C-N>', {})
 --exit toggleterm with esc
 function Set_terminal_keymaps()
-    local opts = {buffer = 0}
-    -- vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", opts)
+    vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", {buffer=true})
 end
 
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
+
+vim.keymap.set('n','<leader>tt',':2ToggleTerm<CR>',{silent=true})
 
 --use my checklist plugin
 require('plugin.todolist.window')
