@@ -8,3 +8,6 @@
     command! -nargs=* TFile call TFile(<q-args>)
 " " Ctags in project root file async
 "     command! -nargs=? Ctags call Ctags(<q-args>)
+
+au InsertEnter * call clearmatches()
+au InsertLeave * match ExtraWhiteSpace /\s\+$/

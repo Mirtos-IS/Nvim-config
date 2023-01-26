@@ -1,1 +1,1 @@
-:ConnectContractorToPropertyEventListener->why the contractor timezone is updated here?:u
+Chat hardcoded in bidlandingpage, contractor picture

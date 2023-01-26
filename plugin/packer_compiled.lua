@@ -74,25 +74,15 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
-  },
-  ["PHP-Indenting-for-VIm"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/PHP-Indenting-for-VIm",
-    url = "https://github.com/2072/PHP-Indenting-for-VIm"
-  },
-  ["PHPUnit.vim"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/PHPUnit.vim",
-    url = "https://github.com/Mirtos-IS/PHPUnit.vim"
-  },
-  ["auto-ctags-cmd.vim"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/auto-ctags-cmd.vim",
-    url = "https://github.com/Mirtos-IS/auto-ctags-cmd.vim"
   },
   ["cmp-buffer"] = {
     loaded = true,
@@ -124,6 +114,12 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/emmet-vim",
     url = "https://github.com/mattn/emmet-vim"
   },
+  ["focus.nvim"] = {
+    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0" },
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/focus.nvim",
+    url = "https://github.com/beauwilliams/focus.nvim"
+  },
   ["fzf.vim"] = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/fzf.vim",
@@ -139,10 +135,20 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/hop.nvim",
     url = "https://github.com/phaazon/hop.nvim"
   },
-  ["kmonad-vim"] = {
+  ["lualine.nvim"] = {
     loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/kmonad-vim",
-    url = "https://github.com/kmonad/kmonad-vim"
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["mason-lspconfig.nvim"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
+  },
+  ["mason.nvim"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -184,20 +190,31 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
-  ["phpfolding.vim"] = {
+  playground = {
     loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/phpfolding.vim",
-    url = "https://github.com/rayburgemeestre/phpfolding.vim"
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/playground",
+    url = "https://github.com/nvim-treesitter/playground"
   },
-  semshi = {
+  ["scope.nvim"] = {
     loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/semshi",
-    url = "https://github.com/numirias/semshi"
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/scope.nvim",
+    url = "https://github.com/tiagovla/scope.nvim"
   },
   ["telescope-dap.nvim"] = {
     loaded = true,
@@ -209,16 +226,6 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["vim-airline"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-airline",
-    url = "https://github.com/vim-airline/vim-airline"
-  },
-  ["vim-airline-themes"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-airline-themes",
-    url = "https://github.com/vim-airline/vim-airline-themes"
-  },
   ["vim-bbye"] = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-bbye",
@@ -229,25 +236,20 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-code-dark",
     url = "https://github.com/tomasiser/vim-code-dark"
   },
-  ["vim-commentary"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-commentary",
-    url = "https://github.com/tpope/vim-commentary"
-  },
   ["vim-devicons"] = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-devicons",
     url = "https://github.com/ryanoasis/vim-devicons"
   },
-  ["vim-php-refactoring-toolbox"] = {
+  ["vim-fugitive"] = {
     loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-php-refactoring-toolbox",
-    url = "https://github.com/adoy/vim-php-refactoring-toolbox"
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   },
-  ["vim-polyglot"] = {
+  ["vim-repeat"] = {
     loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-polyglot",
-    url = "https://github.com/sheerun/vim-polyglot"
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
   },
   ["vim-smoothie"] = {
     loaded = true,
@@ -267,6 +269,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: focus.nvim
+time([[Config for focus.nvim]], true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
+time([[Config for focus.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

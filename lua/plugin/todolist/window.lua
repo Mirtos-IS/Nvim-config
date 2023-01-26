@@ -14,7 +14,6 @@ function Open_win()
   local col = math.ceil((width - win_width) / 2)
 
   local opts = {
-    style = 'minimal',
     relative = "editor",
     width = win_width,
     height = win_height,

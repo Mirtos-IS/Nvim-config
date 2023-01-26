@@ -4,7 +4,7 @@ vim.o.completeopt='menu,menuone,noselect'
 
 vim.o.showcmd = true
 vim.o.scrolloff = 10
-vim.opt.iskeyword:append('$,-,@')
+vim.opt.iskeyword:append('$,-,@,#')
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.ruler = true
@@ -14,6 +14,8 @@ vim.o.splitbelow = true
 vim.o.laststatus=3
 vim.o.mouse=false
 vim.o.wrap = false
+vim.o.pumblend = 30
+vim.o.pumheight = 15
 vim.o.autochdir = true
 vim.o.tabstop=4
 vim.o.softtabstop=4
@@ -40,7 +42,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = {'*.lua', '*.vue', '*.js', '*.vim'},
+  pattern = {'*.lua', '*.vue', '*.js', '*.vim', '*.blade.php'},
   callback = function ()
     vim.opt_local.tabstop=2
     vim.opt_local.softtabstop=2
