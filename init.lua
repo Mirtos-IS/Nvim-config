@@ -1,4 +1,4 @@
-  require('packer').startup(function(use)
+require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   --fuzzy finder
   use 'junegunn/fzf.vim'

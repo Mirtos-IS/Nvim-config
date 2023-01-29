@@ -22,9 +22,6 @@ vim.keymap.set('n', '<C-k>', '<C-a>', {})
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>', {remap = true})
 
---Ctags
-vim.keymap.set('', '<leader>w[',':vs<CR>:ta <C-R><C-w><CR>', {})
-
 --<leader>w for quick win movement
 vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
@@ -85,12 +82,12 @@ vim.keymap.set('n', '<C-n>', 'zH', {})
 --tab shortcuts
 vim.keymap.set('n', '<leader>th', '<cmd>tabnew<CR>', {silent=true})
 vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
-vim.keymap.set('n', '<leader>h', '<cmd>tabp<CR>', {silent=true})
-vim.keymap.set('n', '<leader>l', '<cmd>tabn<CR>', {silent=true})
+vim.keymap.set('n', '<leader>h', '<cmd>keepjumps tabp<CR>', {silent=true})
+vim.keymap.set('n', '<leader>l', '<cmd>keepjumps tabn<CR>', {silent=true})
 
 --buffer shortcuts
-vim.keymap.set('n', '<M-h>', '<cmd>bp<CR>', {})
-vim.keymap.set('n', '<M-l>', '<cmd>bn<CR>', {})
+vim.keymap.set('n', '<M-h>', '<cmd>keepjumps bp<CR>', {})
+vim.keymap.set('n', '<M-l>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
@@ -139,7 +136,7 @@ end
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 
 vim.keymap.set('n','<C-t>',':1ToggleTerm<CR>',{silent=true})
-vim.keymap.set('n','<M-t>',':2ToggleTerm direction=vertical<CR>',{silent=true})
+-- vim.keymap.set('n','<M-t>',':2ToggleTerm direction=vertical<CR>',{silent=true})
 
 --use my checklist plugin
 require('plugin.todolist.window')
@@ -161,9 +158,27 @@ vim.api.nvim_create_autocmd({"TermOpen"}, {
 
 vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
 
---langmap is cringe, so do this piece or code
+--langmap is cringe, so do this piece on code
 vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
-vim.keymap.set('n', '@', ':set langremap<CR>@', {silent=true})
+vim.keymap.set('n', '@',function ()
+  vim.o.langremap=true
+  return '@'
+end, {silent=true, expr=true})
 
 vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
 
+local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+for i = 1, string.len(all_letter) do
+  local char = string.sub(all_letter, i, i)
+  if (char == char:upper()) then
+    local char_lower = char:lower()
+    vim.keymap.set('n', 'm'.. char, 'm'..char_lower, {})
+    vim.keymap.set('n', "'".. char, "'"..char_lower, {})
+  else
+    local char_upper = char:upper()
+    vim.keymap.set('n', 'm'.. char, 'm'..char_upper, {})
+    vim.keymap.set('n', "'".. char, "'"..char_upper, {})
+  end
+
+end
