@@ -68,3 +68,6 @@ vim.api.nvim_set_hl(0, '@function.call.lua', {fg='#dcdcaa'})
 vim.api.nvim_set_hl(0, 'ExtraWhiteSpace', {bg='darkred'})
 vim.api.nvim_set_hl(0, 'YankHighlight', {bg='#267683'})
 vim.api.nvim_set_hl(0, 'HighlightedyankRegion', {bg='white'})
+
+--telescope
+vim.api.nvim_set_hl(0, 'TelescopeBorder', {fg='#639ccf'})

@@ -44,7 +44,7 @@ require('packer').startup(function(use)
   use 'akinsho/toggleterm.nvim'
   use 'phaazon/hop.nvim'
   use 'dstein64/vim-startuptime'
-  use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
+  use "beauwilliams/focus.nvim"
   --git plugins
   use 'f-person/git-blame.nvim'
   use 'tpope/vim-fugitive'
@@ -52,7 +52,6 @@ end)
 
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 vim.cmd('source ~/.config/nvim/vimscript/commands.vim')
-vim.cmd('source ~/.config/nvim/vimscript/snippets.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugin-config.vim')
 
 require("maps")

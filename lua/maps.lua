@@ -91,8 +91,14 @@ vim.keymap.set('n', '<M-l>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
-vim.keymap.set('n', '<F3>', '<cmd>lua require("telescope.builtin").find_files()<CR>', {})
-vim.keymap.set('n', '<F6>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', {})
+vim.keymap.set('n', '<F3>',function ()
+  vim.o.langremap=false
+  return '<cmd>lua require("telescope.builtin").find_files()<CR>'
+end, {silent=true, expr=true})
+vim.keymap.set('n', '<F6>',function ()
+  vim.o.langremap=false
+  return '<cmd>lua require("telescope.builtin").live_grep()<CR>'
+end, {silent=true, expr=true})
 
 --window shortcuts
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
@@ -159,7 +165,6 @@ end, {silent=true, expr=true})
 
 vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
 
---invert so lower case letter are global marks
 local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 for i = 1, string.len(all_letter) do
@@ -174,3 +179,9 @@ for i = 1, string.len(all_letter) do
     vim.keymap.set('n', "'".. char, "'"..char_upper, {})
   end
 end
+
+--more mark QoL stuff
+vim.keymap.set('n', '<M-t>', "'T", {silent=true})
+vim.keymap.set('n', '<M-r>', "'R", {silent=true})
+vim.keymap.set('n', '<M-s>', "'S", {silent=true})
+vim.keymap.set('n', '<M-i>', "'I", {silent=true})
