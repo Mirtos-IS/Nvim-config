@@ -91,8 +91,8 @@ vim.keymap.set('n', '<M-l>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
-vim.keymap.set('n', '<F3>', '<cmd>TFile<CR>', {})
-vim.keymap.set('n', '<F6>', '<cmd>Rg<CR>', {})
+vim.keymap.set('n', '<F3>', '<cmd>lua require("telescope.builtin").find_files()<CR>', {})
+vim.keymap.set('n', '<F6>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', {})
 
 --window shortcuts
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
@@ -147,15 +147,7 @@ function Set_checklist_keymaps()
 end
 vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')
 
---currently you need langnoremap to my fzf hack to work properly
-vim.api.nvim_create_autocmd({"TermOpen"}, {
-  pattern = {"*#FZF"},
-  callback = function()
-    vim.o.langremap = false
-    vim.keymap.set('t', '<ESC>', '<ESC>', {buffer=true})
-  end,
-})
-
+--keymap for my sail plugin
 vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
 
 --langmap is cringe, so do this piece on code
@@ -167,6 +159,7 @@ end, {silent=true, expr=true})
 
 vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
 
+--invert so lower case letter are global marks
 local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 for i = 1, string.len(all_letter) do
@@ -180,5 +173,4 @@ for i = 1, string.len(all_letter) do
     vim.keymap.set('n', 'm'.. char, 'm'..char_upper, {})
     vim.keymap.set('n', "'".. char, "'"..char_upper, {})
   end
-
 end

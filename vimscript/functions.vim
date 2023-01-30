@@ -16,39 +16,6 @@
         endif
     endfunction
 
-"FZF_action remapping
-    let g:fzf_action = {
-        \ 'alt-s': 'split',
-        \ 'alt-v': 'vsplit'}
-
-"FZF function to allow FZF go up to parent dir
-    function! TFile(dir)
-      if empty(a:dir)
-        let dir = getcwd()
-      else
-        let dir = a:dir
-      endif
-      let parentdir = fnamemodify(dir, ':h')
-      let spec = fzf#wrap(fzf#vim#with_preview({'options': ['--expect', 'left'] }))
-
-      " hack to retain original sink used by fzf#vim#files
-      let origspec = copy(spec)
-
-      unlet spec.sinklist
-      unlet spec['sink*']
-      function spec.sinklist(lines) closure
-        if len(a:lines) < 2
-          return
-        endif
-        if a:lines[0] == 'left'
-          call TFile(parentdir)
-        else
-          call origspec.sinklist(a:lines)
-        end
-      endfunction
-      call fzf#vim#files(dir, spec)
-    endfunction
-
     function IsModified()
       return getbufinfo('%')[0].changed > 0
     endfunction

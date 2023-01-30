@@ -1,15 +1,14 @@
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   --fuzzy finder
-  use 'junegunn/fzf.vim'
   use 'mattn/emmet-vim'
+  use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { {'nvim-lua/plenary.nvim'} } }
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   --colorscheme
   use 'tomasiser/vim-code-dark'
   --fancy airline
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
   use 'tiagovla/scope.nvim'
-  --fancy icons
-  use 'ryanoasis/vim-devicons'
   --QoL plugins
   use 'tpope/vim-surround'
   use 'numToStr/Comment.nvim'
@@ -49,9 +48,7 @@ require('packer').startup(function(use)
   --git plugins
   use 'f-person/git-blame.nvim'
   use 'tpope/vim-fugitive'
-
 end)
-
 
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 vim.cmd('source ~/.config/nvim/vimscript/commands.vim')

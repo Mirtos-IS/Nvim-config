@@ -34,7 +34,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>pa', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', bufopts)
 end
 
 require'lspconfig'.sumneko_lua.setup {
@@ -288,4 +288,45 @@ require'nvim-treesitter.configs'.setup {
 require('Comment').setup {
   sticky = true,
 }
+local builtin = require('telescope.builtin')
+local actions = require("telescope.actions")
+require('telescope').setup({
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close
+      },
+    },
+  },
+  pickers = {
+    live_grep = {
+      mappings = {
+        i = {
+          ["<LEFT>"] = function(prompt_bufnr)
+            local dir = vim.fn.expand("%:p:h:h")
+            require("telescope.actions").close(prompt_bufnr)
+            vim.cmd(string.format("silent cd %s", dir))
+            builtin.live_grep()
+          end
+        }
+      }
+    },
+    find_files = {
+      mappings = {
+        i = {
+          ["<LEFT>"] = function(prompt_bufnr)
+            local dir = vim.fn.expand("%:p:h:h")
+            require("telescope.actions").close(prompt_bufnr)
+            vim.cmd(string.format("silent cd %s", dir))
+            builtin.find_files()
+          end
+        }
+      }
+    },
+  }
+})
+
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+
+require('telescope').load_extension('fzf')
 require('view')
