@@ -7,28 +7,16 @@ require("focus").setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("mason-lspconfig").setup_handlers {
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each installed server that doesn't have
-  -- a dedicated handler.
-  function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {}
-  end,
-  -- Next, you can provide a dedicated handler for specific servers.
-  -- For example, a handler override for the `rust_analyzer`:
-  ["rust_analyzer"] = function ()
-    require("rust-tools").setup {}
-  end
-}
 
-local on_attach = function(client, bufnr)
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=false, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
@@ -37,7 +25,18 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', bufopts)
 end
 
+require("mason-lspconfig").setup_handlers {
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup {
+      on_attach = on_attach,
+      capabilities = capabilities
+    }
+  end,
+}
+
 require'lspconfig'.sumneko_lua.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -222,16 +221,6 @@ cmp.setup.cmdline(':', {
 })
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['intelephense'].setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
--- require('lspconfig')['sumneko_lua'].setup {
---   on_attach = on_attach,
---   capabilities = capabilities
--- }
 
 local dap = require'dap'
 dap.adapters.php = {
@@ -307,6 +296,14 @@ require('telescope').setup({
             require("telescope.actions").close(prompt_bufnr)
             vim.cmd(string.format("silent cd %s", dir))
             builtin.live_grep()
+          end,
+          ["<RIGHT>"] = function(prompt_bufnr)
+            local selection = require("telescope.actions.state").get_selected_entry()
+            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+            require("telescope.actions").close(prompt_bufnr)
+            -- Depending on what you want put `cd`, `lcd`, `tcd`
+            vim.cmd(string.format("silent cd %s", dir))
+            builtin.live_grep()
           end
         }
       }
@@ -317,6 +314,14 @@ require('telescope').setup({
           ["<LEFT>"] = function(prompt_bufnr)
             local dir = vim.fn.expand("%:p:h:h")
             require("telescope.actions").close(prompt_bufnr)
+            vim.cmd(string.format("silent cd %s", dir))
+            builtin.find_files()
+          end,
+          ["<RIGHT>"] = function(prompt_bufnr)
+            local selection = require("telescope.actions.state").get_selected_entry()
+            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+            require("telescope.actions").close(prompt_bufnr)
+            -- Depending on what you want put `cd`, `lcd`, `tcd`
             vim.cmd(string.format("silent cd %s", dir))
             builtin.find_files()
           end

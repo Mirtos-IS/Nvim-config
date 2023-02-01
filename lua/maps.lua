@@ -26,7 +26,7 @@ vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>', {remap = true})
 vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 --lsp
-vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition, {silent=true})
+vim.keymap.set('n', '<leader>g', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', {silent=true})
 
 --deleting without yank
 vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
@@ -155,6 +155,7 @@ vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')
 
 --keymap for my sail plugin
 vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
+vim.keymap.set('n', '<leader>st', '<cmd>SailTinker<CR>', {silent=true})
 
 --langmap is cringe, so do this piece on code
 vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
@@ -170,13 +171,11 @@ local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 for i = 1, string.len(all_letter) do
   local char = string.sub(all_letter, i, i)
   if (char == char:upper()) then
-    local char_lower = char:lower()
-    vim.keymap.set('n', 'm'.. char, 'm'..char_lower, {})
-    vim.keymap.set('n', "'".. char, "'"..char_lower, {})
+    vim.keymap.set('n', 'm'.. char, 'm'..char:lower(), {})
+    vim.keymap.set('n', "'".. char, "'"..char:lower(), {})
   else
-    local char_upper = char:upper()
-    vim.keymap.set('n', 'm'.. char, 'm'..char_upper, {})
-    vim.keymap.set('n', "'".. char, "'"..char_upper, {})
+    vim.keymap.set('n', 'm'.. char, 'm'..char:upper(), {})
+    vim.keymap.set('n', "'".. char, "'"..char:upper(), {})
   end
 end
 
@@ -185,3 +184,6 @@ vim.keymap.set('n', '<M-t>', "'T", {silent=true})
 vim.keymap.set('n', '<M-r>', "'R", {silent=true})
 vim.keymap.set('n', '<M-s>', "'S", {silent=true})
 vim.keymap.set('n', '<M-i>', "'I", {silent=true})
+
+--some reg magic to get the name of the file
+vim.cmd("let @*=expand('%:r').' '")

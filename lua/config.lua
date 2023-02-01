@@ -48,3 +48,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.opt_local.shiftwidth=2
   end
 })
+
+vim.api.nvim_create_user_command('MyConfig', function ()
+    require('telescope.builtin').nvim_files()
+end
+, {})

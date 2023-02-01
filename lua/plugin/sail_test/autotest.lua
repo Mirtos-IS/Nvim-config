@@ -14,11 +14,12 @@ vim.api.nvim_create_user_command("SailTinker", function ()
   print(tinkerBufnr)
   if tinkerBufnr > -1 then
     local text = vim.api.nvim_buf_get_lines(tinkerBufnr, 0, 1, 0)[1]
-    print(text)
     local isOpen = string.find(text, '>>>')
     local isOpen2 = string.find(text, 'Psy Shell')
-    print(isOpen ~= nil or isOpen2 ~= nil)
-    return
+    if isOpen ~= nil or isOpen2 ~= nil then
+      vim.cmd("2ToggleTerm")
+      return
+    end
   end
   local command = 'clear && sail tinker'
   OpenTerminal(command)

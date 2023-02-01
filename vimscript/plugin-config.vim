@@ -6,23 +6,15 @@ autocmd FileType html,css,php,blade,blade.php EmmetInstall
 let g:user_emmet_leader_key='<C-,>'
 
 "PHP-Refactoting-toolbox
-let g:vim_php_refactoring_auto_validate_sg = 1
-let g:vim_php_refactoring_use_default_mapping = 0
-let g:vim_php_refactoring_auto_validate_g = 1
+" let g:vim_php_refactoring_auto_validate_sg = 1
+" let g:vim_php_refactoring_use_default_mapping = 0
+" let g:vim_php_refactoring_auto_validate_g = 1
 
-"FZF
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
-hi BorderFZF guibg=#428CD6
-
-let g:fzf_colors = {'border': ['bg', 'BorderFZF' ]}
-
-
-
-" changing location of phpunit files
-let g:phpunit_test_root = 'tests/Unit'
-let g:phpunit_src_root = 'turnouverbnb-web'
-let g:phpunit_bin = 'vendor/bin/phpunit'
-let g:phpunit_options = []
+" " changing location of phpunit files
+" let g:phpunit_test_root = 'tests/Unit'
+" let g:phpunit_src_root = 'turnouverbnb-web'
+" let g:phpunit_bin = 'vendor/bin/phpunit'
+" let g:phpunit_options = []
 
 " GitBlame plugin
 let g:gitblame_enabled = 0
