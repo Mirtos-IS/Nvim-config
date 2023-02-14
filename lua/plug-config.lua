@@ -251,8 +251,6 @@ require("nvim-dap-virtual-text").setup{
 }
 require("dapui").setup()
 
-require("plugin.sail_test.autotest")
-
 require'nvim-treesitter.configs'.setup {
   textobjects = {
     move = {
@@ -334,4 +332,11 @@ require('telescope').setup({
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 
 require('telescope').load_extension('fzf')
+require 'colorizer'.setup({
+ user_default_options = {
+    mode = "virtualtext"
+  }
+})
+
+require("plugin.sail_test.commands")
 require('view')

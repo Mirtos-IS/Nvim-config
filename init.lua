@@ -6,7 +6,7 @@ require('packer').startup(function(use)
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   --colorscheme
   use 'tomasiser/vim-code-dark'
-  --fancy airline
+  --fancy lualine
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
   use 'tiagovla/scope.nvim'
   --QoL plugins
@@ -16,6 +16,7 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'moll/vim-bbye'
   use 'psliwka/vim-smoothie' --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
+  use 'NvChad/nvim-colorizer.lua'
   --php plugins
   -- use 'adoy/vim-php-refactoring-toolbox'
   --debug

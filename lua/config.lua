@@ -3,7 +3,7 @@ vim.o.completeopt='menu,menuone,noselect'
 --load vimscript stuff
 vim.o.showcmd = true
 vim.o.scrolloff = 10
-vim.opt.iskeyword:append('$,-,@,#')
+vim.opt.iskeyword:append('$,@,#')
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.ruler = true
@@ -50,6 +50,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 vim.api.nvim_create_user_command('MyConfig', function ()
-    require('telescope.builtin').nvim_files()
+    require('telescope.builtin').nvim_files(require('telescope.themes').get_dropdown({winblend = 50}))
 end
 , {})

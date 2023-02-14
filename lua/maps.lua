@@ -26,7 +26,7 @@ vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>', {remap = true})
 vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 --lsp
-vim.keymap.set('n', '<leader>g', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', {silent=true})
+vim.keymap.set('n', '<leader>g', function () require("telescope.builtin").lsp_definitions() end, {silent=true})
 
 --deleting without yank
 vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
@@ -156,6 +156,7 @@ vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')
 --keymap for my sail plugin
 vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
 vim.keymap.set('n', '<leader>st', '<cmd>SailTinker<CR>', {silent=true})
+vim.keymap.set('n', '<leader>sm', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
 
 --langmap is cringe, so do this piece on code
 vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
@@ -184,6 +185,3 @@ vim.keymap.set('n', '<M-t>', "'T", {silent=true})
 vim.keymap.set('n', '<M-r>', "'R", {silent=true})
 vim.keymap.set('n', '<M-s>', "'S", {silent=true})
 vim.keymap.set('n', '<M-i>', "'I", {silent=true})
-
---some reg magic to get the name of the file
-vim.cmd("let @*=expand('%:r').' '")

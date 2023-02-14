@@ -1,17 +1,31 @@
+require('plugin.sail_test.functions')
+
+local notify = require("notify")
 local tinkerBufnr = -1
+
 vim.api.nvim_create_user_command("SailRunTest", function()
   local file_name = vim.fn.expand('%:t')
   local is_php_test = string.find(file_name, '.*Test.php')
   if is_php_test == nil then
-    print('This is not a php file')
+    notify('This is not a php file')
     return
   end
   local command = GetTestCommand()
-  OpenTerminal(command)
+  OpenTerminal(command, 3)
+end,{})
+
+vim.api.nvim_create_user_command("SailTestCurrentMethod", function()
+  local file_name = vim.fn.expand('%:t')
+  local is_php_test = string.find(file_name, '.*Test.php')
+  if is_php_test == nil then
+    notify('This is not a php file')
+    return
+  end
+
+  RunTestCurrentMethod()
 end,{})
 
 vim.api.nvim_create_user_command("SailTinker", function ()
-  print(tinkerBufnr)
   if tinkerBufnr > -1 then
     local text = vim.api.nvim_buf_get_lines(tinkerBufnr, 0, 1, 0)[1]
     local isOpen = string.find(text, '>>>')
@@ -27,14 +41,3 @@ vim.api.nvim_create_user_command("SailTinker", function ()
   tinkerBufnr = vim.api.nvim_win_get_buf(0)
 
 end,{})
-
-function OpenTerminal(command)
-    vim.cmd("2TermExec cmd='"..command.."' dir=$WORK direction=vertical")
-  end
-
-function GetTestCommand()
-  local file_full_dir = vim.fn.expand('%:p')
-  local file_test_dir = string.gsub(file_full_dir, '.*tests', 'tests')
-  local cmd = 'clear && sail test '
-  return cmd .. file_test_dir
-end
