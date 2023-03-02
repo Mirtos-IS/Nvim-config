@@ -1,8 +1,8 @@
-require("focus").setup({
-  cursorline = false,
-  relativenumber = false,
-  width = 110,
-})
+-- require("focus").setup({
+--   cursorline = false,
+--   relativenumber = false,
+--   width = 110,
+-- })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -34,7 +34,7 @@ require("mason-lspconfig").setup_handlers {
   end,
 }
 
-require'lspconfig'.sumneko_lua.setup {
+require'lspconfig'.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -45,7 +45,7 @@ require'lspconfig'.sumneko_lua.setup {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = {'vim', 'widget', 'volume_now', 'bat_now', 'root', 'awesome'},
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -338,5 +338,6 @@ require 'colorizer'.setup({
   }
 })
 
+require('plugin.todolist.window')
 require("plugin.sail_test.commands")
 require('view')

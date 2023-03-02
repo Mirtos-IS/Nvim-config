@@ -2,17 +2,12 @@ vim.g.mapleader = ' '
 
 vim.keymap.set('n', '<leader><leader>s', ':so %<CR>', {})
 vim.keymap.set('n', '<leader><leader>a', ':so $MYVIMRC<CR>', {})
--- place this in one of your configuration file(s)
+
 vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
 
 --swapping movemente keys to jklç
 vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
 vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
-vim.keymap.set('n', '<space>m', vim.diagnostic.open_float,{})
-
-vim.keymap.set('', '<LeftMouse>', '', {})
-vim.keymap.set('', '<RightMouse>', '', {})
-vim.keymap.set('', '<MiddleMouse>', '', {})
 
 --fixing some quirks with langmap
 vim.keymap.set('n', '<C-l>', '<C-o>', {})
@@ -27,9 +22,11 @@ vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 --lsp
 vim.keymap.set('n', '<leader>g', function () require("telescope.builtin").lsp_definitions() end, {silent=true})
+vim.keymap.set('n', '<space>m', vim.diagnostic.open_float,{})
 
 --deleting without yank
 vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
+vim.keymap.set({'n', 'v'}, 'c', '"_c', {})
 
 --paste without yank
 vim.keymap.set('v', 'p', '"_dp', {})
@@ -43,7 +40,7 @@ vim.keymap.set({'n', 'v'}, '<C-p>', '"+p',{})
 --make life easier with inner motion
 vim.keymap.set({'n', 'v'}, '<leader>y', 'yi',{})
 vim.keymap.set({'n', 'v'}, '<leader>v', 'vi',{})
-vim.keymap.set({'n', 'v'}, '<leader>c', 'ci',{})
+vim.keymap.set({'n', 'v'}, '<leader>c', '"_ci',{})
 vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{})
 
 --general shortcuts - <C-K> to get the true input
@@ -145,13 +142,19 @@ vim.keymap.set('n','<C-t>',':1ToggleTerm<CR>',{silent=true})
 -- vim.keymap.set('n','<M-t>',':2ToggleTerm direction=vertical<CR>',{silent=true})
 
 --use my checklist plugin
-require('plugin.todolist.window')
 --my ckecklist specific shortcuts
+vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
 vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
+
 function Set_checklist_keymaps()
   vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
 end
-vim.cmd('autocmd BufEnter *.md lua Set_checklist_keymaps()')
+
+function Set_todolist_keymaps()
+  vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
+end
+vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
+vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
 
 --keymap for my sail plugin
 vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})

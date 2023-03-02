@@ -3,7 +3,7 @@ local notify = require("notify")
 
 function OpenTerminal(command, term)
   term = term or 2
-    vim.cmd(term .. "TermExec cmd='"..command.."' dir=$WORK direction=vertical")
+    vim.cmd(term .. "TermExec cmd='"..command.."' dir=$WORK direction=vertical size=100")
   end
 
 function GetTestCommand(method)

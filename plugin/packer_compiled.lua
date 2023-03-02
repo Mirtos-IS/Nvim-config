@@ -114,17 +114,6 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/emmet-vim",
     url = "https://github.com/mattn/emmet-vim"
   },
-  ["focus.nvim"] = {
-    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0" },
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/focus.nvim",
-    url = "https://github.com/beauwilliams/focus.nvim"
-  },
-  ["fzf.vim"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/fzf.vim",
-    url = "https://github.com/junegunn/fzf.vim"
-  },
   ["git-blame.nvim"] = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
@@ -159,6 +148,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
+    url = "https://github.com/NvChad/nvim-colorizer.lua"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -211,6 +205,11 @@ _G.packer_plugins = {
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/playground",
     url = "https://github.com/nvim-treesitter/playground"
   },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    url = "https://github.com/nvim-lua/plenary.nvim"
+  },
   ["scope.nvim"] = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/scope.nvim",
@@ -220,6 +219,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim",
     url = "https://github.com/nvim-telescope/telescope-dap.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+  },
+  ["telescope.nvim"] = {
+    loaded = true,
+    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["toggleterm.nvim"] = {
     loaded = true,
@@ -235,11 +244,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-code-dark",
     url = "https://github.com/tomasiser/vim-code-dark"
-  },
-  ["vim-devicons"] = {
-    loaded = true,
-    path = "/home/mirtos/.local/share/nvim/site/pack/packer/start/vim-devicons",
-    url = "https://github.com/ryanoasis/vim-devicons"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -269,10 +273,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: focus.nvim
-time([[Config for focus.nvim]], true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
-time([[Config for focus.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

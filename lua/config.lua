@@ -16,6 +16,7 @@ vim.o.wrap = false
 vim.o.pumblend = 30
 vim.o.pumheight = 15
 vim.o.autochdir = true
+vim.o.cursorline = false
 vim.o.tabstop=4
 vim.o.softtabstop=4
 vim.o.shiftwidth=4

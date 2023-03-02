@@ -31,7 +31,7 @@ vim.api.nvim_create_user_command("SailTinker", function ()
     local isOpen = string.find(text, '>>>')
     local isOpen2 = string.find(text, 'Psy Shell')
     if isOpen ~= nil or isOpen2 ~= nil then
-      vim.cmd("2ToggleTerm")
+      vim.cmd("2ToggleTerm size=100")
       return
     end
   end

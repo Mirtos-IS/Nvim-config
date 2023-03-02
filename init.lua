@@ -45,7 +45,7 @@ require('packer').startup(function(use)
   use 'akinsho/toggleterm.nvim'
   use 'phaazon/hop.nvim'
   use 'dstein64/vim-startuptime'
-  use "beauwilliams/focus.nvim"
+  -- use "beauwilliams/focus.nvim"
   --git plugins
   use 'f-person/git-blame.nvim'
   use 'tpope/vim-fugitive'
