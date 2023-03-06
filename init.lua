@@ -1,55 +1,72 @@
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local plugins = {
+   -- 'wbthomason/packer.nvim',
   --fuzzy finder
-  use 'mattn/emmet-vim'
-  use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { {'nvim-lua/plenary.nvim'} } }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+   'mattn/emmet-vim',
+   { 'nvim-telescope/telescope.nvim', version = '0.1.1', dependencies = { {'nvim-lua/plenary.nvim'} } },
+   -- {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+   {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
   --colorscheme
-  use 'tomasiser/vim-code-dark'
+   'tomasiser/vim-code-dark',
   --fancy lualine
-  use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
-  use 'tiagovla/scope.nvim'
+   { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true } },
+   'tiagovla/scope.nvim',
   --QoL plugins
-  use 'tpope/vim-surround'
-  use 'numToStr/Comment.nvim'
-  use 'tpope/vim-repeat'
-  use 'windwp/nvim-autopairs'
-  use 'moll/vim-bbye'
-  use 'psliwka/vim-smoothie' --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
-  use 'NvChad/nvim-colorizer.lua'
+   'tpope/vim-surround',
+   'numToStr/Comment.nvim',
+   'tpope/vim-repeat',
+   'windwp/nvim-autopairs',
+   'moll/vim-bbye',
+   'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
+   'NvChad/nvim-colorizer.lua',
   --php plugins
-  -- use 'adoy/vim-php-refactoring-toolbox'
+  --  'adoy/vim-php-refactoring-toolbox'
   --debug
-  use 'mfussenegger/nvim-dap'
-  use "rcarriga/nvim-dap-ui"
-  use "theHamsta/nvim-dap-virtual-text"
-  use "nvim-telescope/telescope-dap.nvim"
+   'mfussenegger/nvim-dap',
+   "rcarriga/nvim-dap-ui",
+   "theHamsta/nvim-dap-virtual-text",
+   "nvim-telescope/telescope-dap.nvim",
   --lsp
-  use 'neovim/nvim-lspconfig'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/nvim-cmp'
-  use 'L3MON4D3/LuaSnip'
-  use 'saadparwaiz1/cmp_luasnip'
-  use "williamboman/mason.nvim"
-  use "williamboman/mason-lspconfig.nvim"
+   'neovim/nvim-lspconfig',
+   'hrsh7th/cmp-nvim-lsp',
+   'hrsh7th/cmp-buffer',
+   'hrsh7th/cmp-path',
+   'hrsh7th/cmp-cmdline',
+   'hrsh7th/nvim-cmp',
+   'L3MON4D3/LuaSnip',
+   'saadparwaiz1/cmp_luasnip',
+   "williamboman/mason.nvim",
+   "williamboman/mason-lspconfig.nvim",
   --fancy notification
-  use 'rcarriga/nvim-notify'
+   'rcarriga/nvim-notify',
   --treesitter
-  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'nvim-treesitter/playground'
+   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+   'nvim-treesitter/nvim-treesitter-textobjects',
+   'nvim-treesitter/playground',
   --random plugs
-  use 'akinsho/toggleterm.nvim'
-  use 'phaazon/hop.nvim'
-  use 'dstein64/vim-startuptime'
-  -- use "beauwilliams/focus.nvim"
+   'akinsho/toggleterm.nvim',
+   'phaazon/hop.nvim',
+   'dstein64/vim-startuptime',
+  --  "beauwilliams/focus.nvim"
   --git plugins
-  use 'f-person/git-blame.nvim'
-  use 'tpope/vim-fugitive'
-end)
+   {'f-person/git-blame.nvim', lazy = true},
+   'tpope/vim-fugitive'
+}
+local opts = {}
+
+require('lazy').setup(plugins, opts)
 
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 vim.cmd('source ~/.config/nvim/vimscript/commands.vim')

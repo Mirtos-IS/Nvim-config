@@ -31,7 +31,6 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldenable = false
 vim.o.swapfile = false
 vim.o.undofile = true
---vim.o.langremap = true
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -54,3 +53,37 @@ vim.api.nvim_create_user_command('MyConfig', function ()
     require('telescope.builtin').nvim_files(require('telescope.themes').get_dropdown({winblend = 50}))
 end
 , {})
+
+vim.api.nvim_create_autocmd('WinEnter', {
+  pattern = '*',
+  callback = function ()
+    local ui = vim.api.nvim_list_uis()[1]
+    local width = ui.width
+    if vim.api.nvim_win_get_config(0).zindex == nil then
+      if width > 140 then
+        vim.o.winwidth = math.floor(width/2)
+      else
+        vim.o.winwidth = math.floor(width * 2/3)
+      end
+      vim.cmd('wincmd =')
+    end
+
+  end
+})
+
+vim.api.nvim_create_autocmd('FocusGained', {
+  pattern = '*',
+  callback = function ()
+    local ui = vim.api.nvim_list_uis()[1]
+    local width = ui.width
+    if vim.api.nvim_win_get_config(0).zindex == nil then
+      if width > 140 then
+        vim.o.winwidth = math.floor(width/2)
+      else
+        vim.o.winwidth = math.floor(width * 2/3)
+      end
+    vim.cmd('wincmd =')
+    end
+
+  end
+})

@@ -1,7 +1,7 @@
 local buf, win
 
 --checklist
-function Open_win(win_h, win_w, style)
+function Open_win(win_h, win_w)
   buf = vim.api.nvim_create_buf(false, false)
 
   vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
@@ -17,10 +17,8 @@ function Open_win(win_h, win_w, style)
 
   local opts = {
     relative = "editor",
-    style = style or '',
     width = win_width,
     height = win_height,
-    anchor = 'NW',
     row = row,
     col = col,
     focusable = false,
@@ -60,7 +58,7 @@ end
 --todolist
 
 function ViewList()
-  Open_win(20, 80, 'minimal')
+  Open_win(20, 80)
   ViewTodoList()
 end
 
@@ -77,5 +75,17 @@ end
 function ViewTodoList()
   vim.api.nvim_buf_set_option(buf, "modifiable", true)
   vim.api.nvim_command("e ~/.config/nvim/lua/plugin/todolist/todolist.md")
+  vim.wo.number = true
+  vim.wo.relativenumber = false
+
+  vim.keymap.set('n', 'o', 'o[ ] - ', {buffer=true})
+  vim.keymap.set('n', 'x', '^t]rx', {buffer=true})
+  vim.keymap.set('n', 'X', '^t]r ', {buffer=true})
+
+  vim.api.nvim_win_set_hl_ns(0, 1)
+  vim.api.nvim_set_hl(1, 'LineNr', {bg='none', fg='#DDDDDD'})
+  vim.api.nvim_set_hl(1, 'Normal', {bg='#000000'})
+  vim.api.nvim_set_hl(1, 'EndOfBuffer', {bg='none', fg='#000000'})
+
   vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 end

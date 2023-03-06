@@ -6,13 +6,50 @@ vim.keymap.set('n', '<leader><leader>a', ':so $MYVIMRC<CR>', {})
 vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
 
 --swapping movemente keys to jklç
-vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
-vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
+-- vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
+-- vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
+
+vim.keymap.set('', 'n', '<LEFT>', {})
+vim.keymap.set('', 'a', '<RIGHT>', {})
+vim.keymap.set('', 'e', '<DOWN>', {})
+vim.keymap.set('', 'o', '<UP>', {})
+
+vim.keymap.set('', 'N', 'H', {})
+vim.keymap.set('', 'A', 'L', {})
+vim.keymap.set('', 'E', 'J', {})
+vim.keymap.set('', 'O', 'K', {})
+
+vim.keymap.set('', 'k', 'a', {})
+vim.keymap.set('', 'l', 'o', {})
+
+vim.keymap.set('', 'K', 'A', {})
+vim.keymap.set('', 'L', 'O', {})
+
+vim.keymap.set('', 'h', 'n', {})
+vim.keymap.set('', 'H', 'n', {})
+
+--i prefer having it than having to deal with langmap
+vim.keymap.set('', '<C-w>n', '<C-w>h', {})
+vim.keymap.set('', '<C-w>e', '<C-w>j', {})
+vim.keymap.set('', '<C-w>a', '<C-w>l', {})
+vim.keymap.set('', '<C-w>o', '<C-w>k', {})
+
+vim.keymap.set('', '<leader>wn', '<C-w>h', {})
+vim.keymap.set('', '<leader>we', '<C-w>j', {})
+vim.keymap.set('', '<leader>wa', '<C-w>l', {})
+vim.keymap.set('', '<leader>wo', '<C-w>k', {})
+
+vim.keymap.set('', '<leader>wN', '<C-w>H', {})
+vim.keymap.set('', '<leader>wE', '<C-w>J', {})
+vim.keymap.set('', '<leader>wA', '<C-w>L', {})
+vim.keymap.set('', '<leader>wO', '<C-w>K', {})
 
 --fixing some quirks with langmap
 vim.keymap.set('n', '<C-l>', '<C-o>', {})
 vim.keymap.set('n', '<C-i>', '<C-i>', {})
 vim.keymap.set('n', '<C-k>', '<C-a>', {})
+
+vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>', {remap = true})
@@ -46,9 +83,7 @@ vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{})
 --general shortcuts - <C-K> to get the true input
 vim.keymap.set({'n', 'v'}, '<C-s>', '<cmd>w!<CR>', {silent = true})
 vim.keymap.set('i', '<C-s>', '<ESC><cmd>w!<CR>', {silent = true})
-vim.keymap.set('n', '<C-z>', '<cmd>undo<CR>', {silent = true})
 vim.keymap.set('n', '<S-u>', '<cmd>redo<CR>', {silent = true})
-vim.keymap.set({'i', 'v'}, '<C-z>', '<ESC><cmd>undo<CR>', {silent = true})
 
 --search and replace word under cursor
 vim.keymap.set('n', '<S-s>', ':s/<C-R><C-W>//g<left><left>', {})
@@ -61,10 +96,10 @@ vim.keymap.set('n', '<leader>rr', '[[f)a: ', {remap = true})
 vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 
 --move lines around the code
-vim.keymap.set('n', '<M-j>', '<cmd>m +1<CR>==', {})
-vim.keymap.set('n', '<M-k>', '<cmd>m -2<CR>==', {})
-vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", {})
-vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", {})
+vim.keymap.set('n', '<M-e>', '<cmd>m +1<CR>==', {})
+vim.keymap.set('n', '<M-o>', '<cmd>m -2<CR>==', {})
+vim.keymap.set('v', '<M-o>', ":m '<-2<CR>gv=gv", {})
+vim.keymap.set('v', '<M-e>', ":m '>+1<CR>gv=gv", {})
 
 --tab for indentention
 vim.keymap.set('n', '<tab>', '>>', {})
@@ -77,25 +112,19 @@ vim.keymap.set('n', '<C-a>', 'zL', {})
 vim.keymap.set('n', '<C-n>', 'zH', {})
 
 --tab shortcuts
-vim.keymap.set('n', '<leader>th', '<cmd>tabnew<CR>', {silent=true})
+vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
 vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
-vim.keymap.set('n', '<leader>h', '<cmd>keepjumps tabp<CR>', {silent=true})
-vim.keymap.set('n', '<leader>l', '<cmd>keepjumps tabn<CR>', {silent=true})
+vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
+vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
 
 --buffer shortcuts
-vim.keymap.set('n', '<M-h>', '<cmd>keepjumps bp<CR>', {})
-vim.keymap.set('n', '<M-l>', '<cmd>keepjumps bn<CR>', {})
-vim.keymap.set('n', '<leader>u', '<cmd>Bdelete<CR>', {})
+vim.keymap.set('n', '<M-n>', '<cmd>keepjumps bp<CR>', {})
+vim.keymap.set('n', '<M-a>', '<cmd>keepjumps bn<CR>', {})
+vim.keymap.set('n', '<M-u>', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
-vim.keymap.set('n', '<F3>',function ()
-  vim.o.langremap=false
-  return '<cmd>lua require("telescope.builtin").find_files()<CR>'
-end, {silent=true, expr=true})
-vim.keymap.set('n', '<F6>',function ()
-  vim.o.langremap=false
-  return '<cmd>lua require("telescope.builtin").live_grep()<CR>'
-end, {silent=true, expr=true})
+vim.keymap.set('n', '<F3>', '<cmd>lua require("telescope.builtin").find_files()<CR>' , {silent=true})
+vim.keymap.set('n', '<F6>', '<cmd>lua require("telescope.builtin").live_grep()<CR>' , {silent=true})
 
 --window shortcuts
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
@@ -122,7 +151,7 @@ vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
 -- vim.keymap.set('n', '<Leader>rlg', '<cmd>call PhpCreateGetters()<CR>') --<leader>rog
 -- vim.keymap.set('n', '<Leader>rdk', '<cmd>call PhpDocAll()<CR>') --<leader>rda
 
---PHPFolding
+--Folding
 vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
 vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
 
@@ -131,42 +160,19 @@ vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
 
 --exit terminal with esc
 vim.keymap.set('t', '<M-Esc>', '<C-\\><C-N>', {})
---exit toggleterm with esc
-function Set_terminal_keymaps()
-    vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", {buffer=true})
-end
-
-vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 
 vim.keymap.set('n','<C-t>',':1ToggleTerm<CR>',{silent=true})
--- vim.keymap.set('n','<M-t>',':2ToggleTerm direction=vertical<CR>',{silent=true})
 
 --use my checklist plugin
 --my ckecklist specific shortcuts
 vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
 vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
 
-function Set_checklist_keymaps()
-  vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
-end
-
-function Set_todolist_keymaps()
-  vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
-end
-vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
-vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
 
 --keymap for my sail plugin
 vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
 vim.keymap.set('n', '<leader>st', '<cmd>SailTinker<CR>', {silent=true})
 vim.keymap.set('n', '<leader>sm', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
-
---langmap is cringe, so do this piece on code
-vim.keymap.set('n', '<leader><ESC>', ':set langnoremap<CR>', {silent=true})
-vim.keymap.set('n', '@',function ()
-  vim.o.langremap=true
-  return '@'
-end, {silent=true, expr=true})
 
 vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
 
@@ -188,3 +194,19 @@ vim.keymap.set('n', '<M-t>', "'T", {silent=true})
 vim.keymap.set('n', '<M-r>', "'R", {silent=true})
 vim.keymap.set('n', '<M-s>', "'S", {silent=true})
 vim.keymap.set('n', '<M-i>', "'I", {silent=true})
+
+function Set_terminal_keymaps()
+    vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", {buffer=true})
+end
+
+function Set_checklist_keymaps()
+  vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
+end
+
+function Set_todolist_keymaps()
+  vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
+end
+
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
+vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
+vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
