@@ -26,7 +26,7 @@ vim.keymap.set('', 'K', 'A', {})
 vim.keymap.set('', 'L', 'O', {})
 
 vim.keymap.set('', 'h', 'n', {})
-vim.keymap.set('', 'H', 'n', {})
+vim.keymap.set('', 'H', 'N', {})
 
 --i prefer having it than having to deal with langmap
 vim.keymap.set('', '<C-w>n', '<C-w>h', {})

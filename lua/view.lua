@@ -1,3 +1,7 @@
+local function IsModified()
+  return vim.fn.getbufinfo('%')[1].changed > 0
+end
+
 require("scope").setup()
 
 local theme = require("lualine.themes.mirtosdark")
@@ -20,7 +24,7 @@ require("lualine").setup{
       'buffers',
       buffers_color = {
         active = function ()
-          if vim.api.nvim_call_function("IsModified", {}) > 0 then
+          if IsModified() then
             return {bg = '#FFAF00'}
           end
           return {bg = '#428CD6'}
@@ -71,3 +75,4 @@ vim.api.nvim_set_hl(0, 'HighlightedyankRegion', {bg='white'})
 
 --telescope
 vim.api.nvim_set_hl(0, 'TelescopeBorder', {fg='#639ccf'})
+
