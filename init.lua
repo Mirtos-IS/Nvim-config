@@ -12,10 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- 'wbthomason/packer.nvim',
   --fuzzy finder
   { 'nvim-telescope/telescope.nvim', version = '0.1.1', dependencies = { {'nvim-lua/plenary.nvim'} } },
-  -- {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
   --colorscheme
   'tomasiser/vim-code-dark',
@@ -24,8 +22,8 @@ local plugins = {
   'tiagovla/scope.nvim',
   --QoL plugins
   'tpope/vim-surround',
-  'numToStr/Comment.nvim',
   'tpope/vim-repeat',
+  'numToStr/Comment.nvim',
   'windwp/nvim-autopairs',
   'moll/vim-bbye',
   'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
@@ -48,8 +46,6 @@ local plugins = {
   'saadparwaiz1/cmp_luasnip',
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
-  --fancy notification
-  'rcarriga/nvim-notify',
   --treesitter
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
   'nvim-treesitter/nvim-treesitter-textobjects',
@@ -58,10 +54,11 @@ local plugins = {
   'akinsho/toggleterm.nvim',
   'phaazon/hop.nvim',
   'dstein64/vim-startuptime',
-  --  "beauwilliams/focus.nvim"
+  'rcarriga/nvim-notify',
   --git plugins
   'f-person/git-blame.nvim',
-  'tpope/vim-fugitive'
+  'tpope/vim-fugitive',
+  'Mirtos-IS/harpoon'
 }
 local opts = {}
 

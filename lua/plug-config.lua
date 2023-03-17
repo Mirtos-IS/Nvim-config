@@ -18,10 +18,10 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', bufopts)
   vim.keymap.set('n', 'O', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>pa', vim.lsp.buf.code_action, bufopts)
+  -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', bufopts)
 end
 
@@ -63,7 +63,7 @@ require'lspconfig'.lua_ls.setup {
 require('lspconfig').emmet_ls.setup({
     -- on_attach = on_attach,
     capabilities = capabilities,
-    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'blade', 'php' },
+    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'blade' },
     init_options = {
       html = {
         options = {
@@ -288,6 +288,14 @@ require'nvim-treesitter.configs'.setup {
 
 require('Comment').setup {
   sticky = true,
+  extra = {
+    ---Add comment on the line above
+    above = 'gcL',
+    ---Add comment on the line below
+    below = 'gcl',
+    ---Add comment at the end of line
+    eol = 'gcK',
+  },
 }
 local builtin = require('telescope.builtin')
 local actions = require("telescope.actions")
@@ -295,7 +303,8 @@ require('telescope').setup({
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
+        ['<C-p>'] = require('telescope.actions.layout').toggle_preview
       },
     },
   },
@@ -340,7 +349,7 @@ require('telescope').setup({
         }
       }
     },
-  }
+  },
 })
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -352,8 +361,9 @@ require 'colorizer'.setup({
   }
 })
 
--- require('gitblame').init()
--- require('gitblame').disable()
+-- require('harpoon').setup({
+--   mark_branch = true,
+-- })
 
 require('plugin.todolist.window')
 require("plugin.sail_test.commands")

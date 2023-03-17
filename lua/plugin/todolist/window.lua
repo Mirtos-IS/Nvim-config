@@ -78,7 +78,7 @@ function ViewTodoList()
   vim.wo.number = true
   vim.wo.relativenumber = false
 
-  vim.keymap.set('n', 'o', 'o[ ] - ', {buffer=true})
+  vim.keymap.set('n', 'l', 'o[ ] - ', {buffer=true})
   vim.keymap.set('n', 'x', '^t]rx', {buffer=true})
   vim.keymap.set('n', 'X', '^t]r ', {buffer=true})
 

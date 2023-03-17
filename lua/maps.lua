@@ -3,11 +3,10 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader><leader>s', ':so %<CR>', {})
 vim.keymap.set('n', '<leader><leader>a', ':so $MYVIMRC<CR>', {})
 
-vim.keymap.set('n', '<leader>n', '<cmd>HopWord<CR>', {silent = true})
+vim.keymap.set('n', '<leader>h', '<cmd>HopWord<CR>', {silent = true})
 
 --swapping movemente keys to jklç
--- vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo')
--- vim.cmd( 'set langmap+=NH,EJ,OK,AL,HN,JE,KA,LO')
+-- vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo,NH,EJ,OK,AL,HN,JE,KA,LO')
 
 vim.keymap.set('', 'n', '<LEFT>', {})
 vim.keymap.set('', 'a', '<RIGHT>', {})
@@ -189,13 +188,30 @@ for i = 1, string.len(all_letter) do
   end
 end
 
---more mark QoL stuff
-vim.keymap.set('n', '<M-t>', "'T", {silent=true})
-vim.keymap.set('n', '<M-r>', "'R", {silent=true})
-vim.keymap.set('n', '<M-s>', "'S", {silent=true})
-vim.keymap.set('n', '<M-i>', "'I", {silent=true})
+--Harpoon fork mapping
+--quick access
+vim.keymap.set('n', '<M-t>', function ()
+  require("harpoon.ui").nav_file(1)
+end, {silent=true})
+vim.keymap.set('n', '<M-r>', function ()
+  require("harpoon.ui").nav_file(2)
+end, {silent=true})
+vim.keymap.set('n', '<M-s>', function ()
+  require("harpoon.ui").nav_file(3)
+end, {silent=true})
+vim.keymap.set('n', '<M-i>', function ()
+  require("harpoon.ui").nav_file(4)
+end, {silent=true})
+--harpoon manip
+vim.keymap.set('n', '<leader>p', function ()
+  require("harpoon.ui").toggle_quick_menu()
+end, {silent=true})
+vim.keymap.set('n', '<leader>e', function ()
+  require("harpoon.mark").add_file()
+end, {silent=true})
 
 function Set_terminal_keymaps()
+
     vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", {buffer=true})
 end
 

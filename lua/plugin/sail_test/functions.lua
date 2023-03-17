@@ -1,6 +1,10 @@
 local ts_utils = require'nvim-treesitter.ts_utils'
 local notify = require("notify")
 
+local function isEmpty(string)
+  return string ~= nil and string:match("%S")
+end
+
 function OpenTerminal(command, term)
   term = term or 2
     vim.cmd(term .. "TermExec cmd='"..command.."' dir=$WORK direction=vertical size=100")
@@ -48,3 +52,18 @@ function GetCurrentFunctionName()
 
   return vim.treesitter.query.get_node_text(expr:child(2),0)
 end
+
+function GetLastNonEmptyLine(buffer)
+  local ui = vim.api.nvim_list_uis()[1]
+  local height = ui.height
+
+  for i = -1, (height-2)*-1, -1 do
+    local text = vim.api.nvim_buf_get_lines(buffer, i, -1, 0)[1]
+    if isEmpty(text) then
+      return text
+    end
+  end
+  return ''
+end
+
+

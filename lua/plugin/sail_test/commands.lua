@@ -7,7 +7,7 @@ vim.api.nvim_create_user_command("SailRunTest", function()
   local file_name = vim.fn.expand('%:t')
   local is_php_test = string.find(file_name, '.*Test.php')
   if is_php_test == nil then
-    notify('This is not a php file')
+    notify('This is not a php test file')
     return
   end
   local command = GetTestCommand()
@@ -18,7 +18,7 @@ vim.api.nvim_create_user_command("SailTestCurrentMethod", function()
   local file_name = vim.fn.expand('%:t')
   local is_php_test = string.find(file_name, '.*Test.php')
   if is_php_test == nil then
-    notify('This is not a php file')
+    notify('This is not a php test file')
     return
   end
 
@@ -27,10 +27,9 @@ end,{})
 
 vim.api.nvim_create_user_command("SailTinker", function ()
   if tinkerBufnr > -1 then
-    local text = vim.api.nvim_buf_get_lines(tinkerBufnr, 0, 1, 0)[1]
+    local text = GetLastNonEmptyLine(tinkerBufnr)
     local isOpen = string.find(text, '>>>')
-    local isOpen2 = string.find(text, 'Psy Shell')
-    if isOpen ~= nil or isOpen2 ~= nil then
+    if isOpen ~= nil then
       vim.cmd("2ToggleTerm size=100")
       return
     end

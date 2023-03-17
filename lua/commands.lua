@@ -72,6 +72,14 @@ vim.api.nvim_create_autocmd('InsertLeave', {
   end
 })
 
+-- vim.api.nvim_create_autocmd('BufLeave', {
+--   pattern = '*',
+--   callback = function ()
+--     if vim.fn()
+--     print('test')
+--   end
+-- })
+
 --user commands
 vim.api.nvim_create_user_command('MyConfig', function ()
     require('telescope.builtin').nvim_files(require('telescope.themes').get_dropdown({winblend = 50}))
