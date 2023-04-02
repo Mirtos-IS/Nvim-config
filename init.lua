@@ -26,7 +26,7 @@ local plugins = {
   'numToStr/Comment.nvim',
   'windwp/nvim-autopairs',
   'moll/vim-bbye',
-  'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it
+  -- 'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using  lazy = trueit,
   'NvChad/nvim-colorizer.lua',
   --php plugins
   --  'adoy/vim-php-refactoring-toolbox'
@@ -58,7 +58,7 @@ local plugins = {
   --git plugins
   'f-person/git-blame.nvim',
   'tpope/vim-fugitive',
-  'Mirtos-IS/harpoon'
+  {'Mirtos-IS/harpoon', lazy = true }
 }
 local opts = {}
 

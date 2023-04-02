@@ -361,10 +361,11 @@ require 'colorizer'.setup({
   }
 })
 
--- require('harpoon').setup({
---   mark_branch = true,
--- })
+require('harpoon').setup({
+  mark_branch = true,
+})
 
 require('plugin.todolist.window')
 require("plugin.sail_test.commands")
+require("plugin.test-results.phpmd")
 require('view')

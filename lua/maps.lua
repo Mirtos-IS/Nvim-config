@@ -43,15 +43,21 @@ vim.keymap.set('', '<leader>wE', '<C-w>J', {})
 vim.keymap.set('', '<leader>wA', '<C-w>L', {})
 vim.keymap.set('', '<leader>wO', '<C-w>K', {})
 
+vim.keymap.set('', '<M-c>', '<C-w>c', {})
+
+vim.keymap.set('', '<M-N>', '<C-w>H', {})
+vim.keymap.set('', '<M-A>', '<C-w>L', {})
+
 --fixing some quirks with langmap
 vim.keymap.set('n', '<C-l>', '<C-o>', {})
 vim.keymap.set('n', '<C-i>', '<C-i>', {})
-vim.keymap.set('n', '<C-k>', '<C-a>', {})
+vim.keymap.set('', '<C-k>', '<C-a>', {})
+vim.keymap.set('', 'g<C-k>', 'g<C-a>', {})
 
 vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
-vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>', {remap = true})
-vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>', {remap = true})
+vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>zz', {remap = true})
+vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>zz', {remap = true})
 
 --<leader>w for quick win movement
 vim.keymap.set('n', '<leader>w', '<C-w>', {})
@@ -92,13 +98,13 @@ vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>//g<left><left>', {})
 vim.keymap.set('n', '<leader>rr', '[[f)a: ', {remap = true})
 
 --remove search highlight
-vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 
+vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 --move lines around the code
-vim.keymap.set('n', '<M-e>', '<cmd>m +1<CR>==', {})
-vim.keymap.set('n', '<M-o>', '<cmd>m -2<CR>==', {})
-vim.keymap.set('v', '<M-o>', ":m '<-2<CR>gv=gv", {})
-vim.keymap.set('v', '<M-e>', ":m '>+1<CR>gv=gv", {})
+vim.keymap.set('n', '<M-E>', '<cmd>m +1<CR>==', {})
+vim.keymap.set('n', '<M-O>', '<cmd>m -2<CR>==', {})
+vim.keymap.set('v', '<M-O>', ":m '<-2<CR>gv=gv", {})
+vim.keymap.set('v', '<M-E>', ":m '>+1<CR>gv=gv", {})
 
 --tab for indentention
 vim.keymap.set('n', '<tab>', '>>', {})
@@ -117,7 +123,7 @@ vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
 vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
 
 --buffer shortcuts
-vim.keymap.set('n', '<M-n>', '<cmd>keepjumps bp<CR>', {})
+vim.keymap.set('n', "<M-n>", '<cmd>keepjumps bp<CR>', {})
 vim.keymap.set('n', '<M-a>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<M-u>', '<cmd>Bdelete<CR>', {})
 
