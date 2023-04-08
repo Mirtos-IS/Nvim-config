@@ -64,7 +64,12 @@ vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 --lsp
 vim.keymap.set('n', '<leader>g', function () require("telescope.builtin").lsp_definitions() end, {silent=true})
-vim.keymap.set('n', '<space>m', vim.diagnostic.open_float,{})
+vim.keymap.set('n', '<leader>o', function () vim.diagnostic.open_float({
+  source = true,
+  format = function(diag)
+    return diag.user_data
+  end
+}) end,{silent=true})
 
 --deleting without yank
 vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
@@ -141,27 +146,21 @@ vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 --call cmp select in current word
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
 
---PHP-Refactor-toolbox shortcuts
--- vim.keymap.set('n', '<Leader>rav', '<cmd>call PhpRenameLocalVariable()<CR>') --<leader>rlm
--- vim.keymap.set('n', '<Leader>rcv', '<cmd>call PhpRenameClassVariable()<CR>')
--- vim.keymap.set('n', '<Leader>rm',  '<cmd>call PhpRenameMethod()<CR>')
--- vim.keymap.set('n', '<Leader>rju', '<cmd>call PhpExtractUse()<CR>') --<leader>rem, thanks to lang.
--- vim.keymap.set('v', '<Leader>rjc', '<cmd>call PhpExtractConst()<CR>')
--- vim.keymap.set('n', '<Leader>rjp', '<cmd>call PhpExtractClassProperty()<CR>')
--- vim.keymap.set('v', '<Leader>rjm', '<cmd>call PhpExtractMethod()<CR>')
--- vim.keymap.set('n', '<Leader>rnp', '<cmd>call PhpCreateProperty()<CR>')
--- vim.keymap.set('n', '<Leader>rdu', '<cmd>call PhpDetectUnusedUseStatements()<CR>')
--- vim.keymap.set('v', '<Leader>==',  '<cmd>call PhpAlignAssigns()<CR>')
--- vim.keymap.set('n', '<Leader>rgs', '<cmd>call PhpCreateSettersAndGetters()<CR>')
--- vim.keymap.set('n', '<Leader>rlg', '<cmd>call PhpCreateGetters()<CR>') --<leader>rog
--- vim.keymap.set('n', '<Leader>rdk', '<cmd>call PhpDocAll()<CR>') --<leader>rda
-
 --Folding
 vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
 vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
 
 --gitblame plugin
 vim.keymap.set('n', '<leader>b', ':GitBlameToggle<CR>', {silent=true})
+
+--git
+vim.keymap.set('n', '<M-g>a', function ()
+  local file_name = vim.fn.expand('%:t')
+  if string.find(file_name, '.php') ~= nil then
+    vim.cmd('RunPhpmd')
+  end
+  vim.cmd('Git add .')
+end)
 
 --exit terminal with esc
 vim.keymap.set('t', '<M-Esc>', '<C-\\><C-N>', {})

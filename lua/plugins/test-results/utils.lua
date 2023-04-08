@@ -1,5 +1,6 @@
-local ns = vim.api.nvim_create_namespace('linter')
+local notify = require('notify').notify
 local buf, win
+local ns = vim.api.nvim_create_namespace('linter')
 
 local M = {}
 
@@ -7,41 +8,75 @@ M.group = vim.api.nvim_create_augroup('test-results', {clear = true})
 M.bufnr = vim.api.nvim_get_current_buf()
 M.tests = {}
 
-function M.markFail(key, begin_line,end_line, description, rule, source)
+function M.markFail(index, begin_line, end_line, column, description, rule, source)
+  local key = source .. '-' .. tostring(index)
   M.tests[key] = {
     name = rule,
     description = description,
     begin_line = begin_line - 1,
     end_line = end_line,
-    source = source
+    source = source,
+    column = column,
   }
 end
 
-function M.runTerminalCommand(command, parser)
+local function hasFailedTest(source)
+  for _, failed_test in pairs(M.tests) do
+    if failed_test.source == source then
+      return true
+    end
+  end
+  return false
+end
+
+local function notifyResults(source)
+  for _, failed_test in pairs(M.tests) do
+    if failed_test.source == source then
+      notify('Some Problems Were Found')
+      return
+    end
+  end
+  notify('No Problem Found')
+end
+
+function M.cleanTest(source)
+  for i, failed_test in pairs(M.tests) do
+    if failed_test.source == source then
+      M.tests[i] = nil
+    end
+  end
+end
+
+function M.runLinter(command, Linter)
   vim.fn.jobstart(command, {
-    stodout_buffered = true,
     on_stdout = function (_, data)
       if not data then
         return
       end
-      parser(data)
+      Linter.parser(data)
     end,
     on_exit = function ()
+      vim.api.nvim_buf_clear_namespace(M.bufnr, ns, 0, -1)
+      vim.diagnostic.reset(ns, M.bufnr)
+
       local failed = {}
-      if type(next(M.tests)) == nil then
-        return
+      if hasFailedTest(Linter.source) == false then
+        notify('No Problem detected')
+        return true
       end
-      for _, test in ipairs(M.tests) do
+      for _, test in pairs(M.tests) do
         table.insert(failed, {
           bufnr = M.bufnr,
           lnum = test.begin_line,
           end_lnum = test.end_line,
           message = test.name,
           severity = vim.diagnostic.severity.WARNING,
-          col = 0,
+          col = test.column,
+          user_data = test.description,
           source = test.source
         })
       end
+      notifyResults(Linter.source)
       vim.diagnostic.set(ns, M.bufnr, failed, {underline = false, signs = false})
     end
   })
@@ -78,10 +113,11 @@ function M.open_win(win_h, win_w)
 end
 
 
+
 vim.api.nvim_create_user_command("GetLineDiag", function ()
   local output = {}
   local line = vim.fn.line "." -1
-  for _, test in ipairs(M.tests) do
+  for _, test in pairs(M.tests) do
     if test.begin_line == line then
       table.insert(output, {text = test.description})
     end
@@ -96,6 +132,11 @@ vim.api.nvim_create_user_command("GetLineDiag", function ()
   end
 end, {})
 
+vim.api.nvim_create_user_command("ClearLinterDiag", function ()
+  vim.api.nvim_buf_clear_namespace(M.bufnr, ns, 0, -1)
+  vim.diagnostic.reset(ns, M.bufnr)
+end, {})
+
 function M.dump(o)
   if type(o) == 'table' then
     local s = '{ '
@@ -107,6 +148,17 @@ function M.dump(o)
   else
     return tostring(o)
   end
+end
+
+function M.isPhpFile()
+  local file_name = vim.fn.expand('%:t')
+  local is_php_file = string.find(file_name, '.*.php') ~= nil
+
+  if is_php_file then
+    return true
+  end
+    notify('This is not a php file')
+    return false
 end
 
 return M

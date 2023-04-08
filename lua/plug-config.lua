@@ -22,7 +22,13 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', bufopts)
+  vim.keymap.set('n', 'gr', function ()
+    require('telescope.builtin').lsp_references({
+    layout_strategy='vertical',
+    path_display = {
+      smart = true,
+    }})
+  end, bufopts)
 end
 
 require("mason-lspconfig").setup_handlers {
@@ -299,15 +305,39 @@ require('Comment').setup {
 }
 local builtin = require('telescope.builtin')
 local actions = require("telescope.actions")
+local action_state = require('telescope.actions.state')
+
+local custom_actions = {}
+
+function custom_actions.fzf_multi_select(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local num_selections = table.getn(picker:get_multi_selection())
+
+  if num_selections > 1 then
+    picker = action_state.get_current_picker(prompt_bufnr)
+    for _, entry in ipairs(picker:get_multi_selection()) do
+      vim.cmd(string.format("%s %s", ":e!", entry.value))
+    end
+    vim.cmd('stopinsert')
+  else
+    actions.file_edit(prompt_bufnr)
+  end
+end
+
 require('telescope').setup({
   defaults = {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        ['<C-p>'] = require('telescope.actions.layout').toggle_preview
+        ['<C-h>'] = require('telescope.actions.layout').toggle_preview,
+        ['<tab>'] = actions.toggle_selection + actions.move_selection_next,
+        ['<s-tab>'] = actions.toggle_selection + actions.move_selection_previous,
+        ['<CR>'] = custom_actions.fzf_multi_select,
       },
     },
   },
+
+
   pickers = {
     live_grep = {
       mappings = {
@@ -352,8 +382,6 @@ require('telescope').setup({
   },
 })
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-
 require('telescope').load_extension('fzf')
 require 'colorizer'.setup({
  user_default_options = {
@@ -365,7 +393,8 @@ require('harpoon').setup({
   mark_branch = true,
 })
 
-require('plugin.todolist.window')
-require("plugin.sail_test.commands")
-require("plugin.test-results.phpmd")
+require('plugins.todolist.window')
+require("plugins.sail_test.commands")
+require("plugins.test-results.phpmd")
+require("plugins.test-results.phpcs")
 require('view')

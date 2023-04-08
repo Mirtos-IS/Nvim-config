@@ -26,10 +26,8 @@ local plugins = {
   'numToStr/Comment.nvim',
   'windwp/nvim-autopairs',
   'moll/vim-bbye',
-  -- 'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using  lazy = trueit,
+  -- 'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it,
   'NvChad/nvim-colorizer.lua',
-  --php plugins
-  --  'adoy/vim-php-refactoring-toolbox'
   --debug
   'mfussenegger/nvim-dap',
   "rcarriga/nvim-dap-ui",

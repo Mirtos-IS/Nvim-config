@@ -1,6 +1,5 @@
 tags
-lua/plugin/todolist/checklist.md
-lua/plugin/todolist/*.md
+lua/plugins/todolist/*.md
 lua/.*
 init.lua.bak
 lazy-lock.json

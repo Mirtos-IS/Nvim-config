@@ -1,11 +1,13 @@
-local utils = require('plugin.test-results.utils')
-local notify = require('notify').notify
+local utils = require('plugins.test-results.utils')
 local modules = require('lualine.components.branch.git_branch')
+local notify = require('notify').notify
 
-local function parsePhpmd(data)
+local M = {}
+M.source = 'PHPMD'
+
+function M.parser(data)
   local result = vim.fn.json_decode(data)
   if type(next(result.files)) == "nil" then
-    notify('No mess detected')
     return
   end
 
@@ -15,22 +17,27 @@ local function parsePhpmd(data)
     local end_line = violation.endLine
     local rule = violation.rule
     local description = violation.description
-    utils.markFail(i, begin_line, end_line, description, rule, 'PHPMD')
+    utils.markFail(i, begin_line, end_line, 0, description, rule,  M.source)
   end
 end
 
 local function runPhpmd()
-  utils.tests = {}
+  utils.cleanTest(M.source)
   utils.bufnr = vim.api.nvim_get_current_buf()
+
   local file = vim.fn.expand('%:p')
   local git_root_dir = '/' .. modules.find_git_dir():match('.(.*)/.git')
   local phpmd_cmd = git_root_dir .. '/vendor/bin/phpmd'
   local options = 'json ' .. git_root_dir .. '/.linters/phpmd.xml'
 
   local full_command = phpmd_cmd .. ' ' .. file .. ' ' .. options
-  utils.runTerminalCommand(full_command, parsePhpmd)
+  return utils.runLinter(full_command, M)
 end
 
 vim.api.nvim_create_user_command("RunPhpmd", function ()
-  runPhpmd()
+  if utils.isPhpFile() then
+    runPhpmd()
+  end
 end, {})
+
+return M

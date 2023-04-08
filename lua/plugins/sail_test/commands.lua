@@ -1,4 +1,4 @@
-require('plugin.sail_test.functions')
+require('plugins.sail_test.functions')
 
 local notify = require("notify")
 local tinkerBufnr = -1
