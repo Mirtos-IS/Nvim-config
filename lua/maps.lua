@@ -1,10 +1,76 @@
+
+--leader mapping
 vim.g.mapleader = ' '
-vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
 
 vim.keymap.set('n', '<leader><leader>s', ':so %<CR>', {})
 vim.keymap.set('n', '<leader><leader>a', ':so $MYVIMRC<CR>', {})
 
 vim.keymap.set('n', '<leader>h', '<cmd>HopWord<CR>', {silent = true})
+
+vim.keymap.set('', '<leader>wn', '<C-w>h', {})
+vim.keymap.set('', '<leader>we', '<C-w>j', {})
+vim.keymap.set('', '<leader>wa', '<C-w>l', {})
+vim.keymap.set('', '<leader>wo', '<C-w>k', {})
+
+vim.keymap.set('', '<leader>wN', '<C-w>H', {})
+vim.keymap.set('', '<leader>wE', '<C-w>J', {})
+vim.keymap.set('', '<leader>wA', '<C-w>L', {})
+vim.keymap.set('', '<leader>wO', '<C-w>K', {})
+
+--<leader>w for quick win movement
+vim.keymap.set('n', '<leader>w', '<C-w>', {})
+
+--make life easier with inner motion
+vim.keymap.set({'n', 'v'}, '<leader>y', 'yi',{remap = true})
+vim.keymap.set({'n', 'v'}, '<leader>v', 'vi',{remap = true})
+vim.keymap.set({'n', 'v'}, '<leader>c', '"_ci',{remap = true})
+vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{remap = true})
+
+--search and replace word under cursor
+vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>/<C-R><C-W>/g<left><left>', {})
+
+--tab shortcuts
+vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
+vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
+vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
+vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
+--Folding
+vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
+vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
+
+vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
+
+--keymap for my sail plugin
+vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
+vim.keymap.set('n', '<leader>st', '<cmd>SailTinker<CR>', {silent=true})
+vim.keymap.set('n', '<leader>sm', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
+
+--harpoon manip
+vim.keymap.set('n', '<leader>p', function ()
+  require("harpoon.ui").toggle_quick_menu()
+end, {silent=true})
+vim.keymap.set('n', '<leader>e', function ()
+  require("harpoon.mark").add_file()
+end, {silent=true})
+
+--localleader mapping
+vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
+
+--diagnostic
+vim.keymap.set('n', '<localleader>de', function () vim.diagnostic.goto_next() end, {})
+vim.keymap.set('n', '<localleader>do', function () vim.diagnostic.goto_prev() end, {})
+vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
+  source = true,
+  format = function(diag)
+    return diag.user_data
+  end
+}) end,{silent=true})
+
+--git
+vim.keymap.set('n', '<localleader>b', ':GitBlameToggle<CR>', {silent=true})
+vim.keymap.set('n', '<localleader>ga', ':Git add .<CR>', {})
+vim.keymap.set('n', '<localleader>gc', ':Telescope git_bcommits<CR>', {silent=true})
+
 
 --swapping movemente keys to jklç
 -- vim.cmd( 'set langmap=nh,ej,ok,al,hn,je,ka,lo,NH,EJ,OK,AL,HN,JE,KA,LO')
@@ -34,15 +100,6 @@ vim.keymap.set('', '<C-w>e', '<C-w>j', {})
 vim.keymap.set('', '<C-w>a', '<C-w>l', {})
 vim.keymap.set('', '<C-w>o', '<C-w>k', {})
 
-vim.keymap.set('', '<leader>wn', '<C-w>h', {})
-vim.keymap.set('', '<leader>we', '<C-w>j', {})
-vim.keymap.set('', '<leader>wa', '<C-w>l', {})
-vim.keymap.set('', '<leader>wo', '<C-w>k', {})
-
-vim.keymap.set('', '<leader>wN', '<C-w>H', {})
-vim.keymap.set('', '<leader>wE', '<C-w>J', {})
-vim.keymap.set('', '<leader>wA', '<C-w>L', {})
-vim.keymap.set('', '<leader>wO', '<C-w>K', {})
 
 vim.keymap.set('', '<M-c>', '<C-w>c', {})
 
@@ -55,23 +112,11 @@ vim.keymap.set('n', '<C-i>', '<C-i>', {})
 vim.keymap.set('', '<C-k>', '<C-a>', {})
 vim.keymap.set('', 'g<C-k>', 'g<C-a>', {})
 
-vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>zz', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>zz', {remap = true})
 
---<leader>w for quick win movement
-vim.keymap.set('n', '<leader>w', '<C-w>', {})
 
---diagnostic
-vim.keymap.set('n', '<localleader>de', function () vim.diagnostic.goto_next() end, {})
-vim.keymap.set('n', '<localleader>do', function () vim.diagnostic.goto_prev() end, {})
-vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
-  source = true,
-  format = function(diag)
-    return diag.user_data
-  end
-}) end,{silent=true})
 
 --deleting without yank
 vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
@@ -88,22 +133,12 @@ vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{})
 --copy to clipboard
 vim.keymap.set({'n', 'v'}, '<C-p>', '"+p',{})
 
---make life easier with inner motion
-vim.keymap.set({'n', 'v'}, '<leader>y', 'yi',{remap = true})
-vim.keymap.set({'n', 'v'}, '<leader>v', 'vi',{remap = true})
-vim.keymap.set({'n', 'v'}, '<leader>c', '"_ci',{remap = true})
-vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{remap = true})
 
 --general shortcuts - <C-K> to get the true input
 vim.keymap.set({'n', 'v'}, '<C-s>', '<cmd>w!<CR>', {silent = true})
 vim.keymap.set('i', '<C-s>', '<ESC><cmd>w!<CR>', {silent = true})
 vim.keymap.set('n', '<S-u>', '<cmd>redo<CR>', {silent = true})
 
---search and replace word under cursor
-vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>/<C-R><C-W>/g<left><left>', {})
-
---go to curent return type in php
-vim.keymap.set('n', '<leader>rr', '[[f)a: ', {remap = true})
 
 --remove search highlight
 
@@ -124,11 +159,6 @@ vim.keymap.set('v', '<s-tab>', '<gv', {})
 vim.keymap.set('n', '<C-a>', 'zL', {})
 vim.keymap.set('n', '<C-n>', 'zH', {})
 
---tab shortcuts
-vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
-vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
-vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
-vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
 
 --buffer shortcuts
 vim.keymap.set('n', "<M-n>", '<cmd>keepjumps bp<CR>', {})
@@ -139,8 +169,6 @@ vim.keymap.set('n', '<M-x>', '<cmd>Bdelete<CR>', {})
 vim.keymap.set('n', '<F3>', function ()require("telescope.builtin").find_files() end , {silent=true})
 vim.keymap.set('n', '<F6>', function () require("telescope.builtin").live_grep() end , {silent=true})
 
---window shortcuts
-vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
 
 --auto add ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
@@ -149,15 +177,8 @@ vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 --call cmp select in current word
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
 
---Folding
-vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
-vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
 
 
---git
-vim.keymap.set('n', '<localleader>b', ':GitBlameToggle<CR>', {silent=true})
-vim.keymap.set('n', '<localleader>ga', ':Git add .<CR>', {})
-vim.keymap.set('n', '<localleader>gc', function() require("telescope.builtin").bcommit() end, {silent=true})
 
 --exit terminal with esc
 vim.keymap.set('t', '<M-Esc>', '<C-\\><C-N>', {})
@@ -170,10 +191,6 @@ vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
 vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
 
 
---keymap for my sail plugin
-vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
-vim.keymap.set('n', '<leader>st', '<cmd>SailTinker<CR>', {silent=true})
-vim.keymap.set('n', '<leader>sm', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
 
 vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
 
@@ -203,13 +220,6 @@ vim.keymap.set('n', '<M-s>', function ()
 end, {silent=true})
 vim.keymap.set('n', '<M-i>', function ()
   require("harpoon.ui").nav_file(4)
-end, {silent=true})
---harpoon manip
-vim.keymap.set('n', '<leader>p', function ()
-  require("harpoon.ui").toggle_quick_menu()
-end, {silent=true})
-vim.keymap.set('n', '<leader>e', function ()
-  require("harpoon.mark").add_file()
 end, {silent=true})
 
 function Set_terminal_keymaps()
