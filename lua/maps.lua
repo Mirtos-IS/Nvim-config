@@ -1,4 +1,3 @@
-
 --leader mapping
 vim.g.mapleader = ' '
 
@@ -57,6 +56,7 @@ end, {silent=true})
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
 
 --diagnostic
+vim.keymap.set('n', '<localleader>dd', function () require("telescope.builtin").diagnostics({bufnr=0}) end)
 vim.keymap.set('n', '<localleader>de', function () vim.diagnostic.goto_next() end, {})
 vim.keymap.set('n', '<localleader>do', function () vim.diagnostic.goto_prev() end, {})
 vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
@@ -69,7 +69,11 @@ vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
 --git
 vim.keymap.set('n', '<localleader>b', ':GitBlameToggle<CR>', {silent=true})
 vim.keymap.set('n', '<localleader>ga', ':Git add .<CR>', {})
-vim.keymap.set('n', '<localleader>gc', ':Telescope git_bcommits<CR>', {silent=true})
+vim.keymap.set('n', '<localleader>gc', function () require("telescope.builtin").git_bcommits() end, {silent=true})
+
+--clipboard action
+vim.keymap.set({'n', 'v'}, '<localleader>y', '"+yi',{remap = true})
+vim.keymap.set({'n', 'v'}, '<localleader>p', '"+pi',{remap = true})
 
 
 --swapping movemente keys to jklç
@@ -123,15 +127,7 @@ vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
 vim.keymap.set({'n', 'v'}, 'c', '"_c', {})
 
 --paste without yank
-vim.keymap.set('n', 'p', 'p', {})
-vim.keymap.set('n', 'P', 'P', {})
 vim.keymap.set('v', 'p', '"_dp', {})
-
---copy to clipboard
-vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{})
-
---copy to clipboard
-vim.keymap.set({'n', 'v'}, '<C-p>', '"+p',{})
 
 
 --general shortcuts - <C-K> to get the true input

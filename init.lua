@@ -16,7 +16,8 @@ local plugins = {
   { 'nvim-telescope/telescope.nvim', version = '0.1.1', dependencies = { {'nvim-lua/plenary.nvim'} } },
   {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
   --colorscheme
-  'tomasiser/vim-code-dark',
+  {'tomasiser/vim-code-dark', lazy = true},
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
   --fancy lualine
   { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true } },
   'tiagovla/scope.nvim',
@@ -27,7 +28,7 @@ local plugins = {
   'windwp/nvim-autopairs',
   'moll/vim-bbye',
   -- 'psliwka/vim-smoothie', --"smooth C-d, C-u, C-f, C-b bc i get lost a lot using it,
-  'NvChad/nvim-colorizer.lua',
+  {'NvChad/nvim-colorizer.lua', lazy = true},
   --debug
   'mfussenegger/nvim-dap',
   "rcarriga/nvim-dap-ui",
@@ -36,6 +37,7 @@ local plugins = {
   --lsp
   'neovim/nvim-lspconfig',
   'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-nvim-lua',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
@@ -47,16 +49,21 @@ local plugins = {
   --treesitter
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
   'nvim-treesitter/nvim-treesitter-textobjects',
-  'nvim-treesitter/playground',
+    -- 'nvim-treesitter/nvim-treesitter-context',
+  {'nvim-treesitter/playground', lazy = true},
   --random plugs
   'akinsho/toggleterm.nvim',
   'phaazon/hop.nvim',
-  'dstein64/vim-startuptime',
+  {'dstein64/vim-startuptime', lazy = true},
   'rcarriga/nvim-notify',
   --git plugins
   'f-person/git-blame.nvim',
   'tpope/vim-fugitive',
-  {'Mirtos-IS/harpoon', lazy = true }
+  {'Mirtos-IS/harpoon', lazy = true },
+  --ossu
+  {'Olical/conjure', lazy = true},
+  {'wlangstroth/vim-racket', lazy = true},
+  -- 'rhysd/reply.vim'
 }
 local opts = {}
 

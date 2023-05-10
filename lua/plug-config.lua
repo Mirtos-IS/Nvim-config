@@ -333,7 +333,7 @@ require('telescope').setup({
         ['<C-h>'] = require('telescope.actions.layout').toggle_preview,
         ['<tab>'] = actions.toggle_selection + actions.move_selection_next,
         ['<s-tab>'] = actions.toggle_selection + actions.move_selection_previous,
-        ['<CR>'] = custom_actions.fzf_multi_select,
+        -- ['<CR>'] = custom_actions.select_default,
       },
     },
   },
@@ -356,7 +356,8 @@ require('telescope').setup({
             -- Depending on what you want put `cd`, `lcd`, `tcd`
             vim.cmd(string.format("silent cd %s", dir))
             builtin.live_grep()
-          end
+          end,
+          ['<CR>'] = custom_actions.fzf_multi_select,
         }
       }
     },
@@ -377,9 +378,7 @@ require('telescope').setup({
             vim.cmd(string.format("silent cd %s", dir))
             builtin.find_files()
           end,
-          ["<C-N>"] = function ()
-            Test()
-          end
+          ['<CR>'] = custom_actions.fzf_multi_select,
         }
       }
     },

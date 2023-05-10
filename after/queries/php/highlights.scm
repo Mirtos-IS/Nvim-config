@@ -8,7 +8,7 @@
 
 ((variable_name) @variable)
 
-[
- "$"
- ] @operator
+; [
+;  "$"
+;  ] @operator
 
