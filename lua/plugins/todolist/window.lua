@@ -31,7 +31,7 @@ end
 
 function View()
   vim.api.nvim_buf_set_option(buf, "modifiable", true)
-  vim.api.nvim_command("e ~/.config/nvim/lua/plugin/todolist/checklist.md")
+  vim.api.nvim_command("e ~/.config/nvim/lua/plugins/todolist/checklist.md")
   vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 end
 
@@ -74,7 +74,7 @@ end
 
 function ViewTodoList()
   vim.api.nvim_buf_set_option(buf, "modifiable", true)
-  vim.api.nvim_command("e ~/.config/nvim/lua/plugin/todolist/todolist.md")
+  vim.api.nvim_command("e ~/.config/nvim/lua/plugins/todolist/todolist.md")
   vim.wo.number = true
   vim.wo.relativenumber = false
 

@@ -7,7 +7,7 @@ end
 
 function OpenTerminal(command, term)
   term = term or 2
-    vim.cmd(term .. "TermExec cmd='"..command.."' dir=$WORK direction=vertical size=100")
+  vim.cmd(string.format("%sTermExec cmd='%s' dir=$WORK direction=vertical size=100", term, command))
   end
 
 function GetTestCommand(method)
@@ -19,7 +19,8 @@ function GetTestCommand(method)
   if method == nil then
     return cmd .. file_test_dir
   end
-  return cmd .. '--filter ' .. method .. ' ' ..file_test_dir
+  -- return cmd .. '--filter ' .. method .. ' ' ..file_test_dir
+  return string.format('%s--filter %s %s', cmd, method, file_test_dir)
 end
 
 function RunTestCurrentMethod()

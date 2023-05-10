@@ -1,9 +1,3 @@
--- require("focus").setup({
---   cursorline = false,
---   relativenumber = false,
---   width = 110,
--- })
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -15,14 +9,15 @@ local on_attach = function(_, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=false, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', bufopts)
+  vim.keymap.set('n', '<localleader>D', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', '<localleader>d', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', bufopts)
   vim.keymap.set('n', 'O', vim.lsp.buf.hover, bufopts)
-  -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', function ()
+  vim.keymap.set('n', '<localleader>i', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<localleader>ld', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<localleader>lr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<localleader>la', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<localleader>e', function () require("telescope.builtin").lsp_definitions() end, {silent=true})
+  vim.keymap.set('n', '<localleader>r', function ()
     require('telescope.builtin').lsp_references({
     layout_strategy='vertical',
     path_display = {
@@ -86,6 +81,7 @@ require('hop').setup({
 
 require("nvim-autopairs").setup {
   ignored_next_char = [=[[%w%%%'%[%"%.$&]]=],
+  enable_check_bracket_line = false,
   map_c_h = true,
   map_c_w = true,
   fast_wrap = {
@@ -112,10 +108,10 @@ require('nvim-treesitter.configs').setup{
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
-      toggle_query_editor = 'o',
+      toggle_query_editor = 'l',
       toggle_hl_groups = 'i',
       toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
+      toggle_anonymous_nodes = 'k',
       toggle_language_display = 'I',
       focus_language = 'f',
       unfocus_language = 'F',
@@ -123,7 +119,31 @@ require('nvim-treesitter.configs').setup{
       goto_node = '<cr>',
       show_help = '?',
     },
-  }
+  },
+  textobjects = {
+    move = {
+      enable = true,
+      set_jumps = false,
+      goto_next_start = {
+        ["]]"] = "@method",
+      },
+      goto_previous_start = {
+        ["[["] = "@method",
+      },
+    },
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["im"] = "@function.method.body",
+        ["km"] = "@method",
+      },
+      selection_nodes = {
+        ["@function.method.body"] = 'V',
+        ["@method"] = 'V',
+      },
+    },
+  },
 }
 
 require("toggleterm").setup{
@@ -152,6 +172,7 @@ local cmp = require'cmp'
 local luasnip = require("luasnip")
 
 cmp.setup({
+  preselect = false,
   mapping = {
     ['<C-f>'] = cmp.mapping.scroll_docs(-4),
     ['<C-h>'] = cmp.mapping.scroll_docs(4),
@@ -198,6 +219,7 @@ cmp.setup({
   },
   experimental = {native_menu = false},
   sources = cmp.config.sources({
+    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
     { name = 'path' }
@@ -246,7 +268,7 @@ local dap = require'dap'
 dap.adapters.php = {
   type = "executable",
   command = "node",
-  args = { '/path/to/vscode-php-debug/out/phpDebug.js' }
+  args = { '/home/mirtos/GitRepos/vscode-php-debug/out/phpDebug.js' }
 }
 
 dap.configurations.php = {
@@ -270,27 +292,6 @@ require("nvim-dap-virtual-text").setup{
   enabled = true,
 }
 require("dapui").setup()
-
-require'nvim-treesitter.configs'.setup {
-  textobjects = {
-    move = {
-      enable = true,
-      set_jumps = false, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["[["] = "@method",
-      },
-      goto_next_end = {
-        ["[]"] = "@method",
-      },
-      goto_previous_start = {
-        ["]]"] = "@method",
-      },
-      goto_previous_end = {
-        ["]["] = "@method",
-      },
-    },
-  },
-}
 
 require('Comment').setup {
   sticky = true,
@@ -375,6 +376,9 @@ require('telescope').setup({
             -- Depending on what you want put `cd`, `lcd`, `tcd`
             vim.cmd(string.format("silent cd %s", dir))
             builtin.find_files()
+          end,
+          ["<C-N>"] = function ()
+            Test()
           end
         }
       }
@@ -392,6 +396,10 @@ require 'colorizer'.setup({
 require('harpoon').setup({
   mark_branch = true,
 })
+
+-- require("treesitter-context").setup()
+
+require('catppuccin').compile()
 
 require('plugins.todolist.window')
 require("plugins.sail_test.commands")

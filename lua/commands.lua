@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = {'*.lua', '*.vue', '*.js', '*.vim', '*.blade.php'},
+  pattern = {'*.lua', '*.vue', '*.js', '*.vim', '*.blade.php', '*.rkt'},
   callback = function ()
     vim.opt_local.tabstop=2
     vim.opt_local.softtabstop=2
@@ -80,5 +80,11 @@ end
 
 vim.api.nvim_create_user_command('Trim', function ()
   vim.cmd('%s/\\s\\+$//e')
+end
+, {})
+
+vim.api.nvim_create_user_command('GoRun', function ()
+  local filename = vim.fn.expand('%:t')
+  vim.cmd(string.format("TermExec cmd='go run %s'", filename))
 end
 , {})
