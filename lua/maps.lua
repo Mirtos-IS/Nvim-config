@@ -25,6 +25,8 @@ vim.keymap.set({'n', 'v'}, '<leader>v', 'vi',{remap = true})
 vim.keymap.set({'n', 'v'}, '<leader>c', '"_ci',{remap = true})
 vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{remap = true})
 
+vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{remap = true})
+
 --search and replace word under cursor
 vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>/<C-R><C-W>/g<left><left>', {})
 
@@ -33,6 +35,7 @@ vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
 vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
 vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
 vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
+
 --Folding
 vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
 vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
@@ -74,6 +77,8 @@ vim.keymap.set('n', '<localleader>gc', function () require("telescope.builtin").
 --clipboard action
 vim.keymap.set({'n', 'v'}, '<localleader>y', '"+yi',{remap = true})
 vim.keymap.set({'n', 'v'}, '<localleader>p', '"+pi',{remap = true})
+
+vim.keymap.set('n', '<localleader>q', ':qa!<CR>', {silent = true})
 
 
 --swapping movemente keys to jklç

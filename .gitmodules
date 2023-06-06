@@ -1,0 +1,3 @@
+[submodule "lua/lua/plugins/telescope-jira"]
+	path = lua/lua/plugins/telescope-jira
+	url = git@github.com:Mirtos-IS/jira_nvim.git

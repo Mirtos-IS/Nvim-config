@@ -31,4 +31,5 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldenable = false
 vim.o.swapfile = false
 vim.o.undofile = true
-
+vim.o.signcolumn = 'no'
+vim.o.formatoptions = 'jcrqlM'

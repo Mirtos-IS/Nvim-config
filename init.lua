@@ -17,7 +17,7 @@ local plugins = {
   {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
   --colorscheme
   {'tomasiser/vim-code-dark', lazy = true},
-  { "catppuccin/nvim", name = "catppuccin", lazy = true },
+  "catppuccin/nvim", name = "catppuccin",
   --fancy lualine
   { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true } },
   'tiagovla/scope.nvim',
@@ -49,7 +49,7 @@ local plugins = {
   --treesitter
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
   'nvim-treesitter/nvim-treesitter-textobjects',
-    -- 'nvim-treesitter/nvim-treesitter-context',
+    'nvim-treesitter/nvim-treesitter-context',
   {'nvim-treesitter/playground', lazy = true},
   --random plugs
   'akinsho/toggleterm.nvim',
@@ -60,6 +60,7 @@ local plugins = {
   'f-person/git-blame.nvim',
   'tpope/vim-fugitive',
   {'Mirtos-IS/harpoon', lazy = true },
+  {'pwntester/octo.nvim', lazy = true},
   --ossu
   {'Olical/conjure', lazy = true},
   {'wlangstroth/vim-racket', lazy = true},

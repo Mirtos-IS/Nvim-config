@@ -8,6 +8,13 @@ M.group = vim.api.nvim_create_augroup('test-results', {clear = true})
 M.bufnr = vim.api.nvim_get_current_buf()
 M.tests = {}
 
+---@param index integer
+---@param begin_line integer
+---@param end_line integer
+---@param column integer
+---@param description string
+---@param rule string
+---@param source string
 function M.markFail(index, begin_line, end_line, column, description, rule, source)
   local key = source .. '-' .. tostring(index)
   M.tests[key] = {

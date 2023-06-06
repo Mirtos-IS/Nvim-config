@@ -3,9 +3,10 @@ require("mason-lspconfig").setup()
 
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  client.server_capabilities.semanticTokensProvider = nil
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=false, buffer=bufnr }
@@ -91,8 +92,6 @@ require("nvim-autopairs").setup {
 
 vim.notify = require("notify")
 
-require('vim.treesitter.query').set_query('php', 'folds', '[ (function_definition) (function_static_declaration) (method_declaration) ] @fold ')
-
 require('nvim-treesitter.configs').setup{
   auto_install = true,
   highlight = {
@@ -151,6 +150,7 @@ require("toggleterm").setup{
   hide_number = true,
   persist_mode = false,
   start_in_insert = true,
+  insert_mappings = false,
   direction = 'float',
   terminal_mappings = true,
   highlights = {
@@ -396,12 +396,12 @@ require('harpoon').setup({
   mark_branch = true,
 })
 
--- require("treesitter-context").setup()
-
-require('catppuccin').compile()
+require("treesitter-context").setup()
+require('octo').setup()
 
 require('plugins.todolist.window')
 require("plugins.sail_test.commands")
 require("plugins.test-results.phpmd")
 require("plugins.test-results.phpcs")
 require('view')
+-- require("plugins.telescope-jira.jira")

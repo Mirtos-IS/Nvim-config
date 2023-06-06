@@ -51,7 +51,7 @@ function GetCurrentFunctionName()
 
   if not expr then return "" end
 
-  return vim.treesitter.query.get_node_text(expr:child(2),0)
+  return vim.treesitter.get_node_text(expr:child(2),0)
 end
 
 function GetLastNonEmptyLine(buffer)
