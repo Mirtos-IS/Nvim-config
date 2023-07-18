@@ -240,3 +240,14 @@ end
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
 vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
+
+local function isTurno()
+  local modules = require('lualine.components.branch.git_branch')
+  local branch = modules.git_branch()
+  if branch.find('turno') then
+    local text = branch.gsub('^[^-]*-[^-]', '')
+    vim.cmd
+    'TBB-6242-something-here-may-change'
+    'TBNB-6242-something-here-may-change'
+  end
+end

@@ -398,6 +398,24 @@ require('harpoon').setup({
 
 require("treesitter-context").setup()
 require('octo').setup()
+require('git').setup({
+  default_mappings = false,
+
+  keymaps = {
+    blame = "<localleader>b",
+    quit_blame = "<localleader>b",
+    blame_commit = "<CR>",
+    browse = "<localleader>go",
+    open_pull_request = "<localleader>gp",
+    create_pull_request = "<localleader>gn",
+    diff = "<localleader>gd",
+    diff_close = "<localleader>gD",
+    revert = "<localleader>gr",
+    revert_file = "<localleader>gR",
+  },
+  -- Default target branch when create a pull request
+  target_branch = "development",
+})
 
 require('plugins.todolist.window')
 require("plugins.sail_test.commands")

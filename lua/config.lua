@@ -32,4 +32,5 @@ vim.o.foldenable = false
 vim.o.swapfile = false
 vim.o.undofile = true
 vim.o.signcolumn = 'no'
-vim.o.formatoptions = 'jcrqlM'
+vim.o.formatoptions = 'jcrql'
+vim.o.trim_trailing_whitespace = true
