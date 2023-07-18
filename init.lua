@@ -58,7 +58,7 @@ local plugins = {
   'rcarriga/nvim-notify',
   --git plugins
   -- 'f-person/git-blame.nvim',
-  -- 'tpope/vim-fugitive',
+  'tpope/vim-fugitive',
   'dinhhuy258/git.nvim',
   {'Mirtos-IS/harpoon', lazy = true },
   {'pwntester/octo.nvim', lazy = true},
