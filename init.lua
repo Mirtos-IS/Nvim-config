@@ -57,9 +57,8 @@ local plugins = {
   {'dstein64/vim-startuptime', lazy = true},
   'rcarriga/nvim-notify',
   --git plugins
-  -- 'f-person/git-blame.nvim',
+  'f-person/git-blame.nvim',
   'tpope/vim-fugitive',
-  'dinhhuy258/git.nvim',
   {'Mirtos-IS/harpoon', lazy = true },
   {'pwntester/octo.nvim', lazy = true},
   --ossu

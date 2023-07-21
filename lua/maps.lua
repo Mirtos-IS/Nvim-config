@@ -70,9 +70,37 @@ vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
 }) end,{silent=true})
 
 --git
-vim.keymap.set('n', '<localleader>b', ':GitBlameToggle<CR>', {silent=true})
-vim.keymap.set('n', '<localleader>ga', ':Git add .<CR>', {})
-vim.keymap.set('n', '<localleader>gc', function () require("telescope.builtin").git_bcommits() end, {silent=true})
+vim.keymap.set('n', '<localleader>b', ':GBlame<CR>', {silent=true})
+-- vim.keymap.set('n', '<localleader>ga', ':Git add .<CR>', {})
+vim.keymap.set('n', '<localleader>ga', function ()
+  require('notify').notify(string.format('git added %s', vim.fn.expand('%:t')))
+  vim.cmd('Git add .')
+end, {})
+vim.keymap.set('n', '<localleader>gp', function ()
+  local modules = require('lualine.components.branch.git_branch')
+  local branch = modules.get_branch()
+  vim.cmd(string.format('Git push --set-upstream origin %s', branch))
+end, {})
+vim.keymap.set('n', '<localleader>gc', function ()
+  local modules = require('lualine.components.branch.git_branch')
+  local branch = modules.find_git_dir()
+  if branch:find('turno') then
+    branch = modules.get_branch()
+    local text = branch:match('T[^-]*-[^-]*')
+    vim.cmd('Git commit')
+    if (vim.bo.filetype == 'gitcommit') then
+      return;
+    end
+    vim.cmd(string.format('norm i%s:  ', text))
+    vim.cmd('startinsert')
+  else
+    vim.cmd('Git commit')
+    vim.cmd('startinsert')
+  end
+end, {})
+vim.keymap.set('n', '<localleader>gb', function () require("telescope.builtin").git_bcommits() end, {silent=true})
+vim.keymap.set('n', '<localleader>tt', '<cmd>GitBlameToggle<CR>', {silent=true})
+vim.keymap.set('n', '<localleader>to', '<cmd>GitBlameOpenCommitURL<CR>', {silent=true})
 
 --clipboard action
 vim.keymap.set({'n', 'v'}, '<localleader>y', '"+yi',{remap = true})
@@ -240,14 +268,3 @@ end
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
 vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
-
-local function isTurno()
-  local modules = require('lualine.components.branch.git_branch')
-  local branch = modules.git_branch()
-  if branch.find('turno') then
-    local text = branch.gsub('^[^-]*-[^-]', '')
-    vim.cmd
-    'TBB-6242-something-here-may-change'
-    'TBNB-6242-something-here-may-change'
-  end
-end

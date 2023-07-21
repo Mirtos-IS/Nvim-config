@@ -1,3 +1,5 @@
+local startWin
+local blameWin
 --autocommands
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -16,6 +18,13 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = 'COMMIT_EDITMSG',
+  callback = function ()
+    print('test')
+    vim.keymap.set({'n', 'i'}, '<C-S>', '<cmd>wq<CR>', {silent=true, buffer=true})
+  end
+})
 
 vim.api.nvim_create_autocmd('WinEnter', {
   pattern = '*',
@@ -31,6 +40,18 @@ vim.api.nvim_create_autocmd('WinEnter', {
       vim.cmd('wincmd =')
     end
 
+  end
+})
+
+vim.api.nvim_create_autocmd('WinClosed', {
+  pattern = '*',
+  callback = function ()
+    if startWin == nil then
+      return
+    end
+    vim.api.nvim_win_set_option(startWin, "cursorbind", false)
+    vim.api.nvim_win_set_option(startWin, "scrollbind", false)
+    startWin = nil
   end
 })
 
@@ -88,3 +109,24 @@ vim.api.nvim_create_user_command('GoRun', function ()
   vim.cmd(string.format("TermExec cmd='go run %s'", filename))
 end
 , {})
+
+vim.api.nvim_create_user_command('GBlame', function ()
+  if blameWin == nil then
+    startWin = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_option(0, "cursorbind", true)
+    vim.api.nvim_win_set_option(0, "scrollbind", true)
+    vim.cmd "normal! zz"
+    vim.cmd("Git blame")
+    blameWin = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_option(0, "cursorbind", true)
+    vim.api.nvim_win_set_option(0, "scrollbind", true)
+    vim.cmd "normal! zz"
+    vim.cmd("wincmd l")
+  else
+    startWin = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_option(startWin, "cursorbind", false)
+    vim.api.nvim_win_set_option(startWin, "scrollbind", false)
+    vim.api.nvim_win_close(blameWin, false)
+    blameWin = nil
+  end
+end, {})
