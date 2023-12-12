@@ -34,3 +34,4 @@ vim.o.undofile = true
 vim.o.signcolumn = 'no'
 vim.o.formatoptions = 'jcrql'
 vim.o.trim_trailing_whitespace = true
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,options"

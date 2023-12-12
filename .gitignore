@@ -1,5 +1,7 @@
 tags
 lua/plugins/todolist/*.md
 lua/.*
+sessions
+sessions/*
 init.lua.bak
 lazy-lock.json

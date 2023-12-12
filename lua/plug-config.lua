@@ -205,6 +205,12 @@ cmp.setup({
         luasnip.jump(-1)
       end
     end, {"i", "s"}),
+    ["<C-e>"] = cmp.mapping(function ()
+      luasnip.change_choice(1)
+    end, {"i", "s"}),
+    ["<C-o>"] = cmp.mapping(function ()
+      luasnip.change_choice(-1)
+    end, {"i", "s"}),
   },
   snippet = {
     expand = function(args)
@@ -327,6 +333,10 @@ end
 
 require('telescope').setup({
   defaults = {
+    previews = {
+      timeout = 250,
+      filesize_limit = 2
+    },
     mappings = {
       i = {
         ["<esc>"] = actions.close,
@@ -337,8 +347,6 @@ require('telescope').setup({
       },
     },
   },
-
-
   pickers = {
     live_grep = {
       mappings = {
@@ -359,7 +367,10 @@ require('telescope').setup({
           end,
           ['<CR>'] = custom_actions.fzf_multi_select,
         }
-      }
+      },
+      previews = {
+        timeout = 250
+      },
     },
     find_files = {
       mappings = {
@@ -380,12 +391,15 @@ require('telescope').setup({
           end,
           ['<CR>'] = custom_actions.fzf_multi_select,
         }
-      }
+      },
+      previews = {
+        timeout = 250
+      },
     },
   },
 })
 
-require('telescope').load_extension('fzf')
+-- require('telescope').load_extension('fzf')
 require 'colorizer'.setup({
  user_default_options = {
     mode = "virtualtext"
@@ -403,5 +417,6 @@ require('plugins.todolist.window')
 require("plugins.sail_test.commands")
 require("plugins.test-results.phpmd")
 require("plugins.test-results.phpcs")
+require('luasnips')
 require('view')
 -- require("plugins.telescope-jira.jira")

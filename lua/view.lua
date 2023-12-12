@@ -93,6 +93,9 @@ require("catppuccin").setup({
       --lua only
       ['@function.call.lua'] = {fg=method},
 
+      --vue/html only
+      ['@punctuation.special'] = {fg='#d1d7f0'},
+
       --some misc ones
       ['ExtraWhiteSpace'] = {bg='darkred'},
       ['YankHighlight'] = {bg='#267683'},

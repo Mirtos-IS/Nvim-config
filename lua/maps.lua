@@ -89,7 +89,7 @@ vim.keymap.set('n', '<localleader>gc', function ()
     branch = modules.get_branch()
     local text = branch:match('T[^-]*-[^-]*')
     vim.cmd('Git commit')
-    if (vim.bo.filetype == 'gitcommit') then
+    if (vim.bo.filetype ~= 'gitcommit') then
       return;
     end
     vim.cmd(string.format('norm i%s:  ', text))
