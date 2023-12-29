@@ -138,7 +138,6 @@ local function runGoTest(withFile)
       return
     end
     full_command = full_command .. ' ' .. functionName
-    print(full_command)
   end
   return runTest(full_command)
 end
