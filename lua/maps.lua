@@ -30,6 +30,11 @@ vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{remap = true})
 --search and replace word under cursor
 vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>/<C-R><C-W>/g<left><left>', {})
 
+--go specific maping
+vim.keymap.set('', '<leader>gr', '<cmd>GoRun<CR>', {silent=true})
+vim.keymap.set('', '<leader>gt', '<cmd>RunGoTest<CR>', {silent=true})
+vim.keymap.set('', '<leader>gf', '<cmd>RunGoTestOnFunc<CR>', {silent=true})
+
 --tab shortcuts
 vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
 vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
@@ -71,7 +76,6 @@ vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
 
 --git
 vim.keymap.set('n', '<localleader>b', ':GBlame<CR>', {silent=true})
--- vim.keymap.set('n', '<localleader>ga', ':Git add .<CR>', {})
 vim.keymap.set('n', '<localleader>ga', function ()
   require('notify').notify(string.format('git added %s', vim.fn.expand('%:t')))
   vim.cmd('Git add .')
@@ -154,8 +158,6 @@ vim.keymap.set('', 'g<C-k>', 'g<C-a>', {})
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>zz', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>zz', {remap = true})
 
-
-
 --deleting without yank
 vim.keymap.set({'n', 'v'}, 'x', '"_x', {})
 vim.keymap.set({'n', 'v'}, 'c', '"_c', {})
@@ -163,12 +165,10 @@ vim.keymap.set({'n', 'v'}, 'c', '"_c', {})
 --paste without yank
 vim.keymap.set('v', 'p', '"_dp', {})
 
-
 --general shortcuts - <C-K> to get the true input
 vim.keymap.set({'n', 'v'}, '<C-s>', '<cmd>w!<CR>', {silent = true})
 vim.keymap.set('i', '<C-s>', '<ESC><cmd>w!<CR>', {silent = true})
 vim.keymap.set('n', '<S-u>', '<cmd>redo<CR>', {silent = true})
-
 
 --remove search highlight
 
@@ -178,6 +178,9 @@ vim.keymap.set('n', '<M-E>', '<cmd>m +1<CR>==', {})
 vim.keymap.set('n', '<M-O>', '<cmd>m -2<CR>==', {})
 vim.keymap.set('v', '<M-O>', ":m '<-2<CR>gv=gv", {})
 vim.keymap.set('v', '<M-E>', ":m '>+1<CR>gv=gv", {})
+
+--dismiss notify notifications
+vim.keymap.set('', '<M-ESC>', function () require('notify').dismiss() end, {})
 
 --tab for indentention
 vim.keymap.set('n', '<tab>', '>>', {})
@@ -189,7 +192,6 @@ vim.keymap.set('v', '<s-tab>', '<gv', {})
 vim.keymap.set('n', '<C-a>', 'zL', {})
 vim.keymap.set('n', '<C-n>', 'zH', {})
 
-
 --buffer shortcuts
 vim.keymap.set('n', "<M-n>", '<cmd>keepjumps bp<CR>', {})
 vim.keymap.set('n', '<M-a>', '<cmd>keepjumps bn<CR>', {})
@@ -199,16 +201,12 @@ vim.keymap.set('n', '<M-x>', '<cmd>Bdelete<CR>', {})
 vim.keymap.set('n', '<F3>', function ()require("telescope.builtin").find_files() end , {silent=true})
 vim.keymap.set('n', '<F6>', function () require("telescope.builtin").live_grep() end , {silent=true})
 
-
 --auto add ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
 vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 
 --call cmp select in current word
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
-
-
-
 
 --exit terminal with esc
 vim.keymap.set('t', '<M-Esc>', '<C-\\><C-N>', {})
@@ -219,7 +217,6 @@ vim.keymap.set('n','<C-t>',':1ToggleTerm<CR>',{silent=true})
 --my ckecklist specific shortcuts
 vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
 vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
-
 
 
 vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})

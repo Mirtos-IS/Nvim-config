@@ -60,11 +60,12 @@ function M.runLinter(command, Linter)
       if not data then
         return
       end
+
+      vim.api.nvim_buf_clear_namespace(M.bufnr, ns, 0, -1)
+      vim.diagnostic.reset(ns, M.bufnr)
       Linter.parser(data)
     end,
     on_exit = function ()
-      vim.api.nvim_buf_clear_namespace(M.bufnr, ns, 0, -1)
-      vim.diagnostic.reset(ns, M.bufnr)
 
       local failed = {}
       if hasFailedTest(Linter.source) == false then
@@ -166,6 +167,15 @@ function M.isPhpFile()
   end
     notify('This is not a php file')
     return false
+end
+
+function M.markSuccess(line)
+  print(M.bufnr)
+  print(ns)
+  print(line)
+  vim.api.nvim_buf_set_extmark(M.bufnr, ns, line, 0, {
+    virt_text = { { "✓" } },
+  })
 end
 
 return M

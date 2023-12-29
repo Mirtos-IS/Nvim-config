@@ -62,20 +62,6 @@ require'lspconfig'.lua_ls.setup {
   },
 }
 
-require('lspconfig').emmet_ls.setup({
-    -- on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'blade' },
-    init_options = {
-      html = {
-        options = {
-          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-          ["bem.enabled"] = true,
-        },
-      },
-    }
-})
-
 require('hop').setup({
   keys = 'etovxqpdgflhcisuran',
 })
@@ -94,6 +80,9 @@ vim.notify = require("notify")
 
 require('nvim-treesitter.configs').setup{
   auto_install = true,
+  sync_install = false,
+  ensure_installed = {},
+  ignore_install = {},
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -407,7 +396,9 @@ require 'colorizer'.setup({
 })
 
 require('harpoon').setup({
-  mark_branch = true,
+  global_settings = {
+    mark_branch = true,
+  }
 })
 
 require("treesitter-context").setup()
@@ -417,6 +408,7 @@ require('plugins.todolist.window')
 require("plugins.sail_test.commands")
 require("plugins.test-results.phpmd")
 require("plugins.test-results.phpcs")
+require("plugins.test-results.go.gotest")
 require('luasnips')
 require('view')
 -- require("plugins.telescope-jira.jira")
