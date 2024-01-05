@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = {'*.lua', '*.vue', '*.js', '*.vim', '*.blade.php', '*.rkt', "*.html", "*.css"},
+  pattern = {'*.lua', '*.vue', '*.js', '*.vim', '*.blade.php', '*.rkt', "*.html", "*.css", "*.templ"},
   callback = function ()
     vim.opt_local.tabstop=2
     vim.opt_local.softtabstop=2

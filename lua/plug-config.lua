@@ -6,7 +6,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  client.server_capabilities.semanticTokensProvider = nil
+  -- client.server_capabilities.semanticTokensProvider = nil
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=false, buffer=bufnr }
@@ -27,16 +27,29 @@ local on_attach = function(client, bufnr)
   end, bufopts)
 end
 
+local lspconfig = require('lspconfig')
 require("mason-lspconfig").setup_handlers {
   function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {
+    lspconfig[server_name].setup {
       on_attach = on_attach,
       capabilities = capabilities
     }
   end,
 }
 
-require'lspconfig'.lua_ls.setup {
+lspconfig.html.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+
+lspconfig.htmx.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -404,11 +417,4 @@ require('harpoon').setup({
 require("treesitter-context").setup()
 require('octo').setup()
 
-require('plugins.todolist.window')
-require("plugins.sail_test.commands")
-require("plugins.test-results.phpmd")
-require("plugins.test-results.phpcs")
-require("plugins.test-results.go.gotest")
-require('luasnips')
-require('view')
--- require("plugins.telescope-jira.jira")
+require("plugins")

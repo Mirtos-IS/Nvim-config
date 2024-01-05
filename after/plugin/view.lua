@@ -162,3 +162,4 @@ vim.cmd.colorscheme('catppuccin-mocha')
 -- -- vim.api.nvim_set_hl(0, '@keyword.function', {fg=keyword})
 -- -- vim.api.nvim_set_hl(0, '@include', {fg=qualifier})
 -- -- vim.api.nvim_set_hl(0, '@type.qualifier', {fg=qualifier})
+
