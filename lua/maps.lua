@@ -10,6 +10,7 @@ vim.keymap.set('', '<leader>wn', '<C-w>h', {})
 vim.keymap.set('', '<leader>we', '<C-w>j', {})
 vim.keymap.set('', '<leader>wa', '<C-w>l', {})
 vim.keymap.set('', '<leader>wo', '<C-w>k', {})
+vim.keymap.set('', '<leader>wl', '<C-w>o', {})
 
 vim.keymap.set('', '<leader>wN', '<C-w>H', {})
 vim.keymap.set('', '<leader>wE', '<C-w>J', {})
@@ -29,6 +30,8 @@ vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{remap = true})
 
 --search and replace word under cursor
 vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>/<C-R><C-W>/g<left><left>', {})
+--search what in register
+vim.keymap.set('n', '<C-h>', '/<C-r>"<CR>', {})
 
 --go specific maping
 vim.keymap.set('', '<leader>gr', '<cmd>GoRun<CR>', {silent=true})
@@ -40,6 +43,10 @@ vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
 vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
 vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
 vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
+
+--quickfix shortcuts
+vim.keymap.set('n', '<M-e>', '<cmd>keepjumps cn<CR>', {silent=true})
+vim.keymap.set('n', '<M-o>', '<cmd>keepjumps cp<CR>', {silent=true})
 
 --Folding
 vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
@@ -127,10 +134,12 @@ vim.keymap.set('', 'A', 'L', {})
 vim.keymap.set('', 'E', 'J', {})
 vim.keymap.set('', 'O', 'K', {})
 
-vim.keymap.set('', 'k', 'a', {})
+vim.keymap.set('', 'k', 's', {})
+vim.keymap.set('', 's', 'a', {})
 vim.keymap.set('', 'l', 'o', {})
 
-vim.keymap.set('', 'K', 'A', {})
+vim.keymap.set('', 'K', 'S', {})
+vim.keymap.set('', 'S', 'A', {})
 vim.keymap.set('', 'L', 'O', {})
 
 vim.keymap.set('', 'h', 'n', {})
@@ -141,6 +150,7 @@ vim.keymap.set('', '<C-w>n', '<C-w>h', {})
 vim.keymap.set('', '<C-w>e', '<C-w>j', {})
 vim.keymap.set('', '<C-w>a', '<C-w>l', {})
 vim.keymap.set('', '<C-w>o', '<C-w>k', {})
+vim.keymap.set('', '<C-w>l', '<C-w>o', {})
 
 
 vim.keymap.set('', '<M-c>', '<C-w>c', {})

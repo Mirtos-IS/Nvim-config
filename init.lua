@@ -21,17 +21,10 @@ local plugins = {
   { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true } },
   'tiagovla/scope.nvim',
   --QoL plugins
-  'tpope/vim-surround',
-  'tpope/vim-repeat',
   'numToStr/Comment.nvim',
   'windwp/nvim-autopairs',
   'moll/vim-bbye',
   {'NvChad/nvim-colorizer.lua', lazy = true},
-  --debug
-  'mfussenegger/nvim-dap',
-  "rcarriga/nvim-dap-ui",
-  "theHamsta/nvim-dap-virtual-text",
-  "nvim-telescope/telescope-dap.nvim",
   --lsp
   'neovim/nvim-lspconfig',
   'hrsh7th/cmp-nvim-lsp',
@@ -51,18 +44,12 @@ local plugins = {
   {'nvim-treesitter/playground', lazy = true},
   --random plugs
   'akinsho/toggleterm.nvim',
-  'phaazon/hop.nvim',
   {'dstein64/vim-startuptime', lazy = true},
   'rcarriga/nvim-notify',
   --git plugins
   'f-person/git-blame.nvim',
   'tpope/vim-fugitive',
   {'Mirtos-IS/harpoon', lazy = true },
-  {'pwntester/octo.nvim', lazy = true},
-  --ossu
-  {'Olical/conjure', lazy = true},
-  {'wlangstroth/vim-racket', lazy = true},
-  -- 'rhysd/reply.vim'
 }
 local opts = {}
 

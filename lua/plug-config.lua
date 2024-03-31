@@ -6,7 +6,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- client.server_capabilities.semanticTokensProvider = nil
+  client.server_capabilities.semanticTokensProvider = nil
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=false, buffer=bufnr }
@@ -74,10 +74,6 @@ lspconfig.lua_ls.setup {
     },
   },
 }
-
-require('hop').setup({
-  keys = 'etovxqpdgflhcisuran',
-})
 
 require("nvim-autopairs").setup {
   ignored_next_char = [=[[%w%%%'%[%"%.$&]]=],
@@ -272,35 +268,6 @@ cmp.setup.cmdline(':', {
 
 -- Setup lspconfig.
 
-local dap = require'dap'
-dap.adapters.php = {
-  type = "executable",
-  command = "node",
-  args = { '/home/mirtos/GitRepos/vscode-php-debug/out/phpDebug.js' }
-}
-
-dap.configurations.php = {
-  {
-    name = "Listen for Xdebug",
-    type = "php",
-    request = "launch",
-    hostname = "0.0.0.0",
-    port = 9003,
-    log = true,
-    pathMappings = {
-      ["/var/www/html"] = "${workspaceFolder}"
-    },
-    ignore = {
-      "**/vendor/**/*.php"
-    },
-    stopOnEntry = false,
-  }
-}
-require("nvim-dap-virtual-text").setup{
-  enabled = true,
-}
-require("dapui").setup()
-
 require('Comment').setup {
   sticky = true,
   extra = {
@@ -415,6 +382,5 @@ require('harpoon').setup({
 })
 
 require("treesitter-context").setup()
-require('octo').setup()
 
 require("plugins")
