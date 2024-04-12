@@ -27,6 +27,13 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end
 })
 
+vim.api.nvim_create_autocmd('QuickFixCmdPre', {
+  pattern = '*',
+  callback = function ()
+    vim.cmd('cd /home/mirtos/GitRepos/platfighter/src/')
+  end
+})
+
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = {'*.lua', '*.vue', '*.js', '*.vim', '*.blade.php', '*.rkt', "*.html", "*.css", "*.templ"},
   callback = function ()

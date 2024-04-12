@@ -48,10 +48,6 @@ vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
 vim.keymap.set('n', '<M-e>', '<cmd>keepjumps cn<CR>', {silent=true})
 vim.keymap.set('n', '<M-o>', '<cmd>keepjumps cp<CR>', {silent=true})
 
---Folding
-vim.keymap.set('n', '<leader>1', '<cmd>set foldenable<CR>', {silent=true})
-vim.keymap.set('n', '<leader>2', '<cmd>set nofoldenable<CR>', {silent=true})
-
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
 
 --keymap for my sail plugin
@@ -276,3 +272,7 @@ end
 vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
 vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
+
+--snippets
+
+vim.keymap.set('n', ',e', 'o<ESC>:-1read ~/.config/nvim/snippets/err<CR>o', {silent=true})

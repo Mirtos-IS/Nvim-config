@@ -11,7 +11,6 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=false, buffer=bufnr }
   vim.keymap.set('n', '<localleader>D', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', '<localleader>d', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', bufopts)
   vim.keymap.set('n', 'O', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<localleader>i', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<localleader>ld', vim.lsp.buf.type_definition, bufopts)
@@ -373,6 +372,11 @@ require 'colorizer'.setup({
  user_default_options = {
     mode = "virtualtext"
   }
+})
+
+require('gitblame').setup({
+  enabled = false,
+  delay = 0
 })
 
 require('harpoon').setup({
