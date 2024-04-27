@@ -39,8 +39,8 @@ vim.keymap.set('', '<leader>gt', '<cmd>RunGoTest<CR>', {silent=true})
 vim.keymap.set('', '<leader>gf', '<cmd>RunGoTestOnFunc<CR>', {silent=true})
 
 --tab shortcuts
-vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', {silent=true})
-vim.keymap.set('n', '<leader>tu', '<cmd>tabc<CR>', {silent=true})
+vim.keymap.set('n', '<leader>tf', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
+vim.keymap.set('n', '<leader>ta', '<cmd>SailRunTest<CR>', {silent=true})
 vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
 vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
 
@@ -66,6 +66,11 @@ end, {silent=true})
 --localleader mapping
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
 
+--grep current word
+vim.keymap.set('n', '<localleader>f', function ()
+  require("telescope.builtin").live_grep({default_text=vim.fn.expand("<cword>")})
+end)
+
 --diagnostic
 vim.keymap.set('n', '<localleader>dd', function () require("telescope.builtin").diagnostics({bufnr=0}) end)
 vim.keymap.set('n', '<localleader>de', function () vim.diagnostic.goto_next() end, {})
@@ -78,7 +83,7 @@ vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
 }) end,{silent=true})
 
 --git
-vim.keymap.set('n', '<localleader>b', ':GBlame<CR>', {silent=true})
+vim.keymap.set('n', '<localleader>bb', ':GBlame<CR>', {silent=true})
 vim.keymap.set('n', '<localleader>ga', function ()
   require('notify').notify(string.format('git added %s', vim.fn.expand('%:t')))
   vim.cmd('Git add .')
@@ -107,8 +112,8 @@ vim.keymap.set('n', '<localleader>gc', function ()
   end
 end, {})
 vim.keymap.set('n', '<localleader>gb', function () require("telescope.builtin").git_bcommits() end, {silent=true})
-vim.keymap.set('n', '<localleader>tt', '<cmd>GitBlameToggle<CR>', {silent=true})
-vim.keymap.set('n', '<localleader>to', '<cmd>GitBlameOpenCommitURL<CR>', {silent=true})
+vim.keymap.set('n', '<localleader>bt', '<cmd>GitBlameToggle<CR>', {silent=true})
+vim.keymap.set('n', '<localleader>bo', '<cmd>GitBlameOpenCommitURL<CR>', {silent=true})
 
 --clipboard action
 vim.keymap.set({'n', 'v'}, '<localleader>y', '"+yi',{remap = true})
@@ -156,10 +161,9 @@ vim.keymap.set('', '<M-A>', '<C-w>L', {})
 
 --fixing some quirks with langmap
 vim.keymap.set('n', '<C-l>', '<C-o>', {})
-vim.keymap.set('n', '<C-i>', '<C-i>', {})
+vim.keymap.set('n', '<C-m>', '<c-i>', {})
 vim.keymap.set('', '<C-k>', '<C-a>', {})
 vim.keymap.set('', 'g<C-k>', 'g<C-a>', {})
-
 
 vim.keymap.set({'n', 'v'}, '<C-o>', '<C-u>zz', {remap = true})
 vim.keymap.set({'n', 'v'}, '<C-e>', '<C-d>zz', {remap = true})
@@ -204,7 +208,7 @@ vim.keymap.set('n', '<M-a>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<M-x>', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
-vim.keymap.set('n', '<F3>', function ()require("telescope.builtin").find_files() end , {silent=true})
+vim.keymap.set('n', '<F3>', function () require("telescope.builtin").find_files() end , {silent=true})
 vim.keymap.set('n', '<F6>', function () require("telescope.builtin").live_grep() end , {silent=true})
 
 --auto add ; to the end of line
@@ -215,7 +219,7 @@ vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
 
 --exit terminal with esc
-vim.keymap.set('t', '<M-Esc>', '<C-\\><C-N>', {})
+vim.keymap.set('t', '<C-Esc>', '<C-\\><C-N>', {})
 
 vim.keymap.set('n','<C-t>',':1ToggleTerm<CR>',{silent=true})
 
@@ -225,7 +229,7 @@ vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
 vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
 
 
-vim.keymap.set('n', '<c-esc>', ':ccl<enter>', {silent=true})
+vim.keymap.set('n', '<C-c>', ':ccl<enter>', {silent=true})
 
 local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 

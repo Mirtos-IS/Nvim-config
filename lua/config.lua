@@ -33,9 +33,7 @@ vim.o.foldenable = false
 vim.o.swapfile = false
 vim.o.undofile = true
 vim.o.signcolumn = 'no'
-vim.o.formatoptions = 'jcrql'
 vim.o.trim_trailing_whitespace = true
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,options"
 vim.o.makeprg = 'make all && ./platfighter'
 vim.filetype.add({
  extension = {

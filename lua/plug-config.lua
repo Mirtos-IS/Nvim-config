@@ -173,7 +173,7 @@ cmp.setup({
   mapping = {
     ['<C-f>'] = cmp.mapping.scroll_docs(-4),
     ['<C-h>'] = cmp.mapping.scroll_docs(4),
-    ["<S-CR>"] = cmp.mapping.confirm { select = true },
+    ["<M-Space>"] = cmp.mapping.confirm { select = true },
     ["<c-space>"] = cmp.mapping.complete(),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -332,6 +332,30 @@ require('telescope').setup({
             -- Depending on what you want put `cd`, `lcd`, `tcd`
             vim.cmd(string.format("silent cd %s", dir))
             builtin.live_grep()
+          end,
+          ['<CR>'] = custom_actions.fzf_multi_select,
+        }
+      },
+      previews = {
+        timeout = 250
+      },
+    },
+    grep_string = {
+      mappings = {
+        i = {
+          ["<LEFT>"] = function(prompt_bufnr)
+            local dir = vim.fn.expand("%:p:h:h")
+            require("telescope.actions").close(prompt_bufnr)
+            vim.cmd(string.format("silent cd %s", dir))
+            builtin.grep_string()
+          end,
+          ["<RIGHT>"] = function(prompt_bufnr)
+            local selection = require("telescope.actions.state").get_selected_entry()
+            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+            require("telescope.actions").close(prompt_bufnr)
+            -- Depending on what you want put `cd`, `lcd`, `tcd`
+            vim.cmd(string.format("silent cd %s", dir))
+            builtin.grep_string()
           end,
           ['<CR>'] = custom_actions.fzf_multi_select,
         }

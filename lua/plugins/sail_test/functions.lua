@@ -1,14 +1,15 @@
 local ts_utils = require'nvim-treesitter.ts_utils'
+local modules = require('lualine.components.branch.git_branch')
 local notify = require("notify")
 
-local function isEmpty(string)
-  return string ~= nil and string:match("%S")
-end
-
-function OpenTerminal(command, term)
-  term = term or 2
-  vim.cmd(string.format("%sTermExec cmd='%s' dir=$WORK direction=vertical size=100", term, command))
+function OpenTerminal(command, split)
+  local dir = '/' .. modules.find_git_dir():match('.(.*)/.git')
+  if split then
+    os.execute(string.format("tmux if -F '#{==:#{window_panes},1}' 'split-window -dh -l 70 -c %s; send-keys -t 1 \"%s\n\"' 'send-keys -t 1 \"%s\n\"'", dir, command, command))
+    return
   end
+  os.execute(string.format("tmux if-shell 'tmux send-keys -t 2.0 \"%s\n\"' 'select-window -t :2' 'new-window -t :2 -c %s; send-keys -t :2.0 \"%s\n\"; select-window -t :2'", command, dir, command))
+end
 
 function GetTestCommand(method)
   method = method or nil
@@ -19,18 +20,17 @@ function GetTestCommand(method)
   if method == nil then
     return cmd .. file_test_dir .. ' order-by=random'
   end
-  -- return cmd .. '--filter ' .. method .. ' ' ..file_test_dir
   return string.format('%s--filter %s %s', cmd, method, file_test_dir)
 end
 
-function RunTestCurrentMethod()
+function RunTestCurrentMethod(split)
   local method_name = GetCurrentFunctionName()
   if string.len(method_name) < 4 then
     notify('no method was found')
     return
   end
   local cmd = GetTestCommand(method_name)
-  OpenTerminal(cmd, 3)
+  OpenTerminal(cmd, split)
 end
 
 
@@ -53,18 +53,3 @@ function GetCurrentFunctionName()
 
   return vim.treesitter.get_node_text(expr:child(2),0)
 end
-
-function GetLastNonEmptyLine(buffer)
-  local ui = vim.api.nvim_list_uis()[1]
-  local height = ui.height
-
-  for i = -1, (height-2)*-1, -1 do
-    local text = vim.api.nvim_buf_get_lines(buffer, i, -1, 0)[1]
-    if isEmpty(text) then
-      return text
-    end
-  end
-  return ''
-end
-
-

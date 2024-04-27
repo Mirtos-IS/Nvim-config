@@ -57,6 +57,9 @@ require("lualine").setup{
     lualine_z = {'tabs'},
   }
 }
+  --bg = "#1a1b26",
+  --bg_dark = "#16161e",
+  --bg_float = "#16161e",
 
 --highlights
 vim.g.termguicolors = true

@@ -1,23 +1,6 @@
-local modules = require('lualine.components.branch.git_branch')
 local startWin
 local blameWin
-local sessionPath = "~/.config/nvim/sessions/"
 
-local function getSessionName()
-  return pcall(function()
-    local dir =  modules.find_git_dir()
-    if dir == nil then
-      return
-    end
-
-    local gitDir = dir:match('.(.*)/.git')
-    local projectName = gitDir:gsub('.*/', "")
-
-    local currentBranch = modules.get_branch()
-
-    return "." .. projectName .. "-" .. currentBranch .. ".vim"
-  end)
-end
 --autocommands
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -31,6 +14,13 @@ vim.api.nvim_create_autocmd('QuickFixCmdPre', {
   pattern = '*',
   callback = function ()
     vim.cmd('cd /home/mirtos/GitRepos/platfighter/src/')
+  end
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = "*",
+  callback = function ()
+    vim.o.formatoptions = 'jcrql'
   end
 })
 
@@ -96,14 +86,6 @@ vim.api.nvim_create_autocmd('FocusGained', {
   end
 })
 
-vim.api.nvim_create_autocmd('VimLeavePre', {
-  pattern = '*',
-  callback = function ()
-    pcall(function()
-      vim.cmd("SaveSession")
-    end)
-  end
-})
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
@@ -162,24 +144,4 @@ vim.api.nvim_create_user_command('GBlame', function ()
     vim.api.nvim_win_close(blameWin, false)
     blameWin = nil
   end
-end, {})
-
-vim.api.nvim_create_user_command('SaveSession', function()
-  pcall(function()
-      local ok, filename = getSessionName()
-      if ok == false then
-        return
-      end
-      vim.cmd("silent mksession! " .. sessionPath .. filename)
-  end)
-end, {})
-
-vim.api.nvim_create_user_command('LoadSession', function()
-  pcall(function()
-    local ok, filename = getSessionName()
-    if ok == false then
-      return
-    end
-    vim.cmd("silent so " .. sessionPath .. filename)
-  end)
 end, {})
