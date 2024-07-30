@@ -18,7 +18,7 @@ function GetTestCommand(method)
   local file_test_dir = string.gsub(file_full_dir, '.*tests', 'tests')
   local cmd = 'clear && sail test '
   if method == nil then
-    return cmd .. file_test_dir .. ' order-by=random'
+    return cmd .. file_test_dir .. ' --order-by=random'
   end
   return string.format('%s--filter %s %s', cmd, method, file_test_dir)
 end

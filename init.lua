@@ -13,15 +13,15 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   --fuzzy finder
-  { 'nvim-telescope/telescope.nvim', version = '0.1.1', dependencies = { {'nvim-lua/plenary.nvim'} } },
-  {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+  "ibhagwan/fzf-lua",
+  "nvim-lua/plenary.nvim",
   --colorscheme
   "catppuccin/nvim", name = "catppuccin",
-  --fancy lualine
+  --fancy statusbar and tabline
   { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true } },
   'tiagovla/scope.nvim',
+  'vimpostor/vim-tpipeline',
   --QoL plugins
-  'numToStr/Comment.nvim',
   'windwp/nvim-autopairs',
   'moll/vim-bbye',
   {'NvChad/nvim-colorizer.lua', lazy = true},
@@ -43,7 +43,6 @@ local plugins = {
   'nvim-treesitter/nvim-treesitter-context',
   {'nvim-treesitter/playground', lazy = true},
   --random plugs
-  'akinsho/toggleterm.nvim',
   {'dstein64/vim-startuptime', lazy = true},
   'rcarriga/nvim-notify',
   --git plugins

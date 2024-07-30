@@ -4,8 +4,6 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader><leader>s', ':so %<CR>', {})
 vim.keymap.set('n', '<leader><leader>a', ':so $MYVIMRC<CR>', {})
 
-vim.keymap.set('n', '<leader>h', '<cmd>HopWord<CR>', {silent = true})
-
 vim.keymap.set('', '<leader>wn', '<C-w>h', {})
 vim.keymap.set('', '<leader>we', '<C-w>j', {})
 vim.keymap.set('', '<leader>wa', '<C-w>l', {})
@@ -29,31 +27,15 @@ vim.keymap.set({'n', 'v'}, '<leader>d', 'di',{remap = true})
 vim.keymap.set({'n', 'v'}, '<C-y>', '"+y',{remap = true})
 
 --search and replace word under cursor
-vim.keymap.set('n', '<leader>f', ':%s/<C-R><C-W>/<C-R><C-W>/g<left><left>', {})
+vim.keymap.set('n', '<leader>f', ':%s/<C-r><C-W>/<C-u><C-W>/g<left><left>', {})
 --search what in register
 vim.keymap.set('n', '<C-h>', '/<C-r>"<CR>', {})
-
---go specific maping
-vim.keymap.set('', '<leader>gr', '<cmd>GoRun<CR>', {silent=true})
-vim.keymap.set('', '<leader>gt', '<cmd>RunGoTest<CR>', {silent=true})
-vim.keymap.set('', '<leader>gf', '<cmd>RunGoTestOnFunc<CR>', {silent=true})
-
---tab shortcuts
-vim.keymap.set('n', '<leader>tf', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
-vim.keymap.set('n', '<leader>ta', '<cmd>SailRunTest<CR>', {silent=true})
-vim.keymap.set('n', '<leader>n', '<cmd>keepjumps tabp<CR>', {silent=true})
-vim.keymap.set('n', '<leader>a', '<cmd>keepjumps tabn<CR>', {silent=true})
 
 --quickfix shortcuts
 vim.keymap.set('n', '<M-e>', '<cmd>keepjumps cn<CR>', {silent=true})
 vim.keymap.set('n', '<M-o>', '<cmd>keepjumps cp<CR>', {silent=true})
 
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
-
---keymap for my sail plugin
-vim.keymap.set('n', '<leader>sf', '<cmd>SailRunTest<CR>', {silent=true})
-vim.keymap.set('n', '<leader>st', '<cmd>SailTinker<CR>', {silent=true})
-vim.keymap.set('n', '<leader>sm', '<cmd>SailTestCurrentMethod<CR>', {silent=true})
 
 --harpoon manip
 vim.keymap.set('n', '<leader>p', function ()
@@ -63,16 +45,19 @@ vim.keymap.set('n', '<leader>e', function ()
   require("harpoon.mark").add_file()
 end, {silent=true})
 
+--buffer
+vim.keymap.set('n', '<leader>b', function () require("fzf-lua").buffers({files = {path_shorten=2}}) end)
+
 --localleader mapping
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
 
 --grep current word
 vim.keymap.set('n', '<localleader>f', function ()
-  require("telescope.builtin").live_grep({default_text=vim.fn.expand("<cword>")})
+  require("fzf-lua").live_grep({search=vim.fn.expand("<cword>")})
 end)
 
 --diagnostic
-vim.keymap.set('n', '<localleader>dd', function () require("telescope.builtin").diagnostics({bufnr=0}) end)
+vim.keymap.set('n', '<localleader>dd', function () require("fzf-lua").diagnostics_document() end)
 vim.keymap.set('n', '<localleader>de', function () vim.diagnostic.goto_next() end, {})
 vim.keymap.set('n', '<localleader>do', function () vim.diagnostic.goto_prev() end, {})
 vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
@@ -111,7 +96,7 @@ vim.keymap.set('n', '<localleader>gc', function ()
     vim.cmd('startinsert')
   end
 end, {})
-vim.keymap.set('n', '<localleader>gb', function () require("telescope.builtin").git_bcommits() end, {silent=true})
+vim.keymap.set('n', '<localleader>gb', function () require("fzf-lua").git_bcommits() end, {silent=true})
 vim.keymap.set('n', '<localleader>bt', '<cmd>GitBlameToggle<CR>', {silent=true})
 vim.keymap.set('n', '<localleader>bo', '<cmd>GitBlameOpenCommitURL<CR>', {silent=true})
 
@@ -208,8 +193,8 @@ vim.keymap.set('n', '<M-a>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<M-x>', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
-vim.keymap.set('n', '<F3>', function () require("telescope.builtin").find_files() end , {silent=true})
-vim.keymap.set('n', '<F6>', function () require("telescope.builtin").live_grep() end , {silent=true})
+vim.keymap.set('n', '<F3>', function () require("fzf-lua").files() end , {silent=true})
+vim.keymap.set('n', '<F6>', function () require("fzf-lua").live_grep() end , {silent=true})
 
 --auto add ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
@@ -217,11 +202,6 @@ vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 
 --call cmp select in current word
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
-
---exit terminal with esc
-vim.keymap.set('t', '<C-Esc>', '<C-\\><C-N>', {})
-
-vim.keymap.set('n','<C-t>',':1ToggleTerm<CR>',{silent=true})
 
 --use my checklist plugin
 --my ckecklist specific shortcuts
@@ -259,21 +239,15 @@ vim.keymap.set('n', '<M-i>', function ()
   require("harpoon.ui").nav_file(4)
 end, {silent=true})
 
-function Set_terminal_keymaps()
-
-    vim.keymap.set('t', '<esc>', "<cmd>ToggleTerm<CR>", {buffer=true})
-end
-
 function Set_checklist_keymaps()
   vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
-  vim.keymap.set('n', '<leader>e', ':ToggleTermSendCurrentLine 2<CR>', {silent=true, buffer=true})
+  -- vim.keymap.set('n', '<leader>e', ':ToggleTermSendCurrentLine 2<CR>', {silent=true, buffer=true})
 end
 
 function Set_todolist_keymaps()
   vim.keymap.set('n', '<F4>', function () ToggleTodolist() end, {silent=true})
 end
 
-vim.cmd('autocmd! TermOpen term://*toggleterm#* lua Set_terminal_keymaps()')
 vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
 vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
 

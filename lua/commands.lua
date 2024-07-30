@@ -1,22 +1,6 @@
 local startWin
 local blameWin
 
---autocommands
-vim.api.nvim_create_autocmd('TermOpen', {
-  pattern = '*',
-  callback = function ()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-  end
-})
-
-vim.api.nvim_create_autocmd('QuickFixCmdPre', {
-  pattern = '*',
-  callback = function ()
-    vim.cmd('cd /home/mirtos/GitRepos/platfighter/src/')
-  end
-})
-
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = "*",
   callback = function ()
@@ -110,18 +94,12 @@ vim.api.nvim_create_autocmd('InsertLeave', {
 
 --user commands
 vim.api.nvim_create_user_command('MyConfig', function ()
-    require('telescope.builtin').nvim_files(require('telescope.themes').get_dropdown({winblend = 50}))
+    require('fzf-lua').files({cwd = "~/.config/nvim"})
 end
 , {})
 
 vim.api.nvim_create_user_command('Trim', function ()
   vim.cmd('%s/\\s\\+$//e')
-end
-, {})
-
-vim.api.nvim_create_user_command('GoRun', function ()
-  local filename = vim.fn.expand('%:t')
-  vim.cmd(string.format("TermExec cmd='go run %s'", filename))
 end
 , {})
 

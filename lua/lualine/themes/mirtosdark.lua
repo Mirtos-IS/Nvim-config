@@ -1,9 +1,9 @@
 local colors = {
-  gray     = '#3C3C3C',
+  gray     = '#181825',
   lightred = '#D16969',
   blue     = '#89B4FA',
   pink     = '#C586C0',
-  black    = '#262626',
+  black    = '#181825',
   white    = '#D4D4D4',
   green    = '#608B4E',
   yellow   = '#FFAF00',

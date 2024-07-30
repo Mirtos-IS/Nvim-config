@@ -16,13 +16,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<localleader>ld', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<localleader>lr', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<localleader>la', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<localleader>e', function () require("telescope.builtin").lsp_definitions() end, {silent=true})
+  vim.keymap.set('n', '<localleader>e', function () require("fzf-lua").lsp_definitions({ jump_to_single_result = true }) end, {silent=true})
   vim.keymap.set('n', '<localleader>r', function ()
-    require('telescope.builtin').lsp_references({
-    layout_strategy='vertical',
-    path_display = {
-      smart = true,
-    }})
+    require('fzf-lua').lsp_references({
+      winopts = {preview = {layout = "vertical", vertical = "up:60%"}}
+    })
   end, bufopts)
 end
 
@@ -86,8 +84,7 @@ require("nvim-autopairs").setup {
 
 vim.notify = require("notify")
 
-require('nvim-treesitter.configs').setup{
-  auto_install = true,
+require('nvim-treesitter.configs').setup{ auto_install = true,
   sync_install = false,
   ensure_installed = {},
   ignore_install = {},
@@ -142,23 +139,6 @@ require('nvim-treesitter.configs').setup{
   },
 }
 
-require("toggleterm").setup{
-  open_mapping = [[<C-t>]],
-  hide_number = true,
-  persist_mode = false,
-  start_in_insert = true,
-  insert_mappings = false,
-  direction = 'float',
-  terminal_mappings = true,
-  highlights = {
-    Normal = {
-      guibg = "#000000",
-    },
-    FloatBorder = {
-      guifg = "#1d99f3",
-    },
-  },
-}
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -265,134 +245,60 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- Setup lspconfig.
-
-require('Comment').setup {
-  sticky = true,
-  extra = {
-    ---Add comment on the line above
-    above = 'gcL',
-    ---Add comment on the line below
-    below = 'gcl',
-    ---Add comment at the end of line
-    eol = 'gcK',
-  },
-}
-local builtin = require('telescope.builtin')
-local actions = require("telescope.actions")
-local action_state = require('telescope.actions.state')
-
-local custom_actions = {}
-
-function custom_actions.fzf_multi_select(prompt_bufnr)
-  local picker = action_state.get_current_picker(prompt_bufnr)
-  local num_selections = table.getn(picker:get_multi_selection())
-
-  if num_selections > 1 then
-    picker = action_state.get_current_picker(prompt_bufnr)
-    for _, entry in ipairs(picker:get_multi_selection()) do
-      vim.cmd(string.format("%s %s", ":e!", entry.value))
-    end
-    vim.cmd('stopinsert')
-  else
-    actions.file_edit(prompt_bufnr)
-  end
-end
-
-require('telescope').setup({
-  defaults = {
-    previews = {
-      timeout = 250,
-      filesize_limit = 2
+local oldDir, newDir
+require("fzf-lua").setup({
+  winopts = {
+    preview = {
+      horizontal = 'right:50%',
     },
-    mappings = {
-      i = {
-        ["<esc>"] = actions.close,
-        ['<C-h>'] = require('telescope.actions.layout').toggle_preview,
-        ['<tab>'] = actions.toggle_selection + actions.move_selection_next,
-        ['<s-tab>'] = actions.toggle_selection + actions.move_selection_previous,
-        -- ['<CR>'] = custom_actions.select_default,
-      },
+    on_close = function()
+      if newDir == nil or newDir == oldDir then
+        newDir = nil
+        oldDir = nil
+      else
+        oldDir = newDir
+      end
+    end,
+  },
+  fzf_opts = {
+    ["--layout"]         = "default",
+  },
+  files = {
+    git_icons = false,
+  },
+  actions = {
+    true,
+    files = {
+    git_icons = false,
+      true,
+      ["LEFT"] = function ()
+        oldDir = oldDir or vim.fn.expand("%:p:h")
+        newDir = vim.fn.fnamemodify(oldDir, ":p:h:h")
+        require("fzf-lua").files({cwd = newDir})
+      end
     },
   },
-  pickers = {
-    live_grep = {
-      mappings = {
-        i = {
-          ["<LEFT>"] = function(prompt_bufnr)
-            local dir = vim.fn.expand("%:p:h:h")
-            require("telescope.actions").close(prompt_bufnr)
-            vim.cmd(string.format("silent cd %s", dir))
-            builtin.live_grep()
-          end,
-          ["<RIGHT>"] = function(prompt_bufnr)
-            local selection = require("telescope.actions.state").get_selected_entry()
-            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-            require("telescope.actions").close(prompt_bufnr)
-            -- Depending on what you want put `cd`, `lcd`, `tcd`
-            vim.cmd(string.format("silent cd %s", dir))
-            builtin.live_grep()
-          end,
-          ['<CR>'] = custom_actions.fzf_multi_select,
-        }
-      },
-      previews = {
-        timeout = 250
-      },
-    },
-    grep_string = {
-      mappings = {
-        i = {
-          ["<LEFT>"] = function(prompt_bufnr)
-            local dir = vim.fn.expand("%:p:h:h")
-            require("telescope.actions").close(prompt_bufnr)
-            vim.cmd(string.format("silent cd %s", dir))
-            builtin.grep_string()
-          end,
-          ["<RIGHT>"] = function(prompt_bufnr)
-            local selection = require("telescope.actions.state").get_selected_entry()
-            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-            require("telescope.actions").close(prompt_bufnr)
-            -- Depending on what you want put `cd`, `lcd`, `tcd`
-            vim.cmd(string.format("silent cd %s", dir))
-            builtin.grep_string()
-          end,
-          ['<CR>'] = custom_actions.fzf_multi_select,
-        }
-      },
-      previews = {
-        timeout = 250
-      },
-    },
-    find_files = {
-      mappings = {
-        i = {
-          ["<LEFT>"] = function(prompt_bufnr)
-            local dir = vim.fn.expand("%:p:h:h")
-            require("telescope.actions").close(prompt_bufnr)
-            vim.cmd(string.format("silent cd %s", dir))
-            builtin.find_files()
-          end,
-          ["<RIGHT>"] = function(prompt_bufnr)
-            local selection = require("telescope.actions.state").get_selected_entry()
-            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-            require("telescope.actions").close(prompt_bufnr)
-            -- Depending on what you want put `cd`, `lcd`, `tcd`
-            vim.cmd(string.format("silent cd %s", dir))
-            builtin.find_files()
-          end,
-          ['<CR>'] = custom_actions.fzf_multi_select,
-        }
-      },
-      previews = {
-        timeout = 250
-      },
-    },
+  grep = {
+    actions = {
+      ["LEFT"] = function ()
+        oldDir = oldDir or vim.fn.expand("%:p:h")
+        newDir = vim.fn.fnamemodify(oldDir, ":p:h:h")
+        require("fzf-lua").live_grep({cwd = newDir})
+      end
+    }
   },
+  previewers = {
+    builtin = {
+      extensions = {
+        ["png"]       = { "viu", "-b" },
+        ["jpg"]       = { "viu", "-b" },
+      }
+    }
+  }
 })
 
--- require('telescope').load_extension('fzf')
 require 'colorizer'.setup({
+{ "css", "javascript", "lua", "vim", "toml", "typescript", "conf", "vue", "templ" },
  user_default_options = {
     mode = "virtualtext"
   }

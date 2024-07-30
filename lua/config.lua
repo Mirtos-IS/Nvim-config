@@ -1,10 +1,9 @@
 vim.o.completeopt='menu,menuone,noselect'
 
 --load vimscript stuff
-vim.o.showcmd = true
+vim.o.showcmd = false
 vim.o.showmode = false
 vim.o.scrolloff = 10
-vim.opt.iskeyword:append('$,@,#')
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.ruler = true
@@ -12,7 +11,7 @@ vim.o.hlsearch = false
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.laststatus=3
-vim.o.mouse=false
+vim.o.mouse=""
 vim.o.wrap = false
 vim.o.pumblend = 30
 vim.o.pumheight = 15
@@ -33,10 +32,12 @@ vim.o.foldenable = false
 vim.o.swapfile = false
 vim.o.undofile = true
 vim.o.signcolumn = 'no'
-vim.o.trim_trailing_whitespace = true
-vim.o.makeprg = 'make all && ./platfighter'
 vim.filetype.add({
  extension = {
   templ = "templ",
  },
 })
+
+if vim.fn.empty('$TMUX') then
+  vim.o.ruler=false
+end

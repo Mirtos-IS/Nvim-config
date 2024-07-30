@@ -1,4 +1,5 @@
 local modules = require('lualine.components.branch.git_branch')
+local blue = '#89B4FA'
 
 local function git_dir()
   local dir =  modules.find_git_dir()
@@ -6,8 +7,6 @@ local function git_dir()
   local currentDir = vim.fn.expand('%:p')
   return currentDir:gsub(gitDir, "")
 end
-
-local blue = '#89B4FA'
 
 local method = "#FAB387"
 local functionColor = blue
@@ -29,33 +28,41 @@ require("lualine").setup{
 
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', function() return git_dir() end, 'diagnostics'},
+    lualine_b = {{
+      'filename',
+      color = function ()
+        if IsModified() then
+          return {fg = '#FFAF00'}
+        end
+        return nil
+      end
+    }},
     lualine_c = {},
-    lualine_x = {'diff', 'filetype'},
+    lualine_x = {'diff', 'diagnostics', 'filetype'},
     lualine_y = {"os.date('%H:%M')"},
     lualine_z = {function () return 'C %c' end, function() return "L %l:%L " end}
   },
-  tabline = {
-    lualine_a = {{
-      'buffers',
-      buffers_color = {
-        active = function ()
-          if IsModified() then
-            return {bg = '#FFAF00'}
-          end
-          return {bg = blue}
-        end
-      },
-      symbols = {
-        alternate_file = '',
-      }
-    }},
-    lualine_b = {},
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {'tabs'},
-  }
+  -- tabline = {
+  --   lualine_a = {{
+  --     'buffers',
+  --     buffers_color = {
+  --       active = function ()
+  --         if IsModified() then
+  --           return {bg = '#FFAF00'}
+  --         end
+  --         return {bg = blue}
+  --       end
+  --     },
+  --     symbols = {
+  --       alternate_file = '',
+  --     }
+  --   }},
+  --   lualine_b = {},
+  --   lualine_c = {},
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = {'tabs'},
+  -- }
 }
   --bg = "#1a1b26",
   --bg_dark = "#16161e",
@@ -66,9 +73,9 @@ vim.g.termguicolors = true
 require("catppuccin").setup({
   custom_highlights = function ()
     return {
-      ['Normal'] = {bg='#000000'},
-      ['NormalFloat'] = {bg='#000000'},
-      ['NormalNC'] = {bg='#000000'},
+      ['Normal'] = {bg='none'},
+      ['NormalFloat'] = {bg='none'},
+      ['NormalNC'] = {bg='none'},
       ['LineNr'] = {bg='none', fg='#757575'},
       ['CursorLine'] = {bg='#2a2b3c', fg='none'},
       ['EndOfBuffer'] = {bg='none', fg='#757575'},
@@ -81,6 +88,7 @@ require("catppuccin").setup({
       ['TreesitterContextLineNumber'] = {bg='#2a2b3c'},
       ['TreesitterContext'] = {bg='#2a2b3c'},
       ['PmenuSel'] = {bg='#646464', blend=0},
+      ['NotifyBackground'] = {bg='#000000', blend=0},
 
       --syntax highlight
       ['@parameter'] = {fg='#d1d7f0'},

@@ -23,10 +23,10 @@ function Open_win(win_h, win_w)
     col = col,
     focusable = false,
     border = "rounded",
-}
+  }
 
-win = vim.api.nvim_open_win(buf, true, opts)
-vim.api.nvim_win_set_option(win, "winhighlight", 'Normal:Normal,FloatBorder:FloatBorder')
+  win = vim.api.nvim_open_win(buf, true, opts)
+  vim.api.nvim_win_set_option(win, "winhighlight", 'Normal:Normal,FloatBorder:FloatBorder')
 end
 
 function View()
