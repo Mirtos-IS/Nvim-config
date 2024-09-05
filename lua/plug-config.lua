@@ -317,4 +317,6 @@ require('harpoon').setup({
 
 require("treesitter-context").setup()
 
+require('nvim-tmux-navigation').setup({})
+
 require("plugins")

@@ -49,6 +49,8 @@ local plugins = {
   'f-person/git-blame.nvim',
   'tpope/vim-fugitive',
   {'Mirtos-IS/harpoon', lazy = true },
+  --tmux
+  { "alexghergh/nvim-tmux-navigation" },
 }
 local opts = {}
 

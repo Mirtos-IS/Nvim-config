@@ -10,6 +10,14 @@ vim.keymap.set('', '<leader>wa', '<C-w>l', {})
 vim.keymap.set('', '<leader>wo', '<C-w>k', {})
 vim.keymap.set('', '<leader>wl', '<C-w>o', {})
 
+local nvim_tmux_nav = require('nvim-tmux-navigation')
+vim.keymap.set('', '<M-n>', nvim_tmux_nav.NvimTmuxNavigateLeft, {})
+vim.keymap.set('', '<M-e>', nvim_tmux_nav.NvimTmuxNavigateDown, {})
+vim.keymap.set('', '<M-a>', nvim_tmux_nav.NvimTmuxNavigateRight, {})
+vim.keymap.set('', '<M-o>', nvim_tmux_nav.NvimTmuxNavigateUp, {})
+
+vim.keymap.set('', '<M-l>', '<C-w>o', {})
+
 vim.keymap.set('', '<leader>wN', '<C-w>H', {})
 vim.keymap.set('', '<leader>wE', '<C-w>J', {})
 vim.keymap.set('', '<leader>wA', '<C-w>L', {})
@@ -32,8 +40,8 @@ vim.keymap.set('n', '<leader>f', ':%s/<C-r><C-W>/<C-u><C-W>/g<left><left>', {})
 vim.keymap.set('n', '<C-h>', '/<C-r>"<CR>', {})
 
 --quickfix shortcuts
-vim.keymap.set('n', '<M-e>', '<cmd>keepjumps cn<CR>', {silent=true})
-vim.keymap.set('n', '<M-o>', '<cmd>keepjumps cp<CR>', {silent=true})
+vim.keymap.set('n', '<M-h>', '<cmd>keepjumps cn<CR>', {silent=true})
+vim.keymap.set('n', '<M-H>', '<cmd>keepjumps cp<CR>', {silent=true})
 
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', {})
 
@@ -171,8 +179,8 @@ vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 --move lines around the code
 vim.keymap.set('n', '<M-E>', '<cmd>m +1<CR>==', {})
 vim.keymap.set('n', '<M-O>', '<cmd>m -2<CR>==', {})
-vim.keymap.set('v', '<M-O>', ":m '<-2<CR>gv=gv", {})
 vim.keymap.set('v', '<M-E>', ":m '>+1<CR>gv=gv", {})
+vim.keymap.set('v', '<M-O>', ":m '<-2<CR>gv=gv", {})
 
 --dismiss notify notifications
 vim.keymap.set('', '<M-ESC>', function () require('notify').dismiss() end, {})
@@ -188,8 +196,6 @@ vim.keymap.set('n', '<C-a>', 'zL', {})
 vim.keymap.set('n', '<C-n>', 'zH', {})
 
 --buffer shortcuts
-vim.keymap.set('n', "<M-n>", '<cmd>keepjumps bp<CR>', {})
-vim.keymap.set('n', '<M-a>', '<cmd>keepjumps bn<CR>', {})
 vim.keymap.set('n', '<M-x>', '<cmd>Bdelete<CR>', {})
 
 --fuzzy finder
@@ -213,16 +219,8 @@ vim.keymap.set('n', '<C-c>', ':ccl<enter>', {silent=true})
 
 local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-for i = 1, string.len(all_letter) do
-  local char = string.sub(all_letter, i, i)
-  if (char == char:upper()) then
-    vim.keymap.set('n', 'm'.. char, 'm'..char:lower(), {})
-    vim.keymap.set('n', "'".. char, "'"..char:lower(), {})
-  else
-    vim.keymap.set('n', 'm'.. char, 'm'..char:upper(), {})
-    vim.keymap.set('n', "'".. char, "'"..char:upper(), {})
-  end
-end
+vim.keymap.set('n', "'s", "'S", {})
+vim.keymap.set('n', "'w", "'W", {})
 
 --Harpoon fork mapping
 --quick access
