@@ -1,0 +1,6 @@
+vim.keymap.set({'n', 'o', 'x'}, 'l', 'o', {buffer=true})
+vim.keymap.set({'n', 'o', 'x'}, 'L', 'O', {buffer=true})
+vim.keymap.set({'n', 'o', 'x'}, 'o', 'k', {buffer=true})
+vim.keymap.set({'n', 'o', 'x'}, 'e', 'j', {buffer=true})
+vim.keymap.set({'n', 'o', 'x'}, 'n', 'h', {buffer=true})
+vim.keymap.set({'n', 'o', 'x'}, 'a', 'l', {buffer=true})

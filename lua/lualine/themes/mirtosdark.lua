@@ -11,31 +11,31 @@ local colors = {
 
 return {
   normal = {
-    b = { fg = colors.green, bg = colors.black },
     a = { fg = colors.black, bg = colors.blue, gui = 'bold' },
+    b = { fg = colors.yellow, bg = colors.black },
     c = { fg = colors.white, bg = colors.black },
   },
   visual = {
-    b = { fg = colors.pink, bg = colors.black },
     a = { fg = colors.black, bg = colors.pink, gui = 'bold' },
+    b = { fg = colors.pink, bg = colors.black },
   },
   inactive = {
-    b = { fg = colors.black, bg = colors.blue },
     a = { fg = colors.white, bg = colors.gray, gui = 'bold' },
+    b = { fg = colors.green, bg = colors.black },
   },
   replace = {
-    b = { fg = colors.lightred, bg = colors.black },
     a = { fg = colors.black, bg = colors.lightred, gui = 'bold' },
+    b = { fg = colors.lightred, bg = colors.black },
     c = { fg = colors.white, bg = colors.black },
   },
   insert = {
-    b = { fg = colors.yellow, bg = colors.black },
     a = { fg = colors.black, bg = colors.yellow, gui = 'bold' },
+    b = { fg = colors.yellow, bg = colors.black },
     c = { fg = colors.white, bg = colors.black },
   },
   command = {
-    b = { fg = colors.green, bg = colors.black },
     a = { fg = colors.black, bg = colors.green, gui = 'bold' },
+    b = { fg = colors.green, bg = colors.black },
     c = { fg = colors.white, bg = colors.black },
   },
 }

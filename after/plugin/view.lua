@@ -1,76 +1,50 @@
-local modules = require('lualine.components.branch.git_branch')
-local blue = '#89B4FA'
+local colors = {
+  gray       = '#7f849c',
+  lightred   = '#D16969',
+  blue       = '#89B4FA',
+  pink       = '#C586C0',
+  lightPink  = '#F5C2E7',
+  black      = '#181825',
+  white      = '#D4D4D4',
+  green      = '#a6da95',
+  yellow     = '#FFAF00',
+  orange     = '#FAB387',
+  lavander   = '#B4BEFE',
+}
 
-local function git_dir()
-  local dir =  modules.find_git_dir()
-  local gitDir = "/" .. dir:match('.(.*)/.git')
-  local currentDir = vim.fn.expand('%:p')
-  return currentDir:gsub(gitDir, "")
-end
-
-local method = "#FAB387"
-local functionColor = blue
-local qualifier = "#F5C2E7"
-local keyword = "#F5C2E7"
-
-local function IsModified()
-  return vim.fn.getbufinfo('%')[1].changed > 0
-end
+local method = colors.orange
+local functionColor = colors.blue
+local qualifier = colors.lightPink
+local keyword = colors.lightPink
 
 require("scope").setup()
 
-local theme = require("lualine.themes.mirtosdark")
-require("lualine").setup{
-  options = {
-    theme = theme,
-    globalstatus = true,
-  },
+-- local theme = require("lualine.themes.mirtosdark")
+-- require("lualine").setup{
+--   options = {
+--     theme = theme,
+--     globalstatus = true,
+--   },
+--
+--   sections = {
+--     lualine_a = {'mode'},
+--     lualine_b = {'windows'},
+--     lualine_c = {},
+--     lualine_x = {'diff', 'diagnostics', 'filetype'},
+--     lualine_y = {"os.date('%H:%M')"},
+--     lualine_z = {function () return 'C %c' end, function() return "L %l:%L " end}
+--   },
+-- }
 
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {{
-      'filename',
-      color = function ()
-        if IsModified() then
-          return {fg = '#FFAF00'}
-        end
-        return nil
-      end
-    }},
-    lualine_c = {},
-    lualine_x = {'diff', 'diagnostics', 'filetype'},
-    lualine_y = {"os.date('%H:%M')"},
-    lualine_z = {function () return 'C %c' end, function() return "L %l:%L " end}
-  },
-  -- tabline = {
-  --   lualine_a = {{
-  --     'buffers',
-  --     buffers_color = {
-  --       active = function ()
-  --         if IsModified() then
-  --           return {bg = '#FFAF00'}
-  --         end
-  --         return {bg = blue}
-  --       end
-  --     },
-  --     symbols = {
-  --       alternate_file = '',
-  --     }
-  --   }},
-  --   lualine_b = {},
-  --   lualine_c = {},
-  --   lualine_x = {},
-  --   lualine_y = {},
-  --   lualine_z = {'tabs'},
-  -- }
-}
-  --bg = "#1a1b26",
-  --bg_dark = "#16161e",
-  --bg_float = "#16161e",
+
 
 --highlights
 vim.g.termguicolors = true
 require("catppuccin").setup({
+  integrations = {
+    fzf = false,
+    harpoon = false
+  },
   custom_highlights = function ()
     return {
       ['Normal'] = {bg='none'},
@@ -115,62 +89,181 @@ require("catppuccin").setup({
       ['@keyword'] = {fg=keyword}
     }
   end
-  -- color_override = {
-  --   mirtoscin = {
-  --     text = "#d8ddf2"
-  --   }
-  -- }
 })
 vim.cmd.colorscheme('catppuccin-mocha')
--- vim.api.nvim_set_hl(0, 'Normal', {bg='#000000'})
--- vim.api.nvim_set_hl(0, 'NormalFloat', {bg='#000000'})
--- vim.api.nvim_set_hl(0, 'NormalNC', {bg='#000000'})
--- vim.api.nvim_set_hl(0, 'LineNr', {bg='none', fg='#757575'})
--- vim.api.nvim_set_hl(0, 'CursorLine', {bg='#2a2b3c', fg='none'})
--- vim.api.nvim_set_hl(0, 'EndOfBuffer', {bg='none', fg='#757575'})
--- vim.api.nvim_set_hl(0, 'Directory', {bg='none'})
--- vim.api.nvim_set_hl(0, 'NonText', {bg='none'})
--- vim.api.nvim_set_hl(0, 'FoldColumn', {bg='none'})
--- vim.api.nvim_set_hl(0, 'SignColumn', {bg='none', fg='none'})
--- vim.api.nvim_set_hl(0, 'folded', {fg='#ba8d1a', bg='none'})
--- vim.api.nvim_set_hl(0, 'WinSeparator', {bg='none', fg='#272727'})
--- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', {bg='#2a2b3c'})
--- vim.api.nvim_set_hl(0, 'TreesitterContext', {bg='#2a2b3c'})
--- -- vim.api.nvim_set_hl(0, 'FloatBorder', {bg = "#000000", fg='#1d99f3'})
--- vim.api.nvim_set_hl(0, "PmenuSel", {bg='#646464', blend=0})
---
--- --syntax highlight
--- vim.api.nvim_set_hl(0, "@parameter", {fg='#d8ddf2'})
--- vim.api.nvim_set_hl(0, "@variable", {fg='#d8ddf2'})
--- vim.api.nvim_set_hl(0, '@function.call', {fg=functionColor})
--- vim.api.nvim_set_hl(0, '@function', {fg=method})
--- vim.api.nvim_set_hl(0, '@method', {fg=method})
--- vim.api.nvim_set_hl(0, '@constructor', {fg=method})
--- vim.api.nvim_set_hl(0, '@variable.builtin', {fg=qualifier})
--- --
--- --lua only
--- vim.api.nvim_set_hl(0, '@function.call.lua', {fg=method})
--- -- vim.api.nvim_set_hl(0, '@lsp.type.method', {fg=method})
---
--- -- php only
--- vim.api.nvim_set_hl(0, '@method.php', {fg=method})
--- vim.api.nvim_set_hl(0, '@method.call.php', {fg=method})
---
--- --js only
--- vim.api.nvim_set_hl(0, '@method.call.javascript', {fg=method})
---
--- --some misc ones
--- vim.api.nvim_set_hl(0, 'ExtraWhiteSpace', {bg='darkred'})
--- vim.api.nvim_set_hl(0, 'YankHighlight', {bg='#267683'})
--- vim.api.nvim_set_hl(0, 'HighlightedyankRegion', {bg='white'})
---
--- --telescope
--- -- vim.api.nvim_set_hl(0, 'TelescopeBorder', {fg='#639ccf'})
---
--- -- vim.api.nvim_set_hl(0, "@operator", {fg='#CCCCCC'})
--- vim.api.nvim_set_hl(0, '@keyword', {fg=keyword})
--- -- vim.api.nvim_set_hl(0, '@keyword.return', {fg=keyword})
--- -- vim.api.nvim_set_hl(0, '@keyword.function', {fg=keyword})
--- -- vim.api.nvim_set_hl(0, '@include', {fg=qualifier})
--- -- vim.api.nvim_set_hl(0, '@type.qualifier', {fg=qualifier})
 
+vim.api.nvim_set_hl(0, 'StatuslineModeNormal', { fg = colors.black, bg = colors.green, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeInsert', { fg = colors.black, bg = colors.yellow, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeVisual', { fg = colors.black, bg = colors.pink, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeReplace', { fg = colors.black, bg = colors.lightred, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeCommand', { fg = colors.black, bg = colors.blue, bold=true })
+
+vim.api.nvim_set_hl(0, 'StatuslineModeNormalInactive', { fg = colors.green, bg = colors.black, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeInsertInactive', { fg = colors.yellow, bg = colors.black, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeVisualInactive', { fg = colors.pink, bg = colors.black, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeReplaceInactive', { fg = colors.lightred, bg = colors.black, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeCommandInactive', { fg = colors.blue, bg = colors.black, bold=true })
+
+vim.api.nvim_set_hl(0, 'StatuslineMain', { fg = colors.black, bg = colors.green, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineSecond', { fg = colors.green, bg = colors.black, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineThird', { fg = colors.orange, bg = colors.black, bold=true })
+
+vim.api.nvim_set_hl(0, 'StatuslineInactive', { fg = colors.gray, bg = colors.black, bold=true })
+
+vim.api.nvim_set_hl(0, 'StatuslineSeparator', { fg = colors.white, bg = colors.black, bold=true })
+
+local function modeColor(current_mode)
+  local higroup = "%#StatuslineModeCommand#"
+  if current_mode == "n" then
+    higroup = "%#StatuslineModeNormal#"
+  elseif current_mode == "i" or current_mode == "ic" then
+    higroup = "%#StatuslineModeInsert#"
+  elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
+    higroup = "%#StatuslineModeVisual#"
+  elseif current_mode == "R" or current_mode == "Rv" then
+    higroup = "%#StatuslineModeReplace#"
+  elseif current_mode == "s" or current_mode == "S" or current_mode == "␓" then
+    higroup = "%#StatuslineModeSelect#"
+  elseif current_mode == "c" then
+    higroup = "%#StatuslineModeCommand#"
+  end
+  return higroup
+end
+
+local function modeColorInactive()
+  local current_mode = vim.api.nvim_get_mode().mode
+
+  local higroup = "%#StatuslineModeCommandInactive#"
+  if current_mode == "n" then
+    higroup = "%#StatuslineModeNormalInactive#"
+  elseif current_mode == "i" or current_mode == "ic" then
+    higroup = "%#StatuslineModeInsertInactive#"
+  elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
+    higroup = "%#StatuslineModeVisualInactive#"
+  elseif current_mode == "R" or current_mode == "Rv" then
+    higroup = "%#StatuslineModeReplaceInactive#"
+  elseif current_mode == "s" or current_mode == "S" or current_mode == "␓" then
+    higroup = "%#StatuslineModeSelectInactive#"
+  elseif current_mode == "c" then
+    higroup = "%#StatuslineModeCommandInactive#"
+  end
+  return higroup
+end
+
+local function getMode()
+  local modes = {
+    ["n"] = "NORMAL",
+    ["no"] = "NORMAL",
+    ["i"] = "INSERT",
+    ["ic"] = "INSERT",
+    ["v"] = "VISUAL",
+    ["V"] = "V-LINE",
+    [""] = "V-BLOCK",
+    ["s"] = "SELECT",
+    ["S"] = "S-LINE",
+    ["␓"] = "S-BLOCK",
+    ["R"] = "REPLACE",
+    ["Rv"] = "V-REPLACE",
+    ["c"] = "COMMAND",
+    ["cv"] = "VIM EX",
+    ["ce"] = "EX",
+    ["r"] = "PROMPT",
+    ["rm"] = "MOAR",
+    ["r?"] = "CONFIRM",
+    ["!"] = "SHELL",
+    ["t"] = "TERMINAL",
+    ["niI"] = "INS-NOR",
+  }
+  local current_mode = vim.api.nvim_get_mode().mode
+  local value = ""
+
+
+  if modes[current_mode] == nil then
+    value = "UNKNOWN"
+  else
+    value = modes[current_mode]
+  end
+  return modeColor(current_mode) .. ' ' .. value .. ' '
+end
+
+local arrowLeft = '🭮'
+local arrowRight = '🭬'
+
+local function separatorArrowLeft()
+  return '%#StatuslineSeparator#' .. '❮ '
+end
+
+local function separatorArrowRight()
+  return '%#StatuslineSeparator#' .. '❯ '
+end
+
+local function shouldHide(winnr)
+  local is_floating = '' ~= vim.api.nvim_win_get_config(winnr).relative
+
+  return is_floating
+end
+
+local function buffers()
+  local tabnr = vim.api.nvim_get_current_tabpage()
+  local openBuffers = ''
+
+  for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
+    if not shouldHide(winnr) then
+      local bufnr = vim.api.nvim_win_get_buf(winnr)
+      local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
+
+      if openBuffers ~= '' then
+        openBuffers = openBuffers .. separatorArrowRight()
+      end
+
+      if winnr == vim.api.nvim_get_current_win() then
+        openBuffers = openBuffers .. '%#StatuslineSecond#' .. filename .. ' '
+      else
+        openBuffers = openBuffers .. '%#StatuslineInactive#' .. filename .. ' '
+      end
+    end
+  end
+
+  return openBuffers
+end
+
+local function getColumn()
+  local isVisualMode = vim.fn.mode():find("[Vv]")
+  if not isVisualMode then return "%c" end
+  local wc = vim.fn.wordcount()
+  return wc.visual_chars
+end
+
+function Statusline()
+  local set_color_main = "%#StatuslineMain#"
+  local set_color_sec = "%#StatuslineSecond#"
+  local set_color_third = "%#StatuslineThird#"
+  local branch = getMode()
+  local file_name = buffers()
+
+  local modified = "%m"
+  local align_right = "%="
+  local filetype = " %Y " .. separatorArrowLeft()
+  local date = os.date('%H:%M') .. ' ' .. arrowLeft
+  local column = " Col ".. getColumn() .. " ❮"
+  local linecol = " L %l:%L "
+
+  return string.format(
+    "%s%s%s %s%s%s%s%s%s%s%s%s%s",
+    branch,
+    modeColorInactive(),
+    arrowRight,
+    file_name,
+    modified,
+    align_right,
+    set_color_third,
+    filetype,
+    set_color_sec,
+    date,
+    set_color_main,
+    column,
+    linecol
+  )
+end
+
+vim.o.statusline = '%!v:lua.Statusline()'

@@ -56,8 +56,13 @@ end, {silent=true})
 --buffer
 vim.keymap.set('n', '<leader>b', function () require("fzf-lua").buffers({files = {path_shorten=2}}) end)
 
+
 --localleader mapping
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
+
+--tab
+vim.keymap.set('n', '<localleader>a', ":tabn<CR>", {silent=true})
+vim.keymap.set('n', '<localleader>n', ":tabp<CR>", {silent=true})
 
 --grep current word
 vim.keymap.set('n', '<localleader>f', function ()
@@ -83,15 +88,13 @@ vim.keymap.set('n', '<localleader>ga', function ()
 end, {})
 vim.keymap.set('n', '<localleader>gp', function ()
   require('notify').notify('Pushing changes')
-  local modules = require('lualine.components.branch.git_branch')
-  local branch = modules.get_branch()
+  local branch = vim.fn['FugitiveHead']()
   vim.cmd(string.format('Git! push --set-upstream origin %s', branch))
 end, {})
 vim.keymap.set('n', '<localleader>gc', function ()
-  local modules = require('lualine.components.branch.git_branch')
-  local branch = modules.find_git_dir()
+  local branch = vim.fn['FugitiveGitDir']()
   if branch:find('turno') then
-    branch = modules.get_branch()
+    branch = vim.fn['FugitiveHead']()
     local text = branch:match('T[^-]*-[^-]*')
     vim.cmd('Git commit')
     if (vim.bo.filetype ~= 'gitcommit') then
@@ -196,7 +199,7 @@ vim.keymap.set('n', '<C-a>', 'zL', {})
 vim.keymap.set('n', '<C-n>', 'zH', {})
 
 --buffer shortcuts
-vim.keymap.set('n', '<M-x>', '<cmd>Bdelete<CR>', {})
+vim.keymap.set('n', '<M-x>', '<cmd>bd<CR>', {})
 
 --fuzzy finder
 vim.keymap.set('n', '<F3>', function () require("fzf-lua").files() end , {silent=true})

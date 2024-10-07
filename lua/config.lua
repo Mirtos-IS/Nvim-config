@@ -37,7 +37,13 @@ vim.filetype.add({
   templ = "templ",
  },
 })
+vim.filetype.add({
+    pattern = {
+        [".*%.blade%.php"] = "blade",
+    },
+})
 
-if vim.fn.empty('$TMUX') then
+if vim.fn.exists('$TMUX') > 0 then
+  vim.o.laststatus=0
   vim.o.ruler=false
 end

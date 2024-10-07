@@ -14,16 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   --fuzzy finder
   "ibhagwan/fzf-lua",
+
   "nvim-lua/plenary.nvim",
   --colorscheme
   "catppuccin/nvim", name = "catppuccin",
   --fancy statusbar and tabline
-  { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true } },
   'tiagovla/scope.nvim',
   'vimpostor/vim-tpipeline',
   --QoL plugins
   'windwp/nvim-autopairs',
-  'moll/vim-bbye',
   {'NvChad/nvim-colorizer.lua', lazy = true},
   --lsp
   'neovim/nvim-lspconfig',
@@ -39,11 +38,10 @@ local plugins = {
   "williamboman/mason-lspconfig.nvim",
   --treesitter
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
-  'nvim-treesitter/nvim-treesitter-textobjects',
   'nvim-treesitter/nvim-treesitter-context',
   {'nvim-treesitter/playground', lazy = true},
   --random plugs
-  {'dstein64/vim-startuptime', lazy = true},
+  {'dstein64/vim-startuptime'},
   'rcarriga/nvim-notify',
   --git plugins
   'f-person/git-blame.nvim',

@@ -17,6 +17,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<localleader>lr', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<localleader>la', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<localleader>e', function () require("fzf-lua").lsp_definitions({ jump_to_single_result = true }) end, {silent=true})
+  vim.keymap.set('n', 'g<localleader>e', function () vim.cmd("vsplit") require("fzf-lua").lsp_definitions({ jump_to_single_result = true }) end, {silent=true})
   vim.keymap.set('n', '<localleader>r', function ()
     require('fzf-lua').lsp_references({
       winopts = {preview = {layout = "vertical", vertical = "up:60%"}}
@@ -84,7 +85,8 @@ require("nvim-autopairs").setup {
 
 vim.notify = require("notify")
 
-require('nvim-treesitter.configs').setup{ auto_install = true,
+require('nvim-treesitter.configs').setup{
+  auto_install = true,
   sync_install = false,
   ensure_installed = {},
   ignore_install = {},
@@ -113,30 +115,16 @@ require('nvim-treesitter.configs').setup{ auto_install = true,
       show_help = '?',
     },
   },
-  textobjects = {
-    move = {
-      enable = true,
-      set_jumps = false,
-      goto_next_start = {
-        ["]]"] = "@method",
-      },
-      goto_previous_start = {
-        ["[["] = "@method",
-      },
+}
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.blade = {
+    install_info = {
+        url = "https://github.com/EmranMR/tree-sitter-blade",
+        files = { "src/parser.c" },
+        branch = "main",
     },
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["im"] = "@function.method.body",
-        ["km"] = "@method",
-      },
-      selection_nodes = {
-        ["@function.method.body"] = 'V',
-        ["@method"] = 'V',
-      },
-    },
-  },
+    filetype = "blade",
 }
 
 local has_words_before = function()
@@ -312,7 +300,11 @@ require('gitblame').setup({
 require('harpoon').setup({
   global_settings = {
     mark_branch = true,
+  },
+  menu = {
+      width = math.floor(vim.api.nvim_win_get_width(0)/2),
   }
+
 })
 
 require("treesitter-context").setup()

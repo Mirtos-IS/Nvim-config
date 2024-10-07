@@ -1,9 +1,8 @@
 local ts_utils = require'nvim-treesitter.ts_utils'
-local modules = require('lualine.components.branch.git_branch')
 local notify = require("notify")
 
 function OpenTerminal(command, split)
-  local dir = '/' .. modules.find_git_dir():match('.(.*)/.git')
+  local dir = '/' .. vim.fn['FugitiveGitDir']():match('.(.*)/.git')
   if split then
     os.execute(string.format("tmux if -F '#{==:#{window_panes},1}' 'split-window -dh -l 70 -c %s; send-keys -t 1 \"%s\n\"' 'send-keys -t 1 \"%s\n\"'", dir, command, command))
     return

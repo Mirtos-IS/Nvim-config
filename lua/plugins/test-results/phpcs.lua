@@ -1,5 +1,4 @@
 local utils = require('plugins.test-results.utils')
-local modules = require('lualine.components.branch.git_branch')
 local notify = require('notify').notify
 
 local M = {}
@@ -37,7 +36,7 @@ local function runPhpcs()
   utils.bufnr = vim.api.nvim_get_current_buf()
 
   local file = vim.fn.expand('%:p')
-  local git_root_dir = '/' .. modules.find_git_dir():match('.(.*)/.git')
+  local git_root_dir = '/' .. vim.fn['FugitiveGitDir']():match('.(.*)/.git')
   local phpcs_cmd = git_root_dir .. '/vendor/bin/phpcs'
   local options = '--report=json --no-cache --standard=' .. git_root_dir .. '/.linters/phpcs.xml'
 
