@@ -1,7 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
@@ -134,10 +133,15 @@ local has_words_before = function()
 end
 
 local cmp = require'cmp'
-local luasnip = require("luasnip")
 
 cmp.setup({
   preselect = false,
+  window = {
+    documentation = cmp.config.window.bordered(),
+    completion = {
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
+    },
+  },
   mapping = {
     ['<C-f>'] = cmp.mapping.scroll_docs(-4),
     ['<C-h>'] = cmp.mapping.scroll_docs(4),
@@ -152,7 +156,15 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-
+    ["<C-n>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -160,29 +172,27 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-    ["<C-a>"] = cmp.mapping(function ()
-      if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+    ["<c-p>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<C-S-P>"] = cmp.mapping(function ()
+      if vim.snippet.active({ direction=-1 }) then
+        vim.snippet.jump(-1)
       end
     end, {"i", "s"}),
-    ["<C-n>"] = cmp.mapping(function ()
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+    ["<C-S-N>"] = cmp.mapping(function ()
+      if vim.snippet.active({ direction=1 }) then
+        vim.snippet.jump(1)
       end
-    end, {"i", "s"}),
-    ["<C-e>"] = cmp.mapping(function ()
-      luasnip.change_choice(1)
-    end, {"i", "s"}),
-    ["<C-o>"] = cmp.mapping(function ()
-      luasnip.change_choice(-1)
     end, {"i", "s"}),
   },
   snippet = {
     expand = function(args)
-      if not luasnip then
-        return
-      end
-      luasnip.lsp_expand(args.body)
+      vim.snippet.expand(args.body)
     end,
   },
   completion = {
@@ -192,19 +202,11 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
     { name = 'path' }
   }, {
       { name = 'buffer' },
     })
 })
-luasnip.config.set_config{
-  history = true,
-
-  updateevents = "TextChanged, TextChangedI",
-
-  enable_autosnippets = true,
-}
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {

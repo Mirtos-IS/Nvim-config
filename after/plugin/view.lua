@@ -5,7 +5,7 @@ local colors = {
   pink       = '#C586C0',
   lightPink  = '#F5C2E7',
   black      = '#181825',
-  white      = '#D4D4D4',
+  white      = '#B3b3b3',
   green      = '#a6da95',
   yellow     = '#FFAF00',
   orange     = '#FAB387',
@@ -42,6 +42,7 @@ require("catppuccin").setup({
       ['WinSeparator'] = {bg='none', fg='#272727'},
       ['TreesitterContextLineNumber'] = {bg='#2a2b3c'},
       ['TreesitterContext'] = {bg='#2a2b3c'},
+      ['Pmenu'] = {bg='black', blend=10},
       ['PmenuSel'] = {bg='#646464', blend=0},
       ['NotifyBackground'] = {bg='#000000', blend=0},
 
@@ -73,24 +74,14 @@ require("catppuccin").setup({
 })
 vim.cmd.colorscheme('catppuccin-mocha')
 
-vim.api.nvim_set_hl(0, 'StatuslineModeNormal', { fg = colors.black, bg = colors.green, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeNormal', { fg = colors.black, bg = colors.lavander, bold=true })
 vim.api.nvim_set_hl(0, 'StatuslineModeInsert', { fg = colors.black, bg = colors.yellow, bold=true })
 vim.api.nvim_set_hl(0, 'StatuslineModeVisual', { fg = colors.black, bg = colors.pink, bold=true })
 vim.api.nvim_set_hl(0, 'StatuslineModeReplace', { fg = colors.black, bg = colors.lightred, bold=true })
-vim.api.nvim_set_hl(0, 'StatuslineModeCommand', { fg = colors.black, bg = colors.blue, bold=true })
+vim.api.nvim_set_hl(0, 'StatuslineModeCommand', { fg = colors.black, bg = colors.green, bold=true })
 
--- vim.api.nvim_set_hl(0, 'StatuslineModeNormalInactive', { fg = colors.green, bg = colors.black, bold=true })
--- vim.api.nvim_set_hl(0, 'StatuslineModeInsertInactive', { fg = colors.yellow, bg = colors.black, bold=true })
--- vim.api.nvim_set_hl(0, 'StatuslineModeVisualInactive', { fg = colors.pink, bg = colors.black, bold=true })
--- vim.api.nvim_set_hl(0, 'StatuslineModeReplaceInactive', { fg = colors.lightred, bg = colors.black, bold=true })
--- vim.api.nvim_set_hl(0, 'StatuslineModeCommandInactive', { fg = colors.blue, bg = colors.black, bold=true })
-
-vim.api.nvim_set_hl(0, 'StatuslineMain', { fg = colors.black, bg = colors.green, bold=true })
-vim.api.nvim_set_hl(0, 'StatuslineSecond', { fg = colors.green, bg = colors.black, bold=true })
-vim.api.nvim_set_hl(0, 'StatuslineThird', { fg = colors.orange, bg = colors.black, bold=true })
-
+vim.api.nvim_set_hl(0, 'StatuslineMain', { fg = colors.lavander, bg = colors.black, bold=true })
 vim.api.nvim_set_hl(0, 'StatuslineInactive', { fg = colors.gray, bg = colors.black, bold=true })
-
 vim.api.nvim_set_hl(0, 'StatuslineSeparator', { fg = colors.white, bg = colors.black, bold=true })
 
 local function modeColor(current_mode)
@@ -110,26 +101,6 @@ local function modeColor(current_mode)
   end
   return higroup
 end
-
--- local function modeColorInactive()
---   local current_mode = vim.api.nvim_get_mode().mode
---
---   local higroup = "%#StatuslineModeCommandInactive#"
---   if current_mode == "n" then
---     higroup = "%#StatuslineModeNormalInactive#"
---   elseif current_mode == "i" or current_mode == "ic" then
---     higroup = "%#StatuslineModeInsertInactive#"
---   elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
---     higroup = "%#StatuslineModeVisualInactive#"
---   elseif current_mode == "R" or current_mode == "Rv" then
---     higroup = "%#StatuslineModeReplaceInactive#"
---   elseif current_mode == "s" or current_mode == "S" or current_mode == "␓" then
---     higroup = "%#StatuslineModeSelectInactive#"
---   elseif current_mode == "c" then
---     higroup = "%#StatuslineModeCommandInactive#"
---   end
---   return higroup
--- end
 
 local function getMode()
   local modes = {
@@ -153,6 +124,7 @@ local function getMode()
     ["r?"] = "CONFIRM",
     ["!"] = "SHELL",
     ["t"] = "TERMINAL",
+    ["nt"] = "TERMINAL",
     ["niI"] = "INS-NOR",
   }
   local current_mode = vim.api.nvim_get_mode().mode
@@ -170,10 +142,6 @@ end
 
 -- local arrowLeft = '🭮'
 -- local arrowRight = '🭬'
-
-local function separatorLeft()
-  return '%#StatuslineSeparator#' .. '| '
-end
 
 local function separatorRight()
   return '%#StatuslineSeparator#' .. '| '
@@ -199,7 +167,7 @@ local function buffers()
       end
 
       if winnr == vim.api.nvim_get_current_win() then
-        openBuffers = openBuffers .. '%#StatuslineSecond#' .. filename .. ' '
+        openBuffers = openBuffers .. '%#StatuslineSeparator#' .. filename .. ' '
       else
         openBuffers = openBuffers .. '%#StatuslineInactive#' .. filename .. ' '
       end
@@ -211,32 +179,30 @@ end
 
 function Statusline()
   local set_color_main = "%#StatuslineMain#"
-  local set_color_sec = "%#StatuslineSecond#"
-  local set_color_third = "%#StatuslineThird#"
-  local branch = getMode()
+  local set_color_sec = "%#StatuslineInactive#"
+  local set_color_normal = "%#StatuslineModeNormal#"
+  local mode = getMode()
   local file_name = buffers()
 
   local modified = "%m"
   local align_right = "%="
-  local filetype = " %{&filetype} " .. separatorLeft()
-  local date = os.date('%H:%M') .. " "
-  local column = ' C %c'
-  local linecol = " L %l:%L "
+  local filetype = " %y "
+  local date = " " .. os.date('%H:%M') .. " "
+  local col_and_line = " [%c, %l] [%L] "
 
   return string.format(
-    "%s%s %s%s %s%s%s%s%s%s%s%s",
-    branch,
-    set_color_sec,
+    "%s%s %s%s %s%s%s%s%s%s%s",
+    mode,
+    set_color_main,
     file_name,
     modified,
     align_right,
-    set_color_third,
+    set_color_sec,
     filetype,
     set_color_sec,
-    date,
-    set_color_main,
-    column,
-    linecol
+    col_and_line,
+    set_color_normal,
+    date
   )
 end
 

