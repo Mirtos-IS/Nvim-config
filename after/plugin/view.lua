@@ -209,13 +209,6 @@ local function buffers()
   return openBuffers
 end
 
-local function getColumn()
-  local isVisualMode = vim.fn.mode():find("[Vv]")
-  if not isVisualMode then return "%c" end
-  local wc = vim.fn.wordcount()
-  return wc.visual_chars
-end
-
 function Statusline()
   local set_color_main = "%#StatuslineMain#"
   local set_color_sec = "%#StatuslineSecond#"
@@ -227,7 +220,7 @@ function Statusline()
   local align_right = "%="
   local filetype = " %{&filetype} " .. separatorLeft()
   local date = os.date('%H:%M') .. " "
-  local column = " Col ".. getColumn()
+  local column = ' C %c'
   local linecol = " L %l:%L "
 
   return string.format(

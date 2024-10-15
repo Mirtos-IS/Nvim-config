@@ -11,3 +11,5 @@ vim.api.nvim_create_user_command('GoRun', function ()
   os.execute(string.format("tmux if-shell 'tmux send-keys -t 2.0 \"%s\n\"' 'select-window -t :2' 'new-window -t :2 -c %s; send-keys -t :2.0 \"%s\n\"; select-window -t :2'", command, dir, command))
 end
 , {})
+
+vim.keymap.set('n', ',e', 'o<ESC>:-1read ~/.config/nvim/snippets/err<CR>o', {silent=true})

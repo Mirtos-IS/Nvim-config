@@ -1,3 +1,6 @@
+local fzf = require('fzf-lua')
+local nvim_tmux_nav = require('nvim-tmux-navigation')
+
 --leader mapping
 vim.g.mapleader = ' '
 
@@ -10,7 +13,6 @@ vim.keymap.set('', '<leader>wa', '<C-w>l', {})
 vim.keymap.set('', '<leader>wo', '<C-w>k', {})
 vim.keymap.set('', '<leader>wl', '<C-w>o', {})
 
-local nvim_tmux_nav = require('nvim-tmux-navigation')
 vim.keymap.set('', '<M-n>', nvim_tmux_nav.NvimTmuxNavigateLeft, {})
 vim.keymap.set('', '<M-e>', nvim_tmux_nav.NvimTmuxNavigateDown, {})
 vim.keymap.set('', '<M-a>', nvim_tmux_nav.NvimTmuxNavigateRight, {})
@@ -54,8 +56,10 @@ vim.keymap.set('n', '<leader>e', function ()
 end, {silent=true})
 
 --buffer
-vim.keymap.set('n', '<leader>b', function () require("fzf-lua").buffers({files = {path_shorten=2}}) end)
+vim.keymap.set('n', '<leader>b', function () fzf.buffers({files = {path_shorten=2}}) end)
 
+--zenMode
+vim.keymap.set('n', '<leader>z', function () require("zen-mode").toggle() end)
 
 --localleader mapping
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)
@@ -64,13 +68,14 @@ vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true
 vim.keymap.set('n', '<localleader>a', ":tabn<CR>", {silent=true})
 vim.keymap.set('n', '<localleader>n', ":tabp<CR>", {silent=true})
 
+vim.keymap.set({'n', 'v'}, '<leader>h', function () fzf.helptags() end,{silent=true})
 --grep current word
 vim.keymap.set('n', '<localleader>f', function ()
-  require("fzf-lua").live_grep({search=vim.fn.expand("<cword>")})
+  fzf.live_grep({search=vim.fn.expand("<cword>")})
 end)
 
 --diagnostic
-vim.keymap.set('n', '<localleader>dd', function () require("fzf-lua").diagnostics_document() end)
+vim.keymap.set('n', '<localleader>dd', function () fzf.diagnostics_document() end)
 vim.keymap.set('n', '<localleader>de', function () vim.diagnostic.goto_next() end, {})
 vim.keymap.set('n', '<localleader>do', function () vim.diagnostic.goto_prev() end, {})
 vim.keymap.set('n', '<localleader>o', function () vim.diagnostic.open_float({
@@ -107,7 +112,7 @@ vim.keymap.set('n', '<localleader>gc', function ()
     vim.cmd('startinsert')
   end
 end, {})
-vim.keymap.set('n', '<localleader>gb', function () require("fzf-lua").git_bcommits() end, {silent=true})
+vim.keymap.set('n', '<localleader>gb', function () fzf.git_bcommits() end, {silent=true})
 vim.keymap.set('n', '<localleader>bt', '<cmd>GitBlameToggle<CR>', {silent=true})
 vim.keymap.set('n', '<localleader>bo', '<cmd>GitBlameOpenCommitURL<CR>', {silent=true})
 
@@ -149,7 +154,6 @@ vim.keymap.set('', '<C-w>a', '<C-w>l', {})
 vim.keymap.set('', '<C-w>o', '<C-w>k', {})
 vim.keymap.set('', '<C-w>l', '<C-w>o', {})
 
-
 vim.keymap.set('', '<M-c>', '<C-w>c', {})
 
 vim.keymap.set('', '<M-N>', '<C-w>H', {})
@@ -176,9 +180,6 @@ vim.keymap.set({'n', 'v'}, '<C-s>', '<cmd>w!<CR>', {silent = true})
 vim.keymap.set('i', '<C-s>', '<ESC><cmd>w!<CR>', {silent = true})
 vim.keymap.set('n', '<S-u>', '<cmd>redo<CR>', {silent = true})
 
---remove search highlight
-
-vim.keymap.set('n', '<ESC>', '<cmd>nohls<CR>', {})
 --move lines around the code
 vim.keymap.set('n', '<M-E>', '<cmd>m +1<CR>==', {})
 vim.keymap.set('n', '<M-O>', '<cmd>m -2<CR>==', {})
@@ -202,8 +203,8 @@ vim.keymap.set('n', '<C-n>', 'zH', {})
 vim.keymap.set('n', '<M-x>', '<cmd>bd<CR>', {})
 
 --fuzzy finder
-vim.keymap.set('n', '<F3>', function () require("fzf-lua").files() end , {silent=true})
-vim.keymap.set('n', '<F6>', function () require("fzf-lua").live_grep() end , {silent=true})
+vim.keymap.set('n', '<F3>', function () fzf.files() end , {silent=true})
+vim.keymap.set('n', '<F6>', function () fzf.live_grep() end , {silent=true})
 
 --auto add ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
@@ -219,8 +220,6 @@ vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
 
 
 vim.keymap.set('n', '<C-c>', ':ccl<enter>', {silent=true})
-
-local all_letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 vim.keymap.set('n', "'s", "'S", {})
 vim.keymap.set('n', "'w", "'W", {})
@@ -251,7 +250,3 @@ end
 
 vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
 vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
-
---snippets
-
-vim.keymap.set('n', ',e', 'o<ESC>:-1read ~/.config/nvim/snippets/err<CR>o', {silent=true})

@@ -22,6 +22,7 @@ local plugins = {
   'tiagovla/scope.nvim',
   'vimpostor/vim-tpipeline',
   --QoL plugins
+  "folke/zen-mode.nvim",
   'windwp/nvim-autopairs',
   {'NvChad/nvim-colorizer.lua', lazy = true},
   --lsp

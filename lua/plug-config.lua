@@ -307,6 +307,11 @@ require('harpoon').setup({
 
 })
 
+require('zen-mode').setup({
+    backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    width = 120, -- width of the Zen window
+})
+
 require("treesitter-context").setup()
 
 require('nvim-tmux-navigation').setup({})
