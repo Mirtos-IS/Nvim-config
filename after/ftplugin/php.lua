@@ -1,3 +1,6 @@
+require("custom_plugins.test-results.php.phpmd")
+require("custom_plugins.test-results.php.phpcs")
+
 vim.o.commentstring="// %s"
 --test maping
 vim.opt.iskeyword:append('$,@,#')

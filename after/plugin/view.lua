@@ -5,7 +5,7 @@ local colors = {
   pink       = '#C586C0',
   lightPink  = '#F5C2E7',
   black      = '#181825',
-  white      = '#B3b3b3',
+  white      = '#E0E0E0',
   green      = '#a6da95',
   yellow     = '#FFAF00',
   orange     = '#FAB387',
@@ -119,6 +119,7 @@ local function getMode()
     ["c"] = "COMMAND",
     ["cv"] = "VIM EX",
     ["ce"] = "EX",
+    ["ix"] = "CTRL-X",
     ["r"] = "PROMPT",
     ["rm"] = "MOAR",
     ["r?"] = "CONFIRM",
@@ -130,21 +131,12 @@ local function getMode()
   local current_mode = vim.api.nvim_get_mode().mode
   local value = ""
 
-
   if modes[current_mode] == nil then
     value = "UNKNOWN"
   else
     value = modes[current_mode]
   end
   return modeColor(current_mode) .. ' ' .. value .. ' '
-end
-
-
--- local arrowLeft = '🭮'
--- local arrowRight = '🭬'
-
-local function separatorRight()
-  return '%#StatuslineSeparator#' .. '| '
 end
 
 local function shouldHide(winnr)
@@ -163,11 +155,11 @@ local function buffers()
       local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
 
       if openBuffers ~= '' then
-        openBuffers = openBuffers .. separatorRight()
+        openBuffers = openBuffers .. '%#StatuslineInactive#' .. '| '
       end
 
       if winnr == vim.api.nvim_get_current_win() then
-        openBuffers = openBuffers .. '%#StatuslineSeparator#' .. filename .. ' '
+        openBuffers = openBuffers .. '%#StatuslineMain#' .. filename .. ' '
       else
         openBuffers = openBuffers .. '%#StatuslineInactive#' .. filename .. ' '
       end
@@ -186,12 +178,13 @@ function Statusline()
 
   local modified = "%m"
   local align_right = "%="
-  local filetype = " %y "
+  local filetype = " %{&filetype} | "
+  local line = "%L "
   local date = " " .. os.date('%H:%M') .. " "
-  local col_and_line = " [%c, %l] [%L] "
+  local col = "%l,%c | "
 
   return string.format(
-    "%s%s %s%s %s%s%s%s%s%s%s",
+    "%s%s %s%s %s%s%s%s%s%s%s%s%s",
     mode,
     set_color_main,
     file_name,
@@ -200,7 +193,9 @@ function Statusline()
     set_color_sec,
     filetype,
     set_color_sec,
-    col_and_line,
+    col,
+    line,
+    set_color_sec,
     set_color_normal,
     date
   )

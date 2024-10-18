@@ -59,7 +59,7 @@ end, {silent=true})
 vim.keymap.set('n', '<leader>b', function () fzf.buffers({files = {path_shorten=2}}) end)
 
 --zenMode
-vim.keymap.set('n', '<leader>z', function () require("zen-mode").toggle() end)
+vim.keymap.set('n', '<leader>u', ':UndotreeToggle<cr>')
 
 --localleader mapping
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<BS>', false, false, true)

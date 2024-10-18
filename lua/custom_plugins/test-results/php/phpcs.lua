@@ -1,4 +1,4 @@
-local utils = require('plugins.test-results.utils')
+local utils = require('custom_plugins.test-results.utils')
 local notify = require('notify').notify
 
 local M = {}

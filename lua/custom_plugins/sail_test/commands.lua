@@ -1,5 +1,3 @@
-require('plugins.sail_test.functions')
-
 local notify = require("notify")
 
 vim.api.nvim_create_user_command("SailRunTest", function(split)

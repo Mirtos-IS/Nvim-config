@@ -94,10 +94,10 @@ require('nvim-treesitter.configs').setup{
     additional_vim_regex_highlighting = false,
   },
   indent = {
-    enable = true,
+    enable = false,
   },
   playground = {
-    enable = true,
+    enable = false,
     disable = {},
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
@@ -309,13 +309,6 @@ require('harpoon').setup({
 
 })
 
-require('zen-mode').setup({
-    backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-    width = 120, -- width of the Zen window
-})
-
 require("treesitter-context").setup()
 
 require('nvim-tmux-navigation').setup({})
-
-require("plugins")

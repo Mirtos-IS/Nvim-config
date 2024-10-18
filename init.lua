@@ -19,9 +19,9 @@ local plugins = {
   "catppuccin/nvim", name = "catppuccin",
   --QoL plugins
   'tiagovla/scope.nvim',
-  "folke/zen-mode.nvim",
   'windwp/nvim-autopairs',
   {'NvChad/nvim-colorizer.lua', lazy = true},
+  {'mbbill/undotree'},
   --lsp
   'neovim/nvim-lspconfig',
   'hrsh7th/cmp-nvim-lsp',
@@ -50,8 +50,3 @@ local plugins = {
 local opts = {}
 
 require('lazy').setup(plugins, opts)
-
-require("maps")
-require("config")
-require("plug-config")
-require("commands")

@@ -50,5 +50,14 @@ function GetCurrentFunctionName()
 
   if not expr then return "" end
 
-  return vim.treesitter.get_node_text(expr:child(2),0)
+
+  local continue = true;
+  local i = 0
+  while continue do
+    if vim.treesitter.get_node_text(expr:child(i), 0) == 'function' then
+      continue = false
+    end
+    i = i + 1
+  end
+  return vim.treesitter.get_node_text(expr:child(i),0)
 end

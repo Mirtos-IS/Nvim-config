@@ -1,3 +1,5 @@
+require("custom_plugins.test-results.go.gotest")
+
 local branch = vim.fn['FugitiveGitDir']()
 
 --go specific maping
@@ -13,3 +15,4 @@ end
 , {})
 
 vim.keymap.set('n', ',e', 'o<ESC>:-1read ~/.config/nvim/snippets/err<CR>o', {silent=true})
+
