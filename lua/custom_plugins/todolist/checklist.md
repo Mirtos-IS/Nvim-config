@@ -33,6 +33,26 @@ App\Models\Contractor::first()->user->notify(new App\Notifications\PerformanceBo
 resolve(App\Libraries\Payments\InstantPayoutManager::class)->enableInstantPayoutFeature($user->contractor);
 
 Route::get('/test/email', function () {
-    return (new SomeEmailClass)->toMail(App\Models\User::first());
-});
+    $contractor = App\Models\Contractor::first();
+    $payout = (object)[];
+    $payout->arrival_date = userShortDateFormatLocalized3LetterMonth(
+        now(),
+        $contractor->user,
+        true
+    );
+    $payout->is_estimated = true;
+    $payout->arrival_date_timestamp = now()->timestamp;
+    $payout->amount = number_format(100);
+    $payout->currency = strtoupper('USD');
+    $payout->id = 122;
+    $payout->status = 'yes';
+    $payout->funds_from_other_sources = true;
 
+    $log = App\Models\PaymentLog::whereIn('id', [1,2,3,4,5,6,8])->get();
+
+    return (new NewPayoutNotification(
+        $contractor,
+        $payout,
+        $log
+    ))->toMail(App\Models\User::first());
+});

@@ -92,6 +92,20 @@ vim.api.nvim_create_autocmd('InsertLeave', {
   end
 })
 
+vim.api.nvim_create_autocmd('Filetype', {
+  pattern = 'netrw',
+  callback = function ()
+    Netrw_maps()
+  end
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern={"checklist.md", "todolist.md"},
+  callback= function ()
+    SetChecklistKeymaps()
+  end
+})
+
 --user commands
 vim.api.nvim_create_user_command('MyConfig', function ()
     require('fzf-lua').files({cwd = "~/.config/nvim"})

